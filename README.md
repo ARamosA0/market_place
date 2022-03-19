@@ -1,9 +1,11 @@
 # Instalar en el proyecto
 
 ### Clonar el proyecto
-Luego de clonar el repositorio hacer el comando
+Luego de clonar el repositorio 
 
 `git clone https://github.com/ARamosA0/market_place`
+
+hacer el comando
 
 `npm install` o `npm i`
 
