@@ -2,7 +2,9 @@
 
 ### Clonar el proyecto
 Luego de clonar el repositorio hacer el comando
+
 `git clone https://github.com/ARamosA0/market_place`
+
 `npm install` o `npm i`
 
 ### React Matirial
