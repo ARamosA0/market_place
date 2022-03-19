@@ -1,3 +1,12 @@
+# Instalar en el proyecto
+
+### React Matirial
+`npm install @mui/material @mui/styled-engine-sc styled-components`
+
+### React Router
+`npm install react-router-dom@6`
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
