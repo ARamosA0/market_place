@@ -9,6 +9,11 @@ hacer el comando
 
 `npm install` o `npm i`
 
+# Estilos
+Background body: #fff
+Background navbar: #000
+
+
 ### React Matirial
 `npm install @mui/material @mui/styled-engine-sc styled-components`
 
