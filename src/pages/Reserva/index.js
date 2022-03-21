@@ -34,13 +34,4 @@ const Reserva = () => {
 
 
 
-
-
-
-
-
-
-
-
-
 export default Reserva;
