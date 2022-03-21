@@ -1,5 +1,19 @@
 # Instalar en el proyecto
 
+### Clonar el proyecto
+Luego de clonar el repositorio 
+
+`git clone https://github.com/ARamosA0/market_place`
+
+hacer el comando
+
+`npm install` o `npm i`
+
+# Estilos
+Background body: #fff
+Background navbar: #000
+
+
 ### React Matirial
 `npm install @mui/material @mui/styled-engine-sc styled-components`
 
