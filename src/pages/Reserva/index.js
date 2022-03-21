@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"; 
 import { Link, Toolbar, Typography } from "@mui/material";
+import StarIcon from '@mui/icons-material/Star';
 
 const Reserva = () => {
    
@@ -20,6 +21,7 @@ const Reserva = () => {
             </div>
             <div>
                 <div>
+                    <StarIcon />
                     <span>4,96 . 84 reseñas</span>
                     <span>Arequipa, Cerro Colorado, Peru</span>
                 </div>
