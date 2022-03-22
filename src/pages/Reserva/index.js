@@ -1,39 +1,54 @@
-import React, { useState, useEffect } from "react"; 
-import { Link, Toolbar, Typography } from "@mui/material";
-import StarIcon from '@mui/icons-material/Star';
+import React, { useState, useEffect } from "react";
+import Navbar from "../../components/Navbar"
+import { Link, Toolbar, Typography, Grid, Container } from "@mui/material";
+import StarIcon from "@mui/icons-material/Star";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import IosShareIcon from "@mui/icons-material/IosShare";
+import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import { ThemeProvider } from "@emotion/react";
+// import theme from '../../components/themeConfig'
+import "./index.css";
 
 const Reserva = () => {
-   
-    
-    return (
-        <React.Fragment>
-            <Toolbar>
-                <Typography variant="h6" color="inherit" noWrap sx={{flexGrow: 1}}>
-                    Cochera.com
-                </Typography>
-                <nav>
-                    <Link></Link>
-                </nav>
-            </Toolbar>
+  return (
+    // <ThemeProvider theme={theme}>
+        
+        <div>
+            <Navbar />
+            <Container maxWidth="m" >
+                <Grid container>
+                    <Grid item md={12}>
+                    <h1>Cochera Arequipa Cerro Colorado.</h1>
+                    </Grid>
+                    <Grid item md={12} className="reserva-items">
+                    <div>
+                        <StarIcon />
+                        <span>4,96 . 84 reseñas</span>
+                        <LocationOnIcon />
+                        <span>Arequipa, Cerro Colorado, Peru</span>
+                    </div>
+                    <div>
+                        <IosShareIcon />
+                        <span>Compartir</span>
+                        <BookmarkAddIcon />
+                        <span>Guardar</span>
+                    </div>
+                    </Grid>
+                    <Grid item md={6}>
+                        <Grid container>
 
-            <div>
-                <h1>Cochera Arequipa Cerro Colorado.</h1>
-            </div>
-            <div>
-                <div>
-                    <StarIcon />
-                    <span>4,96 . 84 reseñas</span>
-                    <span>Arequipa, Cerro Colorado, Peru</span>
-                </div>
-                <div>
-                    <span>Compartir</span>
-                    <span>Guardar</span>
-                </div>
-            </div>
-        </React.Fragment>
-    );
+                        </Grid>
+                    </Grid>
+                    <Grid item md={6}>
+                        
+                    </Grid>
+                    
+                </Grid>
+            </Container>
+        </div>
+    // </ThemeProvider>
+  );
 };
-
-
 
 export default Reserva;
