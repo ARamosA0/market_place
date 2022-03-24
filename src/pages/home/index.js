@@ -5,9 +5,6 @@ const Home = () => {
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid item md={12}>
-          <h1>Footer</h1>
-        </Grid>
-        <Grid item md={12}>
           <h2>Reserva</h2>
         </Grid>
         <Grid item md={12}>
@@ -15,6 +12,9 @@ const Home = () => {
         </Grid>
         <Grid item md={12}>
           <h4>Unete a la red de cocheras mas grande del mundo</h4>
+        </Grid>
+        <Grid item md={12}>
+          <h1>Footer</h1>
         </Grid>
       </Grid>
     </Box>

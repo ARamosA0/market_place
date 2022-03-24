@@ -1,0 +1,15 @@
+.nav-header{
+    padding: 5px;
+    border: solid;
+    overflow: hidden;
+}
+
+
+.nav-img{
+    height: 50px;
+}
+.ul-nav{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
