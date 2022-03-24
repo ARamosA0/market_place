@@ -5,3 +5,48 @@
 
 }
 
+.img-container-prin{
+    margin-top: 30px;    
+}
+
+.img-principal{
+    width: 610px;
+}
+
+.img-container-sec{
+    display: flex;
+}
+
+.img-principal{
+    margin: 5px;
+}
+
+.img-sec{
+    width: 300px;
+    margin: 5px;
+}
+
+
+.date-container{
+    margin-top: 25px;
+} 
+
+.card-precio{
+    font-size: 2em;
+    font-weight: 500;
+}
+
+.card-precio-aux{
+    font-size: 1.5em;
+}
+
+.date{
+    margin-right: 20px !important;
+}
+
+.card-info{
+    padding: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
