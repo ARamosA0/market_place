@@ -24,18 +24,28 @@ import "./index.css";
 import cochera1 from "../../assets/cochera1.jpg";
 import cochera2 from "../../assets/cochera2.jpg";
 import cochera3 from "../../assets/cochera3.jpg";
+import { flexbox } from "@mui/system";
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import StaticDatePicker from '@mui/lab/StaticDatePicker';
 
 const Reserva = () => {
   const [cocheras, setCochera] = useState([
     {
       photo: [cochera1, cochera2, cochera3],
       name: "Cochera Arequipa Cerro Colorado",
-      ubicacion: "Arequipa, Cerro Colorado, Peru",
+      ubicacion: {
+        pais: "Peru",
+        region: "Arequipa",
+        distrito: "Cerro Colorado"
+      },
+      mapaUbicacion:"https://i.blogs.es/b4dd5c/maps/1366_2000.png",
       anfitrion: "Natalia",
-      tipodeCochera: "Doble 3x5",
+      photoAnfitrion:"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_960_720.png",
+      tipodeCochera: "Doble 3m x 5m",
       precio: 20,
       tipoAuto: ["camioneta", "SUV", "Electrico"],
-      descripcion: "La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center "
+      descripcion: "La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en "
     },
   ]);
 
@@ -44,33 +54,35 @@ const Reserva = () => {
     setAuto(event.target.value);
   };
 
+  const [value, setValue] = React.useState(new Date());
+
   return (
     <div>
       <Navbar />
       {cocheras.length > 0 &&
         cocheras.map((cochera) => (
-          <Container>
-            <Grid container>
+          <Container sx={{marginTop:5}}>
+            <Grid container spacing={3} >
               <Grid item md={12}>
-                <h1>Cochera Arequipa Cerro Colorado</h1>
+                <h1>{cochera.name}</h1>
               </Grid>
               <Grid item md={12} className="reserva-items">
                 <div>
                   <StarIcon />
-                  <span>4,96 . 84 reseñas</span>
+                  <span>4,96 . 84 reseñas &nbsp;&nbsp;&nbsp;&nbsp;</span>
                   <LocationOnIcon />
-                  <span>Arequipa, Cerro Colorado, Peru</span>
+                  <span>{cochera.ubicacion.pais}, {cochera.ubicacion.region}, {cochera.ubicacion.distrito} </span>
                 </div>
                 {}
                 <div>
                   <IosShareIcon />
-                  <span>Compartir</span>
+                  <span>Compartir &nbsp;&nbsp;&nbsp;&nbsp;</span>
                   <BookmarkAddIcon />
                   <span>Guardar</span>
                 </div>
               </Grid>
-              <Grid item md={6}>
-                <Grid container className="img-container-prin">
+              <Grid item md={6}sx={{marginTop:3, }}>
+                <Grid container>
                   <Grid item className="img-container">
                     <img className="img-principal" src={cochera.photo[0]} />
                     <div className="img-container-sec">
@@ -88,8 +100,8 @@ const Reserva = () => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item md={6}>
-                <Card sx={{ maxWidth:300 }}>
+              <Grid className="card-main-info" item md={6} sx={{marginTop:3}}>
+                <Card sx={{ maxWidth:350, marginLeft:20}}>
                   <CardContent className="card-info">
                     <div>
                       <span className="card-precio">S/{cochera.precio}</span>
@@ -103,11 +115,8 @@ const Reserva = () => {
                             label="Llegada"
                             type="datetime-local"
                             defaultValue="2017-05-24T10:30"
-                            className="date"
-                            sx={{
-                              width: 250,
-                              marginTop: 1,
-                            }}
+                            fullWidth
+                            sx={{ marginTop: 1 }}
                             InputLabelProps={{
                               shrink: true,
                             }}
@@ -119,7 +128,8 @@ const Reserva = () => {
                             label="Salida"
                             type="datetime-local"
                             defaultValue="2017-05-24T10:30"
-                            sx={{ width: 250, marginTop: 2, }}
+                            fullWidth
+                            sx={{ marginTop: 2, }}
                             InputLabelProps={{
                               shrink: true,
                             }}
@@ -127,7 +137,7 @@ const Reserva = () => {
                         </Stack>
                       </div>
 
-                      <FormControl fullWidth sx={{ m: 1, minWidth: 120, marginTop: 2,  }}>
+                      <FormControl fullWidth sx={{ minWidth: 120, marginTop: 2,  }}>
                         <InputLabel id="demo-simple-select-label">
                           Tipo de Auto
                         </InputLabel>
@@ -149,27 +159,32 @@ const Reserva = () => {
                     </div>
 
                     <div>
-                      <Button fullWidth size="large" variant="contained" sx={{ marginTop: 2 }}>
+                      <Button fullWidth size="large" variant="contained" sx={{ marginTop: 2, marginBottom:2}}>
                         Reservar
                       </Button>
                     </div>
 
-                    <div sx={{ marginTop: 2 }}>
-                    <hr sx={{ marginTop: 2 }}/>
+                    <div>
+                    <hr/>
                       <Box
                         sx={{
                           p: 2,
+                          fontSize: 20,
+                          fontWeight: "medium",
                           minWidth: 300,
                           display: "inline",
+                          marginRight:1
                         }}
                       >
                         Precio Total
                       </Box>
                       <Box
                         sx={{
-                          fontSize: 34,
+                          p: 2,
+                          fontSize: 20,
                           fontWeight: "medium",
                           display: "inline",
+                          marginLeft:5
                         }}
                       >
                         S/ 123123
@@ -178,21 +193,70 @@ const Reserva = () => {
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item md={12}>
+              <Grid item md={6}>
+                <div className="titulo-propietario-principal">
                 <div>
-                    <p>Cochera Privada - {cochera.anfitrion}</p>
-                    <p>Tipo de Cochera - {cochera.tipodeCochera}</p>
-
-                    <hr/>
+                  <p className="titulo-propietario">Cochera Privada - {cochera.anfitrion}</p>
+                  <p>Tipo de Cochera - {cochera.tipodeCochera}</p>
                 </div>
-                <div>
-                    <p>{cochera.descripcion}</p>
+                  
+                  <div className="img-usuario">
+                    <img src={cochera.photoAnfitrion}/>
+                  </div>
                 </div>
-                <hr/>
-                <div>
-                    <p>Reseñas</p>
+                <div className="description">
+                    <p className="">{cochera.descripcion}</p>
                 </div>
-              </Grid>
+                
+                <div >
+                    <p className="titulo-propietario">{cochera.ubicacion.region}, {cochera.ubicacion.distrito}</p>
+                    <div className="calendar-container">
+                      <div >
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                          <StaticDatePicker
+                            displayStaticWrapperAs="desktop"
+                            openTo="day"
+                            value={value}
+                            onChange={(newValue) => {
+                              setValue(newValue);
+                            }}
+                            renderInput={(params) => <TextField {...params} />}
+                          />
+                        </LocalizationProvider>
+                      </div>
+                      <div>
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                          <StaticDatePicker
+                            displayStaticWrapperAs="desktop"
+                            openTo="day"
+                            value={value}
+                            onChange={(newValue) => {
+                              setValue(newValue);
+                            }}
+                            renderInput={(params) => <TextField {...params} />}
+                          />
+                        </LocalizationProvider>
+                      </div>
+                    </div>
+                </div>
+                </Grid>
+                <Grid item md={12}>
+                  
+                  <p className="titulo-mapa">A donde iras</p>
+                  <img width={1200} src={cochera.mapaUbicacion}/>
+                  <p className="titulo-lugar-mapa">{cochera.ubicacion.region}, {cochera.ubicacion.distrito}</p>
+                  
+                </Grid>
+                <Grid item md={12}>
+                  <Grid container spacing={3}>
+                      <Grid item md={4}>
+                          <h4>Asistencia</h4>
+                          <ul>
+                            <li></li>
+                          </ul>
+                      </Grid>
+                  </Grid>
+                </Grid>
             </Grid>
           </Container>
         ))}
