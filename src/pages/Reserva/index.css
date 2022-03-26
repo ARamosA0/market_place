@@ -1,9 +1,23 @@
 
+.titulo-principal{
+    padding-top: 5px !important;
+}
+
 .reserva-items{
     display: flex;
     justify-content: space-between;
-
+    align-items: center;
+    padding-top: 0 !important;
+    margin: 0 !important;
+    color: rgb(105, 104, 104);
 }
+
+.reserva-items div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .img-principal{
     width: 610px;
 }
@@ -16,7 +30,7 @@
 
 .img-sec{
     width: 300px;
-    margin: 5px;
+    margin: 3px;
 }
 
 

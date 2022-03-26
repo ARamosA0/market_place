@@ -45,7 +45,7 @@ const Reserva = () => {
       tipodeCochera: "Doble 3m x 5m",
       precio: 20,
       tipoAuto: ["camioneta", "SUV", "Electrico"],
-      descripcion: "La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa Center La cochera esta ubicada en "
+      descripcion: "La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa"
     },
   ]);
 
@@ -61,9 +61,9 @@ const Reserva = () => {
       <Navbar />
       {cocheras.length > 0 &&
         cocheras.map((cochera) => (
-          <Container sx={{marginTop:5}}>
-            <Grid container spacing={3} >
-              <Grid item md={12}>
+          <Container sx={{marginTop:3}}>
+            <Grid container spacing={3}>
+              <Grid item md={12} className="titulo-principal" >
                 <h1>{cochera.name}</h1>
               </Grid>
               <Grid item md={12} className="reserva-items">
@@ -73,7 +73,7 @@ const Reserva = () => {
                   <LocationOnIcon />
                   <span>{cochera.ubicacion.pais}, {cochera.ubicacion.region}, {cochera.ubicacion.distrito} </span>
                 </div>
-                {}
+                
                 <div>
                   <IosShareIcon />
                   <span>Compartir &nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -81,7 +81,7 @@ const Reserva = () => {
                   <span>Guardar</span>
                 </div>
               </Grid>
-              <Grid item md={6}sx={{marginTop:3, }}>
+              <Grid item md={6}sx={{marginTop:2, }}>
                 <Grid container>
                   <Grid item className="img-container">
                     <img className="img-principal" src={cochera.photo[0]} />
