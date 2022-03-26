@@ -1,0 +1,112 @@
+
+.titulo-principal{
+    padding-top: 5px !important;
+}
+
+.reserva-items{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0 !important;
+    margin: 0 !important;
+    color: rgb(105, 104, 104);
+}
+
+.reserva-items div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.img-principal{
+    width: 610px;
+}
+
+
+
+.img-principal{
+    margin: 5px;
+}
+
+.img-sec{
+    width: 300px;
+    margin: 3px;
+}
+
+
+.date-container{
+    margin-top:25px;
+    width: 100%;
+} 
+
+.card-precio{
+    font-size: 2em;
+    font-weight: 500;
+}
+
+.card-precio-aux{
+    font-size: 1.5em;
+}
+
+.card-main-info{
+    position: sticky;
+    top:30px;
+}
+
+.card-info{
+    padding: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.titulo-propietario{
+    font-weight: 600;
+    font-size: 1.5em;
+    margin: 0;
+}
+
+.titulo-mapa{
+    font-weight: 500;
+    font-size: 1.5em;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.titulo-lugar-mapa{
+    font-weight: 400;
+    font-size: 1.3em;
+    margin: 0;
+    margin-top: 20px;
+}
+
+.titulo-propietario-principal{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 110%;
+}
+
+.img-usuario{
+    margin-left:250px ;
+}
+
+.img-usuario img{
+   width: 70px;
+}
+
+.description{
+    text-align: justify;
+    text-justify: inter-word;
+    width: 110%;
+}
+
+.titulo-fecha{
+    font-size: medium;
+    font-weight: 400;
+}
+
+.calendar-container{
+    display: flex;
+    margin-top: 20px;
+}
