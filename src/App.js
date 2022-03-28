@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-=======
 
-import Router from "./router"
-
-import logo from './logo.svg';
->>>>>>> main
 import Router from './router';
 import './App.css';
 
