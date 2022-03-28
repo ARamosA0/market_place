@@ -12,8 +12,8 @@ import "./Navbar.css"
 
 export default function Navbar() {
   return (
-      <header>
-          <navbar className="navbar">
+      <id>
+          <id className="navbar">
               <div>
                   <h2>Cocheras.com</h2>
               </div>
@@ -29,7 +29,7 @@ export default function Navbar() {
                 <MenuIcon />
                 <PersonIcon />
               </IconButton>
-          </navbar>
-      </header>
+          </id>
+      </id>
   );
 };

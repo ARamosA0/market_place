@@ -146,7 +146,7 @@ const User =() => {
                 </Grid>
             </Grid>
         </Container>
-    )
-}
+    );
+};
 
 export default User;
