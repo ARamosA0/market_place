@@ -1,12 +1,20 @@
+<<<<<<< HEAD
+=======
+
+import Router from "./router"
+
+import logo from './logo.svg';
+>>>>>>> main
 import Router from './router';
 import './App.css';
 
-function App() {
+const App = () => {
   return (
+    
     <div>
-      <Router/>
+      <Router />
     </div>
-  );
+  )
 }
 
 export default App;
