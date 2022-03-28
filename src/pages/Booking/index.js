@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, Toolbar, Typography } from "@mui/material";
 import StarIcon from '@mui/icons-material/Star';
 
-const Reserva = () => {
+const Booking = () => {
    
     
     return (
@@ -36,4 +36,4 @@ const Reserva = () => {
 
 
 
-export default Reserva;
+export default Booking;
