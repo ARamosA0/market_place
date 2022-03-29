@@ -29,32 +29,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import StaticDatePicker from '@mui/lab/StaticDatePicker';
 
-const Reserva = () => {
-  const [cocheras, setCochera] = useState([
-    {
-      photo: [cochera1, cochera2, cochera3],
-      name: "Cochera Arequipa Cerro Colorado",
-      ubicacion: {
-        pais: "Peru",
-        region: "Arequipa",
-        distrito: "Cerro Colorado"
-      },
-      mapaUbicacion:"https://i.blogs.es/b4dd5c/maps/1366_2000.png",
-      anfitrion: "Natalia",
-      photoAnfitrion:"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_960_720.png",
-      tipodeCochera: "Doble 3m x 5m",
-      precio: 20,
-      tipoAuto: ["camioneta", "SUV", "Electrico"],
-      descripcion: "La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa"
-    },
-  ]);
-
-  const [auto, setAuto] = useState("");
-  const handleSelectChange = (event) => {
-    setAuto(event.target.value);
-  };
-
-  const [value, setValue] = React.useState(new Date());
+const Booking = () => {
 
   return (
     <div>
@@ -261,8 +236,9 @@ const Reserva = () => {
           </Container>
         ))}
     </div>
-    // </ThemeProvider>
   );
 };
 
-export default Reserva;
+
+
+export default Booking;

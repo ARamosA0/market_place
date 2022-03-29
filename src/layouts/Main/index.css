@@ -1,0 +1,29 @@
+
+.container {
+    padding: 0;
+    margin: 0;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: -10px 27px 50px -38px rgba(0, 0, 0, 0.75);
+    margin-bottom: 60px;
+  }
+  
+  .ul-nav {
+    display: flex;
+  }
+  
+  .li-nav {
+    margin-left: 55px;
+  }
+  
+  .li-nav a {
+    color: #000;
+  }
+  
+  a:hover {
+    color: rgb(255, 166, 23);
+  }
