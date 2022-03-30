@@ -22,10 +22,3 @@ export const getCocheraData = async (nameBd) =>{
   const clothes = documentClothes.docs.map(doc => doc.data());  
   return clothes;
 }
-
-export const writeData = async (data) => {
-  const db = getDatabase();
-  set(ref(db, "cochera" + data.dni),{
-    //
-  })
-}
