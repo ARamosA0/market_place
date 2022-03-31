@@ -1,47 +1,83 @@
-import { Container } from "@mui/material";
-import { Link, Outlet } from "react-router-dom";
+import { Grid, TextField, Button } from "@mui/material";
 import "./index.css"
+import { Outlet, Link } from "react-router-dom";
+import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 
 const Main = () => {
     return (
-        <Container className="container" maxWidth="xxl">
+        <div className="princiapl">
+            <nav className="nav-mian">
+                <Grid container alignItems="center" ml={6} mr={6}>
+                    <Grid item md={3}>
+                    <Link to="/" className="nav_logo">Cochera<span className="nav_pe">.pe</span></Link>
+                    </Grid>
+
+                    <Grid className="search" item md={6}>
+                        <TextField variant="outlined" sx={{ width: 250 }} label="Lugar" />
+                        <TextField
+                            id="date"
+                            label="Fecha"
+                            type="date"
+                            defaultValue="2017-05-24"
+                            sx={{ width: 250 }}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                        <TextField
+                            id="date"
+                            label="Fecha"
+                            type="date"
+                            defaultValue="2017-05-24"
+                            sx={{ width: 250 }}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                        <Button className="nav_button_color">
+                        <TravelExploreIcon fontSize="large" />
+                        </Button>
+                        
+                    </Grid>
+
+                    <Grid item md={3}>
+                        <ul className="ul-main">
+
+                        <li className="li-nav">
+                            <Link to="/booking">Booking</Link>
+                        </li> 
+                            <li>
+                                <a href="/">Account</a>
+                            </li>
+                        </ul>
+                    </Grid>
+
+                </Grid>
+                
+            </nav>
+            <Outlet />
             <div>
-                <nav className="main-nav">
-                    <div>
-                        <h1>Logo</h1>
-                    </div>
-                    <div>
-                        <h1>Navegacion</h1>
-                    </div>
-                    <div>
-                    <ul className="ul-nav">
-                        <li className="li-nav">
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li className="li-nav">
+                <footer>
+                <div className="container-tag">
+                    <ul className="ul-tags">
+                    <li className="li-nav">
                             <Link to="/about">About</Link>
                         </li>
                         <li className="li-nav">
-                            <Link to="/booking">Booking</Link>
+                            © Copyright 2001-2020 Cochera.pe - Todos los Derechos Reservados 
                         </li>
-                        <li className="li-nav">
-                            <Link to="/parkinglog">Parking Log</Link>
-                        </li>
+
                         <li className="li-nav">
                             <Link to="/contact">Contact</Link>
                         </li>
                     </ul>
-                    </div>
-                </nav>
-            </div>
-            <Outlet/>
-            <div>
-                <footer>
-                    <h1>footer</h1>
+                </div>
+
                 </footer>
             </div>
-        </Container>
+        </div>
     );
 };
+
 
 export default Main;
