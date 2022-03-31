@@ -23,10 +23,10 @@ const Registro = () => {
             rowGap="1"
           >
             <Grid item md={12} className="grid1">
-              <h1>
+              <h1 className="h1">
                 Conviertete en anfitrión en <br /> Cochera.com
               </h1>
-              <p>Unete a nosotros, te ayudaremos en cada fase del proceso</p>
+              <p className="p">Unete a nosotros, te ayudaremos en cada fase del proceso</p>
               <Button
                 onClick={handleClickOpen}
                 color="secondary"

@@ -24,10 +24,10 @@
 	}
 };
 
-h1{
+.h1{
     font-size: 45px;
 }
-p{
+.p{
     font-size: 20px;
     max-width: 50%;
     min-width: 40%;

@@ -25,12 +25,12 @@ const Router = () => {
           <Route path="/booking" element={<Booking />}/>
           <Route path="/parkinglog" element={<ParkingLog />}/>
           <Route path="/contact" element={<Contact />}/>
-          
+          <Route path="/registro" element={<Registro />} />
         </Route>
 
-        {/* borrar */}
 
-        <Route path="/registro" element={<Registro />} />
+
+        
 
 
       </Routes>

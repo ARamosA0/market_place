@@ -1,4 +1,4 @@
-
+/* Titulo principal inicio */
 .titulo-principal{
     padding-top: 5px !important;
 }
@@ -17,23 +17,43 @@
     justify-content: space-between;
     align-items: center;
 }
+/* Titulo principal final */
 
+/* imagen inicio */
 .img-principal{
-    width: 610px;
-}
-
-
-
-.img-principal{
-    margin: 5px;
+    object-fit: cover;
+    width: 555px;
+    height: 500px;
 }
 
 .img-sec{
-    width: 300px;
-    margin: 3px;
+    object-fit: cover;
+    width: 273px;
+    height: 250px;
 }
+/* imagen final */
 
+/* Descripcion inicio */
+.titulo-cochera-uno{
+    font-size: 1.5em;
+    font-weight: 500;
+}
+.titulo-cochera-dos{
+    font-weight: 300;
+}
+.titulo-fechas{
+    font-size: 1.5em;
+    font-weight: 500;   
+}
+/* Descripcion final */
 
+/* Date Static inicio */
+.static-date-container{
+    width: 55vw;
+}
+/* Date Static fin */
+
+/* card inicio*/
 .date-container{
     margin-top:25px;
     width: 100%;
@@ -48,6 +68,10 @@
     font-size: 1.5em;
 }
 
+.titulo-cochera{
+    text-align: left;
+}
+
 .card-main-info{
     position: sticky;
     top:30px;
@@ -59,54 +83,14 @@
     flex-direction: column;
     justify-content: center;
 }
+/* card final*/
 
-.titulo-propietario{
-    font-weight: 600;
-    font-size: 1.5em;
-    margin: 0;
-}
-
+/* mapa inicio */
 .titulo-mapa{
-    font-weight: 500;
     font-size: 1.5em;
-    margin: 0;
-    margin-bottom: 20px;
+    font-weight: 500;   
 }
+/* mapa final */
 
-.titulo-lugar-mapa{
-    font-weight: 400;
-    font-size: 1.3em;
-    margin: 0;
-    margin-top: 20px;
-}
 
-.titulo-propietario-principal{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 110%;
-}
 
-.img-usuario{
-    margin-left:250px ;
-}
-
-.img-usuario img{
-   width: 70px;
-}
-
-.description{
-    text-align: justify;
-    text-justify: inter-word;
-    width: 110%;
-}
-
-.titulo-fecha{
-    font-size: medium;
-    font-weight: 400;
-}
-
-.calendar-container{
-    display: flex;
-    margin-top: 20px;
-}
