@@ -23,7 +23,6 @@ a{
   justify-content: space-evenly;
   align-items: center;
 }
-
 .ul-tags{
   display: flex;
   justify-content: space-around;
@@ -32,7 +31,6 @@ a{
   margin: 0;
 
 }
-
 .nav_pe {
   color: white;
   background-color: #2c2542;

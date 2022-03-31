@@ -11,8 +11,6 @@ const Main = () => {
                     <Grid item md={3}>
                     <Link to="/" className="nav_logo">Cochera<span className="nav_pe">.pe</span></Link>
                     </Grid>
- 
- 
                     <Grid className="search" item md={6}>
                         <TextField variant="outlined" sx={{ width: 250 }} label="Lugar" />
                         <TextField
