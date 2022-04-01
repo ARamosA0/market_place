@@ -120,64 +120,10 @@ const Booking = () => {
                     <div className="description">
                         <p className="">{cocheras[0].descripcion}</p>
                     </div>
-                    <Divider/>
+                    
                   </Grid>
                   
-                  <Grid item md={12} className="fecha-container">
-                    <Grid container>
-                      <Grid item></Grid>
-                      <p className="titulo-fechas">{cocheras[0].region}, {cocheras[0].Distrito}</p>
-                      {/* Date Range picker */}
-                      <div className="static-date-container">
-                        <LocalizationProvider dateAdapter={DateAdapter}>
-                          <StaticDateRangePicker
-                            displayStaticWrapperAs="desktop"
-                            value={valueDate}
-                            onChange={(newValueDate) => {
-                              setValueDate(newValueDate);
-                            }}
-                            renderInput={(startProps, endProps) => (
-                              <React.Fragment>
-                                <TextField {...startProps} />
-                                <Box sx={{ mx: 2 }}> to </Box>
-                                <TextField {...endProps} />
-                              </React.Fragment>
-                            )}
-                          />
-                        </LocalizationProvider>
-                      </div>
-                      {/* Time Range picker */}
-                      <Grid container spacing={3}>
-                        <Grid item md={6} >
-                        <span>Inicio</span>
-                          <LocalizationProvider dateAdapter={DateAdapter}>
-                            <StaticTimePicker
-                              displayStaticWrapperAs="mobile"
-                              value={valueStartTime}
-                              color="secondary"
-                              onChange={(newValueTime) => {
-                                setValueStartTime(newValueTime);
-                              }}
-                              renderInput={(params) => <TextField {...params} />}
-                            />
-                          </LocalizationProvider>
-                        </Grid>
-                        <Grid item md={6} >
-                        <span>Final</span>
-                          <LocalizationProvider dateAdapter={DateAdapter}>
-                            <StaticTimePicker
-                              displayStaticWrapperAs="mobile"
-                              value={valueEndTime}
-                              onChange={(newValueTime) => {
-                                setValueEndTime(newValueTime);
-                              }}
-                              renderInput={(params) => <TextField {...params} />}
-                            />
-                          </LocalizationProvider>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Grid>
+
                 </Grid>
               </Grid>
 
@@ -302,6 +248,65 @@ const Booking = () => {
 
 
               <Grid item md={12}>
+
+              <Grid container>
+                <Grid item md={6}>
+                  <p className="titulo-fechas">{cocheras[0].region}, {cocheras[0].Distrito}</p>
+                  {/* Date Range picker */}
+                  <div className="static-date-container">
+                        <LocalizationProvider dateAdapter={DateAdapter}>
+                          <StaticDateRangePicker
+                            displayStaticWrapperAs="desktop"
+                            value={valueDate}
+                            onChange={(newValueDate) => {
+                              setValueDate(newValueDate);
+                            }}
+                            renderInput={(startProps, endProps) => (
+                              <React.Fragment>
+                                <TextField {...startProps} />
+                                <Box sx={{ mx: 2 }}> to </Box>
+                                <TextField {...endProps} />
+                              </React.Fragment>
+                            )}
+                          />
+                        </LocalizationProvider>
+                      </div>
+                      {/* Time Range picker */}
+                      <Grid container spacing={3}>
+                        <Grid item md={6} >
+                        <span>Inicio</span>
+                          <LocalizationProvider dateAdapter={DateAdapter}>
+                            <StaticTimePicker
+                              displayStaticWrapperAs="mobile"
+                              value={valueStartTime}
+                              color="secondary"
+                              onChange={(newValueTime) => {
+                                setValueStartTime(newValueTime);
+                              }}
+                              renderInput={(params) => <TextField {...params} />}
+                            />
+                          </LocalizationProvider>
+                        </Grid>
+                        <Grid item md={6} >
+                        <span>Final</span>
+                          <LocalizationProvider dateAdapter={DateAdapter}>
+                            <StaticTimePicker
+                              displayStaticWrapperAs="mobile"
+                              value={valueEndTime}
+                              onChange={(newValueTime) => {
+                                setValueEndTime(newValueTime);
+                              }}
+                              renderInput={(params) => <TextField {...params} />}
+                            />
+                          </LocalizationProvider>
+                        </Grid>
+                      </Grid>
+                </Grid>
+                <Grid item md={6}>
+                  
+                </Grid>
+              </Grid>
+
                 <Divider/>
                 <p className="titulo-mapa">A donde irás?</p>
                 

@@ -66,9 +66,9 @@
     font-weight: 500;   
 }
 
-.static-date-container{
+/* .static-date-container{
     width: 55vw;
-}
+} */
 /* Date Static fin */
 
 /* card inicio*/
@@ -92,7 +92,7 @@
 
 .card-main-info{
     position: sticky;
-    top:30px;
+    top:200px;
 }
 
 .card-info{
