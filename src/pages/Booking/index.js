@@ -61,12 +61,7 @@ const Booking = () => {
   // Date Range picker
   const [valueDate, setValueDate] = React.useState([null, null]);
 
-  // Static Date Range picker
-  const [valueDateStatic, setValueDateStatic] = React.useState([null, null]);
 
-  // Time picker Static
-  const [valueStaticStarTime, setValueStaticStarTime] = React.useState(new Date());
-  const [valueStaticEndTime, setValueStaticEndTime] = React.useState(new Date());
 
   // Time picker
   const [valueStartTime, setValueStartTime] = React.useState(new Date());
@@ -81,7 +76,7 @@ const Booking = () => {
     <section>
       
       {cocheras.length > 0 &&(
-          <Container>
+          <Container sx={{marginTop:5}}>
             <Grid container spacing={3}>
               <Grid item md={12} className="titulo-principal">
                 <h1>{cocheras[0].nameAlquiler}</h1>
@@ -100,24 +95,25 @@ const Booking = () => {
                   <span>Guardar</span>
                 </div>
               </Grid>
-              <Grid item md={6}>
+              <Grid item md={6} sx={{marginTop:2}}>
                 <Grid container >
                   <Grid item md={12}>
-                    <img className="img-principal" src={"https://cdn.corrieredellosport.it/images/sq/1200/1200/2015/11/20/143549356-64724baa-1f3e-4d66-b57c-e0c0dc25b797.jpg"} />
+                    <img className="img-principal" src={cocheras[0].photos[0]} />
                   </Grid>
                   <Grid item md={6}>
                     <img
                         className="img-sec"
-                        src={"https://st.hzcdn.com/simgs/pictures/garages/a-dream-garage-in-sevenoaks-garageflex-img~d201afca0d5eb13e_4-9921-1-50048b5.jpg"}
+                        src={cocheras[0].photos[1]}
                       />
                   </Grid>
                   <Grid item md={6}>
                     <img
                         className="img-sec"
-                        src={"https://st.hzcdn.com/simgs/pictures/garages/a-dream-garage-in-sevenoaks-garageflex-img~d201afca0d5eb13e_4-9921-1-50048b5.jpg"}
+                        src={cocheras[0].photos[2]}
                       />
                   </Grid>
                   <Grid item md={12} className="titulo-cochera">
+                    <Divider/>
                     <p className="titulo-cochera-uno">Cochera Privada - {cocheras[0].nameAnfitrion}</p>
                     <p className="titulo-cochera-dos">Tipo de Cochera - {cocheras[0].tipoCochera}</p>
                     <Divider/>
@@ -127,16 +123,18 @@ const Booking = () => {
                     <Divider/>
                   </Grid>
                   
-                  <Grid item md={12}>
+                  <Grid item md={12} className="fecha-container">
+                    <Grid container>
+                      <Grid item></Grid>
                       <p className="titulo-fechas">{cocheras[0].region}, {cocheras[0].Distrito}</p>
                       {/* Date Range picker */}
                       <div className="static-date-container">
                         <LocalizationProvider dateAdapter={DateAdapter}>
                           <StaticDateRangePicker
                             displayStaticWrapperAs="desktop"
-                            value={valueDateStatic}
-                            onChange={(newValueStaticDate) => {
-                              setValueDateStatic(newValueStaticDate);
+                            value={valueDate}
+                            onChange={(newValueDate) => {
+                              setValueDate(newValueDate);
                             }}
                             renderInput={(startProps, endProps) => (
                               <React.Fragment>
@@ -155,9 +153,10 @@ const Booking = () => {
                           <LocalizationProvider dateAdapter={DateAdapter}>
                             <StaticTimePicker
                               displayStaticWrapperAs="mobile"
-                              value={valueStaticStarTime}
+                              value={valueStartTime}
+                              color="secondary"
                               onChange={(newValueTime) => {
-                                setValueStaticStarTime(newValueTime);
+                                setValueStartTime(newValueTime);
                               }}
                               renderInput={(params) => <TextField {...params} />}
                             />
@@ -168,17 +167,17 @@ const Booking = () => {
                           <LocalizationProvider dateAdapter={DateAdapter}>
                             <StaticTimePicker
                               displayStaticWrapperAs="mobile"
-                              value={valueStaticEndTime}
+                              value={valueEndTime}
                               onChange={(newValueTime) => {
-                                setValueStaticEndTime(newValueTime);
+                                setValueEndTime(newValueTime);
                               }}
                               renderInput={(params) => <TextField {...params} />}
                             />
                           </LocalizationProvider>
                         </Grid>
                       </Grid>
+                    </Grid>
                   </Grid>
-                  
                 </Grid>
               </Grid>
 
@@ -265,7 +264,7 @@ const Booking = () => {
                     </div>
 
                     <div>
-                      <Button fullWidth size="large" variant="contained" sx={{ marginTop: 2, marginBottom:2}}>
+                      <Button fullWidth size="large" variant="contained" color="secondary" sx={{ marginTop: 2, marginBottom:2}}>
                         Reservar
                       </Button>
                     </div>
@@ -302,41 +301,31 @@ const Booking = () => {
 
 
 
-                <Grid item md={12}>
-                  <Divider/>
-                  <p className="titulo-mapa">A donde irás?</p>
-                  
-                  {/* Mapa */}
+              <Grid item md={12}>
+                <Divider/>
+                <p className="titulo-mapa">A donde irás?</p>
+                
+                {/* Mapa */}
 
-                  <Container maxWidth="lg">
-                    <Grid container>
-                      <Grid item md={12}>
-                        <MapContainer center={[cocheras[0].geolocalization.latitude, cocheras[0].geolocalization.longitude]} zoom={18} style={{ height: 500 }}>
-                          <TileLayer
-                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                          />
-                          <Marker position={[cocheras[0].geolocalization.latitude, cocheras[0].geolocalization.longitude]} icon={markerIcon}>
-                            <Popup>Estas aqui</Popup>
-                          </Marker>                          
-                        </MapContainer>
-                      </Grid>
+                <Container maxWidth="lg">
+                  <Grid container>
+                    <Grid item md={12}>
+                      <MapContainer center={[cocheras[0].geolocalization.latitude, cocheras[0].geolocalization.longitude]} zoom={18} style={{ height: 500 }}>
+                        <TileLayer
+                          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                        <Marker position={[cocheras[0].geolocalization.latitude, cocheras[0].geolocalization.longitude]} icon={markerIcon}>
+                          <Popup>Estas aqui</Popup>
+                        </Marker>                          
+                      </MapContainer>
                     </Grid>
-                  </Container>
-
-                  <p className="titulo-lugar-mapa">{cocheras[0].region}, {cocheras[0].distrito}</p>
-                  
-                </Grid>
-                <Grid item md={12}>
-                  <Grid container spacing={3}>
-                      <Grid item md={4}>
-                          <h4>Asistencia</h4>
-                          <ul>
-                            <li></li>
-                          </ul>
-                      </Grid>
                   </Grid>
-                </Grid>
+                </Container>
+
+                <p className="titulo-lugar-mapa">{cocheras[0].region}, {cocheras[0].distrito}</p>
+                
+              </Grid>
             </Grid>
           </Container>
           )}

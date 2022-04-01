@@ -1,5 +1,6 @@
 /* Titulo principal inicio */
 .titulo-principal{
+    margin-top: 30px;
     padding-top: 5px !important;
 }
 
@@ -10,6 +11,7 @@
     padding-top: 0 !important;
     margin: 0 !important;
     color: rgb(105, 104, 104);
+    margin-top: 30px;
 }
 
 .reserva-items div{
@@ -34,20 +36,36 @@
 /* imagen final */
 
 /* Descripcion inicio */
+.titulo-cochera{
+    margin: 30px 0;
+}
 .titulo-cochera-uno{
+    margin-top: 30px;
     font-size: 1.5em;
     font-weight: 500;
 }
 .titulo-cochera-dos{
+    margin-top: 10px;
+    margin-bottom: 30px;
     font-weight: 300;
 }
-.titulo-fechas{
-    font-size: 1.5em;
-    font-weight: 500;   
+
+.description{
+    margin: 30px 0;
 }
 /* Descripcion final */
 
 /* Date Static inicio */
+
+.fecha-container{
+    margin: 30px 0;
+}
+.titulo-fechas{
+    margin: 30px 0;
+    font-size: 1.5em;
+    font-weight: 500;   
+}
+
 .static-date-container{
     width: 55vw;
 }

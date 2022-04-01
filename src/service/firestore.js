@@ -22,3 +22,4 @@ export const getCocheraData = async (nameBd) =>{
   const clothes = documentClothes.docs.map(doc => doc.data());  
   return clothes;
 }
+
