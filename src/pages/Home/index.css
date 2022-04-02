@@ -83,3 +83,40 @@ p{
 .css-1aquho2-MuiTabs-indicator{
     background-color: #612351 !important;
 }
+
+.head-card {
+    color: #194c6b;
+}
+
+.cardContent-paracas {
+    background-color: #D93B30;
+}
+
+.cardContent-ayacucho {
+    background-color: #BC1A6E;
+}
+
+.cardContent-oxapampa {
+    background-color: #CC2D4A;
+}
+
+.cardContent-chincha {
+    background-color: #DE3151;
+}
+
+.card-body {
+    height: 350px;
+}
+
+.card-img {
+    border-radius: 20px 20px 0px 0px;
+}
+
+.title-card {
+    color: white;
+    font-weight: bold;
+}
+
+.body-card {
+    color: white;
+}
