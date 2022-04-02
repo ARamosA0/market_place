@@ -1,4 +1,7 @@
 /*? Animacion y estilo para la pagina principal */
+body{
+    margin: 0;
+}
 .grid-container{
     background-image: linear-gradient(45deg, #1b3444 0%, #2c2542 50%,black 100%);
     background-size: 400% 400%;
@@ -7,7 +10,9 @@
     overflow: hidden;
     font-family: roboto;
 }
-
+.home-grid{
+    padding: 0;
+}
 .MuiGrid-root {   
     width: 100%;
 }
@@ -58,7 +63,7 @@ p{
     --organic-arrow-border-radius: 30px;
     --organic-arrow-height: 35px;
     --organic-arrow-color: #000000;
-    --slider-height-percentage: 100vh;
+    --slider-height-percentage: 90vh;
     --slider-transition-duration: 2000ms;
     color: rgba(61, 59, 59, 0.226);
 }

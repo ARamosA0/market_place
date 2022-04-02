@@ -12,13 +12,13 @@ const Registro = () => {
   };
   return (
     <div>
-      <Grid container  className="grid-container">
+      <Grid container  className="grid-container home-grid">
         <Grid item md={6} xs={12} textAlign="center" sx={{ color: "white" }}>
           <Grid
             container
             justifyContent="center"
             alignItems="center"
-            sx={{ height: "100vh !important" }}
+            sx={{ height: "90vh !important" }}
             spacing={1}
             rowGap="1"
           >

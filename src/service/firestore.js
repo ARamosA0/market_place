@@ -26,6 +26,6 @@ export const getCocheraData = async () =>{
 export const writeData = async (data) => {
   const db = getDatabase();
   set(ref(db, "cochera" + data.dni),{
-    //
+    
   })
 }
