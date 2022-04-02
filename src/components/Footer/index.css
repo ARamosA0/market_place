@@ -1,0 +1,10 @@
+.footer-container {
+    height: 30vh;
+    background-color: hsl(0, 94%, 66%);
+    margin-top: 20px;
+    padding-top: 30px;
+}
+
+.footer-op {
+    margin: 5px;
+}
