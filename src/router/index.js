@@ -14,13 +14,14 @@ import Parking from "../layouts/ParkingLog"
 
 // Borrar
 
-import Registro from "../pages/Home";
+import Registro from "../pages/Registro";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />}/>
+        <Route path="/home2" element={<Home2 />}/>
         <Route element={<Main/>}>
           <Route path="/about" element={<About />}/>
           <Route path="/booking" element={<Booking />}/>
@@ -31,7 +32,7 @@ const Router = () => {
         <Route element={<Parking/>}>
           <Route path="/parking" element={<ParkingLog />}/>
         </Route>
-        <Route path="/registro" element={<Registro />} />
+        {/* <Route path="/registro" element={<Registro />} /> */}
       </Routes>
     </BrowserRouter>
   );

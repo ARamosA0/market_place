@@ -13,9 +13,6 @@ body{
 .home-grid{
     padding: 0;
 }
-.MuiGrid-root {   
-    width: 100%;
-}
     
 @keyframes gradient {
 	0% {
