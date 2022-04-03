@@ -25,7 +25,7 @@
 .img-principal{
     object-fit: cover;
     width: 555px;
-    height: 500px;
+    height: 450px;
 }
 
 .img-sec{
@@ -105,6 +105,7 @@
 
 /* mapa inicio */
 .titulo-mapa{
+    margin-top: 30px;
     font-size: 1.5em;
     font-weight: 500;   
 }
