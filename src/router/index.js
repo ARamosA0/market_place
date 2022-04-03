@@ -29,19 +29,12 @@ const Router = () => {
           <Route path="/contact" element={<Contact />}/>
           <Route path="/registro" element={<Registro />} />
         </Route>
-<<<<<<< HEAD
 
 
 
         
 
 
-=======
-        <Route element={<Parking/>}>
-          <Route path="/parking" element={<ParkingLog />}/>
-        </Route>
-        {/* <Route path="/registro" element={<Registro />} /> */}
->>>>>>> 88d8947a65116b11af24ac9d7a61c87b85ede9c3
       </Routes>
     </BrowserRouter>
   );
