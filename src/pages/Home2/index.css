@@ -1,0 +1,49 @@
+/*? Animacion y estilo para la pagina principal */
+.grid-container{
+    background-image: linear-gradient(45deg, #1b3444 0%, #2c2542 50%,black 100%);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite; 
+    width: 100% !important;
+    overflow: hidden;
+    font-family: roboto;
+    /* height: 90vh; */
+    margin-top: 10vh;
+    padding: 45px 35px;
+}
+
+.home-main{
+    height: 82vh;
+    background: linear-gradient(180deg, #1b34445d 0%, #2c254249 50%,rgba(0, 0, 0, 0.781) 100%), url("../../assets/home.webp");
+    background-position: center;
+    background-size:cover;
+    background-repeat: no-repeat;
+    border-radius: 15px;
+}
+
+.home-text{
+    font-size: 45px;
+    font-weight: "bold";
+    color: rgb(255, 255, 255);
+
+}
+.button-home {
+    margin-top: 20px !important;
+    padding: 14px !important;
+    border-radius: 15px !important;
+    background-color: rgb(243, 243, 243) !important;
+    color: #9e35aa  !important;
+    font-size: 17px !important;
+}
+ 
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+};
+

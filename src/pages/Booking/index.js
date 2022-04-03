@@ -166,11 +166,11 @@ const Booking = () => {
                       </FormControl>
                     </div>
 
-                    <div>
-                      <Button fullWidth size="large" variant="contained" sx={{ marginTop: 2, marginBottom:2}}>
-                        Reservar
-                      </Button>
-                    </div>
+//                     <div>
+//                       <Button fullWidth size="large" variant="contained" sx={{ marginTop: 2, marginBottom:2}}>
+//                         Reservar
+//                       </Button>
+//                     </div>
 
                     <div>
                     <hr/>
