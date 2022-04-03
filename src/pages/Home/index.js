@@ -1,21 +1,12 @@
 import { Container, Grid, Typography } from "@mui/material";
-
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer"
-import SocialMedia from "../../components/SocialMedia"
 import Booking from "../../components/Booking"
-
 import "./index.css";
-
 import Link from '@mui/material/Link';
 
 const Home = () => {
 
   return (
       <div>
-
-        <Navbar></Navbar>
-
         <Container maxWidth="xl">
           <Grid container className="banner" direction={"column"} justifyContent={"center"} alignItems={"center"}>
             <Grid item>
@@ -27,16 +18,10 @@ const Home = () => {
               </Link>                                   
             </Grid>
           </Grid>
+          <Booking></Booking>
         </Container>
-    
-        <Booking></Booking>
-        
-        <Footer></Footer>
-        <SocialMedia></SocialMedia>
-
       </div>
   );
-
 };
 
 export default Home;
