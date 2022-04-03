@@ -18,6 +18,7 @@ import SendIcon from "@mui/icons-material/Send";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import { FcGoogle } from "react-icons/fc";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import "./index.css";
 
 const LoginAnfitrion = ({ handleClickOpen, open }) => {
   const [value, setValue] = useState("1");

@@ -1,0 +1,35 @@
+.nav-container {
+    border-bottom: solid 3px hsl(0, 94%, 66%);
+    margin-bottom: 20px;
+    background-color: #D93B30;
+    height: 12vh;
+}
+
+.logo-titulo1 {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: white;
+}
+
+.logo-titulo2 {
+    border: solid snow;
+    border-radius: 50%;
+    padding: 5px;
+    background-color: #FF385C;
+    color: white;
+}
+
+  .registro {
+      padding-right: 30px;
+      padding-left: 30px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      border: solid white 2px;
+      background-color: FF385C;
+      border-radius: 8px;
+      font-weight: bold;
+  }
+
+  .botones {
+    font-weight: bold;
+  }
