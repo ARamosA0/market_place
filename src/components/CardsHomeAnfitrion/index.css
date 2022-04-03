@@ -33,12 +33,12 @@
     background-color: rgb(243, 243, 243) !important;
 }
 .btn-link{
-    display: flex;
-    text-decoration: none;
-    color: black;
-    transition: 0.2s;
-    padding: 10px;
-    font-size: 15px;
+    display: flex !important;
+    text-decoration: none !important;
+    color: black !important;
+    transition: 0.2s !important;
+    padding: 10px !important;
+    font-size: 15px !important;
 
 }
 .btn-link:hover{
