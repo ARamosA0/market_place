@@ -1,7 +1,7 @@
 {
   "name": "market_place",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@date-io/date-fns": "^2.13.1",
     "@date-io/dayjs": "^2.13.1",
