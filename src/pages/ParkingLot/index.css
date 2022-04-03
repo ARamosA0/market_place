@@ -1,0 +1,25 @@
+body {
+    background-color: snow;
+}
+
+.my-fixed-item {
+    position: fixed;
+    left: 42%;
+    height: 75%;
+    width: 55%;
+    text-align: center;
+    word-wrap: break-word;
+    background-color: aquamarine;
+}
+
+.Parking-img {
+    width: 360px;
+    height: 250px;
+    border-radius: 10px;
+    padding: 0px;
+    border: solid 2px gray;
+}
+
+.Parking-content {
+    height: 180px;
+}

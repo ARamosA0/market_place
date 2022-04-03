@@ -1,0 +1,24 @@
+.ul-nav {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  list-style: none;
+}
+
+.li-nav {
+  margin-right: 30px;
+}
+
+.li-nav a {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgb(255, 166, 23);
+}
+
+.Footer {
+  height: 20vh;
+}
+
