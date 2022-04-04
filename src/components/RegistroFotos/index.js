@@ -11,7 +11,7 @@ import {
 import { storeCochera, updateCochera } from "../../service/firestore";
 import garage1 from "../../assets/garage.jpg";
 
-const RegistroDescripcion = (props) => {
+const RegistroFotos = (props) => {
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState([]);
 
@@ -53,18 +53,18 @@ const RegistroDescripcion = (props) => {
                     <h2>Direccion y Ubicacion</h2>
                   </Grid>
                   <Grid item md={12} xs={12}>
-                    <TextField label="Pais" name="pais" fullWidth />
+                    <TextField label="Foto" name="country" fullWidth />
                   </Grid>
                   <Grid item md={12} xs={12}>
-                    <TextField label="Region" name="region" fullWidth />
+                    <TextField label="Foto" name="department" fullWidth />
                   </Grid>
                   <Grid item md={12} xs={12}>
-                    <TextField label="Distrito" name="Distrito" fullWidth />
+                    <TextField label="Foto" name="district" fullWidth />
                   </Grid>
                   <Grid item md={12} xs={12}>
-                    <TextField label="Direccion" name="Direccion" fullWidth />
-                  </Grid>
-                  <Grid item md={12} xs={12}>
+                    <Button color="secondary" variant="contained" fullWidth>
+                      Send
+                    </Button>
                   </Grid>
                 </Grid>
               </Grid>
@@ -76,4 +76,4 @@ const RegistroDescripcion = (props) => {
   );
 };
 
-export default RegistroDescripcion;
+export default RegistroFotos;

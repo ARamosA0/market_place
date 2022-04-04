@@ -8,6 +8,15 @@ import {
   TextField,
   Button,
 } from "@mui/material";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  useMapEvents,
+} from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
 import { storeCochera, updateCochera } from "../../service/firestore";
 
 const RegistroGeo = (props) => {
@@ -23,16 +32,43 @@ const RegistroGeo = (props) => {
     });
   };
 
+  // Mapa
+  const markerIcon = new L.icon({
+    iconUrl: require("../../assets/marker.png"),
+    iconSize: [30, 30],
+  });
+
   const handleOpenDialog = () => {
     setOpen(!open);
   };
 
   return (
     <>
-    <Button color="secondary" onClick={handleOpenDialog}>Click Aqui</Button>
+      <Button color="secondary" onClick={handleOpenDialog}>
+        Click Aqui
+      </Button>
       <Dialog open={open} onClose={handleOpenDialog}>
-        <DialogContent>
-          <h2>Localizacion</h2>
+        <DialogContent sx={{width:600, height:600}}>
+          <h3>Marca la ubicacion exacta</h3>
+          <MapContainer
+            center={[-12.2047107,-77.0154433]}
+            zoom={13}
+            style={{ height: 500}}
+          >
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker
+              position={[-12.2047107,-77.0154433]}
+              icon={markerIcon}
+            >
+              <Popup>Cochera los Cedros</Popup>
+            </Marker>
+          </MapContainer>
+          <Button color="secondary" variant="contained" fullWidth mt={3}>
+            Send
+          </Button>
         </DialogContent>
       </Dialog>
     </>
@@ -40,4 +76,3 @@ const RegistroGeo = (props) => {
 };
 
 export default RegistroGeo;
-

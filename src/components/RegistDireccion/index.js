@@ -53,18 +53,21 @@ const RegistroDireccion = (props) => {
                     <h2>Direccion y Ubicacion</h2>
                   </Grid>
                   <Grid item md={12} xs={12}>
-                    <TextField label="Pais" name="pais" fullWidth />
+                    <TextField label="Pais" name="country" fullWidth />
                   </Grid>
                   <Grid item md={12} xs={12}>
-                    <TextField label="Region" name="region" fullWidth />
+                    <TextField label="Region" name="department" fullWidth />
                   </Grid>
                   <Grid item md={12} xs={12}>
-                    <TextField label="Distrito" name="Distrito" fullWidth />
+                    <TextField label="Distrito" name="district" fullWidth />
                   </Grid>
                   <Grid item md={12} xs={12}>
-                    <TextField label="Direccion" name="Direccion" fullWidth />
+                    <TextField label="Direccion" name="adress" fullWidth />
                   </Grid>
                   <Grid item md={12} xs={12}>
+                  <Button color="secondary" variant="contained" fullWidth>
+                    Send
+                  </Button>
                   </Grid>
                 </Grid>
               </Grid>

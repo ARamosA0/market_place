@@ -4,11 +4,11 @@ import { height } from "@mui/system";
 import WysiwygIcon from '@mui/icons-material/Wysiwyg';
 import BusinessIcon from '@mui/icons-material/Business';
 import MapIcon from '@mui/icons-material/Map';
-import DescriptionIcon from '@mui/icons-material/Description';
 import MonochromePhotosIcon from '@mui/icons-material/MonochromePhotos';
 import RegistroDireccion from "../../components/RegistDireccion";
 import RegistroGeo from "../../components/RegistroGeo";
 import RegistroInformacion from "../../components/RegistroInformacion";
+import RegistroFotos from "../../components/RegistroFotos";
 
 import "./index.css"
 
@@ -16,8 +16,8 @@ import "./index.css"
 const RegistroAnfitrion = () => {   
 
     return(
-        <Container sx={{marginBotton:5}}>
-            <Grid container spacing={3}>
+        <Container>
+            <Grid container spacing={3} sx={{marginBottom:20, marginTop:10}}>
                 <Grid item md={12}>
                     <h2>Cuenta</h2>
                     <p>
@@ -29,7 +29,7 @@ const RegistroAnfitrion = () => {
                         
                     </p>
                 </Grid>
-                <Grid item md={4} sm={6}>
+                <Grid item md={3} sm={12}>
                     <Card className="card">
                         <CardContent>
                             <WysiwygIcon />
@@ -43,7 +43,7 @@ const RegistroAnfitrion = () => {
                         </CardActions>
                     </Card>
                 </Grid>
-                <Grid item md={4} sm={6}>
+                <Grid item md={3} sm={12}>
                     <Card className="card">
                         <CardContent>
                             <BusinessIcon/>
@@ -57,7 +57,7 @@ const RegistroAnfitrion = () => {
                         </CardActions>
                     </Card>
                 </Grid>
-                <Grid item md={4} sm={6}>
+                <Grid item md={3} sm={12}>
                     <Card className="card">
                         <CardContent>
                             <MapIcon/>
@@ -71,21 +71,8 @@ const RegistroAnfitrion = () => {
                         </CardActions>
                     </Card>
                 </Grid>
-                <Grid item md={4} sm={6}>
-                    <Card className="card">
-                        <CardContent>
-                            <DescriptionIcon/>
-                            <h5>Descripcion</h5>
-                            <p>
-                                Da un aDescripcion detallada del inmueble con todos los datos necesarios.
-                            </p>
-                        </CardContent>
-                        <CardActions>
-                          <RegistroInformacion/>
-                        </CardActions>
-                    </Card>
-                </Grid>
-                <Grid item md={4} sm={6}>
+
+                <Grid item md={3} sm={12}>
                     <Card className="card">
                         <CardContent>
                             <MonochromePhotosIcon/>
@@ -95,7 +82,7 @@ const RegistroAnfitrion = () => {
                             </p>
                         </CardContent>
                         <CardActions>
-                          <Button color="secondary">Click Aqui</Button>
+                          <RegistroFotos/>
                         </CardActions>
                     </Card>
                 </Grid>
