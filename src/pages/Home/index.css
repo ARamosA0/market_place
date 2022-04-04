@@ -1,10 +1,9 @@
 .banner {
     height: 88vh !important;
-    background-image: linear-gradient(45deg, #1b3444 0%, #2c2542 50%,black 100%);
+    background-image: linear-gradient(20deg, #1b3444 0%, #2c2542 50%,rgba(0, 0, 0, 0.918) 100%);
     background-size: 200% 200%;
     animation: gradient 15s ease infinite;
     background-size: contain;
-    border: solid 1px black;
     padding: 40px 0;
 }
 .div-banner{
