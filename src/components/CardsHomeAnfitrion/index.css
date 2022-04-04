@@ -9,6 +9,9 @@
     padding: 0 15px;
     height: 78vh;
 }
+.head-card {
+    color: #194c6b;
+}
 .home-huespedes-card{
     height: 68vh;
     border-radius: 20px;

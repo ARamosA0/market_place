@@ -1,6 +1,7 @@
 .media-container {
     height: 9vh;
-    background-color: #D93B30;
+    background-image: linear-gradient(20deg, #1b3444 0%, #2c2542 50%,black 100%);
+    background-size: 150% 150%;
 }
 
 .logo-titulo3 {

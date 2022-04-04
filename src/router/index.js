@@ -6,7 +6,6 @@ import About from "../pages/About";
 import Booking from "../pages/Booking";
 import ParkingLog from "../pages/ParkingLot"
 import Contact from "../pages/Contact";
-import Home2 from "../pages/Home2";
 //Loyout
 import Main from "../layouts/Main"
 import Parking from "../layouts/ParkingLog"
