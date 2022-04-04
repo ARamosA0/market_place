@@ -1,0 +1,35 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    margin: 30px 0;
+}
+
+.foto-perfil{
+    text-align: center;
+}
+
+.foto-perfil img{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: fill;
+}
+
+.container-datos{
+    display: flex;
+    align-items: center;
+}
+
+.datos-subtitulo{
+    font-size: medium;
+    font-weight: 700;
+}
+
+.image-principal{
+    object-fit: cover;
+    width: 300px;
+    height: 250px;
+}

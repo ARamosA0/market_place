@@ -7,6 +7,8 @@ import Booking from "../pages/Booking";
 import ParkingLog from "../pages/ParkingLot"
 import Contact from "../pages/Contact";
 import Home2 from "../pages/Home2";
+import Anfitrion from "../pages/Anfitrion";
+import RegistroAnfitrion from "../pages/RegistroAnfitrion";
 //Loyout
 import Main from "../layouts/Main"
 import Parking from "../layouts/ParkingLog"
@@ -28,6 +30,8 @@ const Router = () => {
           <Route path="/parkinglog" element={<ParkingLog />}/>
           <Route path="/contact" element={<Contact />}/>
           <Route path="/registro" element={<Registro />} />
+          <Route path="/anfitrion" element={<Anfitrion />} />
+          <Route path="/anfitrion/registro" element={<RegistroAnfitrion />} />
         </Route>
 
 

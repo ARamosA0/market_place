@@ -1,6 +1,22 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
-import { getDatabase, ref, set } from "firebase/database";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  setDoc,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore/lite";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+  sendEmailVerification,
+} from "firebase/auth";
+import { v4 as uuidv4 } from "uuid";
+import { onAuthStateChanged } from "firebase/auth";
 
 
 const firebaseConfig = {
@@ -23,3 +39,21 @@ export const getCocheraData = async (nameBd) =>{
   return clothes;
 }
 
+// Guardar datos
+export const storeCochera = async (product) => {
+  const id = uuidv4().replaceAll("-", "");
+  product.id = id;
+  await setDoc(doc(db, "product_clothes", id), product);
+};
+
+// actualizar un datos en firebase
+export const updateCochera = async (product) => {
+  const productRef = doc(db, "usuarioAnfitrion", product.id);
+
+  await updateDoc(productRef, product);
+};
+
+// eliminar un registros de la db
+export const deleteCochera = async (id) => {
+  await deleteDoc(doc(db, "usuarioAnfitrion", id));
+};

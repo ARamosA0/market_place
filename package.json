@@ -30,10 +30,7 @@
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
     "react-leaflet": "^3.2.5",
-<<<<<<< HEAD
     "react-moment": "^1.1.1",
-=======
->>>>>>> 88d8947a65116b11af24ac9d7a61c87b85ede9c3
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
     "web-vitals": "^2.1.4"
