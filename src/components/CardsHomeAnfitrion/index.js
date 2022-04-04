@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Grid, Button } from "@mui/material";
+import { Grid, Button, Typography } from "@mui/material";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import "./index.css"
@@ -8,13 +8,13 @@ const CardsHomeAnfitrion = () => {
 
   return (
     <>
-      <Grid container mt={5} className="grid-container-two">
-        <Grid item md={12} ml={2.3} mt={6} mb={3.9}>
-          <h1>Conviertete en anfitrion y comienza alquilar tu cochera</h1>
+      <Grid container className="grid-container-two">
+        <Grid item md={12} ml={2.3} mt={3}  mb={1.3}>
+          <Typography className="head-card" variant="h4" gutterBottom component="div">Conviertete en anfitrion y comienza alquilar tu cochera</Typography>
         </Grid>
         <Grid item md={12}>
           <Grid container textAlign={"start"}>
-            <Grid item md={6}>
+            <Grid item md={6} xs={12}>
               <div className="home-huespedes">
                 <div className="home-huespedes-card">
                   <Grid container textAlign={"start"} width={350}>
@@ -45,7 +45,7 @@ const CardsHomeAnfitrion = () => {
                 </div>
               </div>
             </Grid>
-            <Grid item md={6}>
+            <Grid item md={6} xs={12}>
               <div className="home-huespedes home-huespedes-2">
                 <div className="home-huespedes-card-2">
                   <Grid container  textAlign={"start"} width={350}>

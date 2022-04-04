@@ -10,7 +10,7 @@ import "./index.css"
 const Booking = () => {
     return (
         <Container maxWidth="xl">
-          <Grid container>
+          <Grid container mt={5}>
               <Grid item md={12}>
                 <Typography className="head-card" variant="h4" gutterBottom component="div">Encuentra una cochera comoda y segura</Typography>
               </Grid>
