@@ -35,7 +35,7 @@ const Anfitrion = () => {
 
     const idGarage = filterUser[0].idCocheras.map((id)=>id)
     console.log("ID Garages", idGarage)
-    console.log("ID Garages", dataGarege)
+    console.log("data Garages", dataGarege)
 
     // console.log("ID Garages", idGarage)
     const filterGarage = dataGarege.filter((garage)=>
