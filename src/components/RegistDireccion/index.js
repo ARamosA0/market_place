@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Container,
   Grid,
@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { storeCochera, updateCochera } from "../../service/firestore";
 import garage1 from "../../assets/garage.jpg";
+
 
 const RegistroDireccion = (props) => {
   const [open, setOpen] = useState(false);
@@ -27,6 +28,19 @@ const RegistroDireccion = (props) => {
   const handleOpenDialog = () => {
     setOpen(!open);
   };
+
+  const [user, setUser] = useState([]);
+  const [cocheras, setCocheras] = useState([]);
+  const fetchData = async () => {
+    const dataUser = await updateCochera("usuario");
+    const dataGarage = await updateCochera("cochera");
+    setUser(dataUser);
+    console.log(dataUser);
+  };
+
+  useEffect(() => {
+      fetchData();
+    }, []);
 
   return (
     <section>

@@ -40,15 +40,15 @@ export const getCocheraData = async (nameBd) =>{
 }
 
 // Guardar datos
-export const storeCochera = async (product) => {
+export const storeCochera = async (product, nameBd) => {
   const id = uuidv4().replaceAll("-", "");
   product.id = id;
-  await setDoc(doc(db, "product_clothes", id), product);
+  await setDoc(doc(db, nameBd, id), product);
 };
 
 // actualizar un datos en firebase
-export const updateCochera = async (product) => {
-  const productRef = doc(db, "usuarioAnfitrion", product.id);
+export const updateCochera = async (product, nameBd) => {
+  const productRef = doc(db, nameBd, product.id);
 
   await updateDoc(productRef, product);
 };
