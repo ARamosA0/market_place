@@ -15,12 +15,17 @@ import garage1 from "../../assets/garage.jpg";
 const RegistroDireccion = (props) => {
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState([]);
+  const [valorInputs, setValorInputs] = useState({
+    country:"",
+    department:"",
+    districtv:"",
+    adress:"",
+  })
 
   const handleChangeInput = (e) => {
     const { value, name } = e.target;
-
-    setValues({
-      ...values,
+    setValorInputs({
+      ...valorInputs,
       [name]: value,
     });
   };
@@ -33,10 +38,19 @@ const RegistroDireccion = (props) => {
   const [cocheras, setCocheras] = useState([]);
   const fetchData = async () => {
     const dataUser = await updateCochera("usuario");
-    const dataGarage = await updateCochera("cochera");
+    
     setUser(dataUser);
     console.log(dataUser);
   };
+
+  const handleInputValue = (event) =>{
+
+    return
+  }
+
+  const handleClickUpdate = async () =>{
+    const dataGarage = await updateCochera("cochera");
+  }
 
   useEffect(() => {
       fetchData();
@@ -67,19 +81,19 @@ const RegistroDireccion = (props) => {
                     <h2>Direccion y Ubicacion</h2>
                   </Grid>
                   <Grid item md={12} xs={12}>
-                    <TextField label="Pais" name="country" fullWidth />
+                    <TextField label="Pais" name="country" fullWidth onChange={handleInputValue}/>
                   </Grid>
                   <Grid item md={12} xs={12}>
-                    <TextField label="Region" name="department" fullWidth />
+                    <TextField label="Region" name="department" fullWidth onChange={handleInputValue}/>
                   </Grid>
                   <Grid item md={12} xs={12}>
-                    <TextField label="Distrito" name="district" fullWidth />
+                    <TextField label="Distrito" name="district" fullWidth onChange={handleInputValue}/>
                   </Grid>
                   <Grid item md={12} xs={12}>
-                    <TextField label="Direccion" name="adress" fullWidth />
+                    <TextField label="Direccion" name="adress" fullWidth onChange={handleInputValue}/>
                   </Grid>
                   <Grid item md={12} xs={12}>
-                  <Button color="secondary" variant="contained" fullWidth>
+                  <Button color="secondary" variant="contained" fullWidth onClick={handleClickUpdate}>
                     Send
                   </Button>
                   </Grid>

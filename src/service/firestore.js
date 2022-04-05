@@ -7,6 +7,7 @@ import {
   setDoc,
   updateDoc,
   deleteDoc,
+  arrayUnion,
 } from "firebase/firestore/lite";
 import {
   getAuth,
@@ -49,9 +50,13 @@ export const storeCochera = async (product, nameBd) => {
 // actualizar un datos en firebase
 export const updateCochera = async (product, nameBd) => {
   const productRef = doc(db, nameBd, product.id);
-
   await updateDoc(productRef, product);
 };
+
+export const updateIdCochera = async (product, nameBd, newId) => {
+  const productRef = doc(db, nameBd, product.id);
+  await updateDoc(productRef, {idCocheras: arrayUnion(newId)});
+}
 
 // eliminar un registros de la db
 export const deleteCochera = async (id) => {

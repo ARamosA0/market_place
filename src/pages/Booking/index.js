@@ -5,10 +5,6 @@ import {
   Container,
   Card,
   CardContent,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
   Stack,
   TextField,
   Button,
@@ -20,7 +16,6 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import "./index.css";
-import { flexbox } from "@mui/system";
 import StaticDateRangePicker from "@mui/lab/StaticDateRangePicker";
 import StaticTimePicker from "@mui/lab/StaticTimePicker";
 import DateAdapter from "@mui/lab/AdapterDateFns";
@@ -32,7 +27,6 @@ import {
   TileLayer,
   Marker,
   Popup,
-  useMapEvents,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -45,7 +39,7 @@ const Booking = () => {
     const data = await getCocheraData("usuarioAnfitrion");
     setCocheras(data);
   };
-
+  console.log(cocheras)
   // Mapa
   const markerIcon = new L.icon({
     iconUrl: require("../../assets/marker.png"),

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { getCocheraData, storeCochera } from "../../service/firestore";
-import { Outlet, Link } from "react-router-dom";
+import { getCocheraData, storeCochera, updateIdCochera } from "../../service/firestore";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import {
   Grid,
@@ -24,39 +24,36 @@ const Anfitrion = () => {
   const fetchData = async () => {
     const dataUser = await getCocheraData("usuario");
     const dataGarege = await getCocheraData("cochera");
-    // console.log(dataUser);
-    const filterUser = dataUser.filter((user)=>
-    user.id.includes(id)
+    const filterUser = dataUser.find((user) => user.id === id);
+    const garages = filterUser.idCocheras;
+
+    const filterGarage = dataGarege.filter((dataGar) =>
+      garages.includes(dataGar.id)
     );
     
-    // const idGarage = filterUser[0].idCocheras.forEach((id)=> {
-    //   console.log(id)
-    // })
-
-    const idGarage = filterUser[0].idCocheras.map((id)=>id)
-    console.log("ID Garages", idGarage)
-    console.log("data Garages", dataGarege)
-
-    // console.log("ID Garages", idGarage)
-    const filterGarage = dataGarege.filter((garage)=>
-    idGarage.includes(garage.id)
-    );
-    console.log(filterGarage)
-    // setCocheras(filterGarage);
     setUser(filterUser);
-  
+    setCocheras(filterGarage);
 
-  }
+    // localStorage.setItem("garage", JSON.stringify([...basket, product]));
+  };
   
 
   const [values, setValues] = useState({
-    none: "",
+    adress: "",
+    country: "",
+    department: "",
+    description: "",
+    district: "",
+    geolocation: [],
+    image: [],
+    name: "",
+    price: ""
   });
 
 
   const handleClickGarge = async () => {
     await storeCochera(values, "cochera");
-    await storeCochera(values, "usuario");
+    await updateIdCochera(user, "usuario", values.id)
   };
 
   useEffect(() => {
@@ -65,13 +62,13 @@ const Anfitrion = () => {
 
   return (
     <section>
-      {user.length > 0 && (
+      {Object.keys(user).length > 0 && (
         <Container sx={{ paddingTop: 10, paddingBottom: 10 }}>
           <Grid container>
             <Grid item md={12}>
               <Grid container>
                 <Grid item md={6} sm={12} xs={2} className="foto-perfil">
-                  <img src={user[0].userImage} />
+                  <img src={user.userImage} />
                 </Grid>
                 <Grid item md={6} sm={12} xs={10} className="container-datos">
                   <Grid container>
@@ -80,24 +77,24 @@ const Anfitrion = () => {
                       md={12}
                       sx={{ textAlign: "center", marginBottom: 3 }}
                     >
-                      <h1>Hola, soy {user[0].userName} {user[0].lastName}</h1>
+                      <h1>Hola, soy {user.userName} {user.lastName}</h1>
                     </Grid>
                     <Grid item md={6} sx={{ textAlign: "center" }}>
                       <span className="datos-subtitulo">
                         EMAIL:&nbsp;&nbsp;
                       </span>
-                      <span>{user[0].email}</span>
+                      <span>{user.email}</span>
                     </Grid>
                     <Grid item md={6} sx={{ textAlign: "center" }}>
                       <span className="datos-subtitulo">
                         TELEFONO:&nbsp;&nbsp;
                       </span>
-                      <span>{user[0].telefono}</span>
+                      <span>{user.telefono}</span>
                     </Grid>
                   </Grid>
                 </Grid>
                 <Grid item md={12} sx={{ textAlign: "center", marginTop: 4 }}>
-                  <Link to="/anfitrion/registro">
+                  <Link to="/anfitrion/:id/registro">
                     <Button
                       variant="contained"
                       color="secondary"
@@ -109,7 +106,7 @@ const Anfitrion = () => {
                 </Grid>
               </Grid>
             </Grid>
-            {cocheras.length > 0 &&
+            {Object.keys(cocheras).length > 0 &&
               cocheras.map((cochera) => (
                 <Grid item md={12}>
                   <Divider sx={{ marginTop: 5, marginBottom: 5 }} />
@@ -123,7 +120,7 @@ const Anfitrion = () => {
                           />
                         </Grid>
                         <Grid item xs={8}>
-                          <p>
+                          <div>
                             <h2>{cochera.nameAlquiler}</h2>
                             <span>{cochera.country},&nbsp;</span>
                             <span>{cochera.department},&nbsp;</span>
@@ -136,7 +133,7 @@ const Anfitrion = () => {
                             <p style={{ textAlign: "justify" }}>
                               {cochera.description}
                             </p>
-                          </p>
+                          </div>
                         </Grid>
                       </Grid>
                     </CardContent>
