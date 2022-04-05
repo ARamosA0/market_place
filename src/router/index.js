@@ -6,6 +6,7 @@ import About from "../pages/About";
 import Booking from "../pages/Booking";
 import ParkingLog from "../pages/ParkingLot"
 import Contact from "../pages/Contact";
+
 //Loyout
 import Main from "../layouts/Main"
 import Parking from "../layouts/ParkingLog"
@@ -13,7 +14,7 @@ import Parking from "../layouts/ParkingLog"
 
 // Borrar
 
-import Registro from "../pages/Registro";
+import Registro from "../pages/Home";
 
 const Router = () => {
   return (
@@ -25,12 +26,11 @@ const Router = () => {
           <Route path="/booking" element={<Booking />}/>
           <Route path="/parkinglog" element={<ParkingLog />}/>
           <Route path="/contact" element={<Contact />}/>
-          <Route path="/registro" element={<Registro />} />
         </Route>
         <Route element={<Parking/>}>
           <Route path="/parking" element={<ParkingLog />}/>
         </Route>
-        {/* <Route path="/registro" element={<Registro />} /> */}
+        <Route path="/registro" element={<Registro />} />
       </Routes>
     </BrowserRouter>
   );
