@@ -1,13 +1,15 @@
-
 import Router from './router';
+import { CocheraProvider } from './Context/CocheraContext';
+
 import './App.css';
 
 const App = () => {
   return (
-    
-    <div>
-      <Router />
-    </div>
+    <CocheraProvider>
+      <div>
+        <Router />
+      </div>
+    </CocheraProvider>
   )
 }
 

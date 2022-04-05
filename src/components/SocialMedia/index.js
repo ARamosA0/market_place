@@ -16,7 +16,7 @@ const SocialMedia = () => {
                     <Grid item>
                         <Grid container spacing={3} direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
                             <Grid item>
-                                <Typography color={"white"}>© 2022 Airbnb.org. Todos los derechos reservados.</Typography>
+                                <Typography color={"white"}>©2022 Airbnb.org. Todos los derechos reservados.</Typography>
                             </Grid>
                             <Grid item>
                                 <InstagramIcon sx={{ fontSize: 40, color:"white" }} />

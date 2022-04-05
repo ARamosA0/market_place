@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
-import { getDatabase, ref, set } from "firebase/database";
 
 
 const firebaseConfig = {
@@ -15,10 +14,12 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+
 const db = getFirestore(app);
-export const getCocheraData = async (nameBd) =>{
-  const collectionClothes = collection(db, nameBd);
-  const documentClothes = await getDocs(collectionClothes);
-  const clothes = documentClothes.docs.map(doc => doc.data());  
-  return clothes;
+
+export const getCocheraData = async () =>{
+  const collectionCocheras = collection(db, "cochera");
+  const documentCocheras = await getDocs(collectionCocheras);
+  const cocheras = documentCocheras.docs.map(doc => doc.data());  
+  return cocheras;
 }
