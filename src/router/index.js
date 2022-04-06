@@ -13,11 +13,6 @@ import RegistroAnfitrion from "../pages/RegistroAnfitrion";
 import Main from "../layouts/Main"
 import Parking from "../layouts/ParkingLog"
 
-<<<<<<< HEAD
-=======
-// Borrar
-
->>>>>>> 080d03d623ccb48a3bcbd09275adf646c6e2216b
 const Router = () => {
   return (
     <BrowserRouter>
