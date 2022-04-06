@@ -26,7 +26,7 @@ const RegistroFotos = () => {
       ...valorInputs,
       [name]: value,
     });
-    console.log(valorInputs)
+    // console.log(valorInputs.image)
   };
 
   const handleOpenDialog = () => {
@@ -41,7 +41,7 @@ const RegistroFotos = () => {
 
 
   const handleClickUpdate = async () => {
-    await updatePhotoCochera(regCochera[0], valorInputs,"cochera");
+    await updatePhotoCochera(regCochera[0], valorInputs.image,"cochera");
     console.log(valorInputs)
   };
 
