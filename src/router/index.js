@@ -6,7 +6,6 @@ import About from "../pages/About";
 import Booking from "../pages/Booking";
 import ParkingLog from "../pages/ParkingLot"
 import Contact from "../pages/Contact";
-import Home2 from "../pages/Home2";
 import Anfitrion from "../pages/Anfitrion";
 import RegistroAnfitrion from "../pages/RegistroAnfitrion";
 

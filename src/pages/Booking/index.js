@@ -30,7 +30,6 @@ import {
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import Moment from 'react-moment';
 
 const Booking = () => {
   const [cocheras, setCocheras] = useState([]);
@@ -53,15 +52,7 @@ const Booking = () => {
   const [valueStartTime, setValueStartTime] = React.useState(new Date());
   const [valueEndTime, setValueEndTime] = React.useState(new Date());
 
-  // Calcular pago
-  const pago = () => {
-    // console.log(valueDate[0].toLocaleDateString())
-    // console.log(valueDate[1].toLocaleDateString())
-    return(
-      <a></a>
-      // <Moment diff="valueDate[0].toLocaleDateString()" unit="days" decimal>{valueDate[1].toLocaleDateString()}</Moment>
-    )
-  }
+
 
   useEffect(() => {
     fetchData();
@@ -216,7 +207,7 @@ const Booking = () => {
                         display: "inline",
                       }}
                     >
-                      {pago()}
+                      
             
                     </Box>
                   </div>
@@ -243,7 +234,7 @@ const Booking = () => {
                         marginLeft: 5,
                       }}
                     >
-                      <Moment diff="08/05/2022" unit="days" decimal>08/06/2022</Moment>
+                      
             
                     </Box>
                   </div>

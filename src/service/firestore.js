@@ -6,19 +6,10 @@ import {
   doc,
   setDoc,
   updateDoc,
-  deleteDoc,
   arrayUnion,
 } from "firebase/firestore/lite";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-  sendEmailVerification,
-} from "firebase/auth";
 import { v4 as uuidv4 } from "uuid";
-import { onAuthStateChanged } from "firebase/auth";
-import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
+
 
 
 const firebaseConfig = {
@@ -36,8 +27,8 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
-export const getCocheraData = async () =>{
-  const collectionCocheras = collection(db, "cochera");
+export const getCocheraData = async (nameDB) =>{
+  const collectionCocheras = collection(db, nameDB);
   const documentCocheras = await getDocs(collectionCocheras);
   const cocheras = documentCocheras.docs.map(doc => doc.data());  
   return cocheras;
@@ -61,7 +52,4 @@ export const updateIdCochera = async (product, nameBd, newId) => {
   await updateDoc(productRef, {idCocheras: arrayUnion(newId)});
 }
 
-// eliminar un registros de la db
-export const deleteCochera = async (id) => {
-  await deleteDoc(doc(db, "usuarioAnfitrion", id));
-};
+

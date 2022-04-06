@@ -21,23 +21,28 @@ const Anfitrion = () => {
   const {id} = useParams();
   const [user, setUser] = useState([]);
   const [cocheras, setCocheras] = useState([]);
+
+
   const fetchData = async () => {
     const dataUser = await getCocheraData("usuario");
     const dataGarege = await getCocheraData("cochera");
     const filterUser = dataUser.find((user) => user.id === id);
+    console.log(id)
+    console.log(filterUser)
+    console.log(dataUser[0])
     const garages = filterUser.idCocheras;
 
     const filterGarage = dataGarege.filter((dataGar) =>
       garages.includes(dataGar.id)
     );
-    
+
     setUser(filterUser);
     setCocheras(filterGarage);
 
     // localStorage.setItem("garage", JSON.stringify([...basket, product]));
   };
   
-
+  console.log(user)
   const [values, setValues] = useState({
     adress: "",
     country: "",
