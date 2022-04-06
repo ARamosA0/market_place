@@ -39,24 +39,36 @@ const ParkingLog = () => {
         setUser(userData);
     }
 
+    const handleSearchDistrict = (e) => {
+        // Es una buena practica decirle que inicie a contar cuando tengamos mas de 3 letras
+        const districts = e.target.value;
+    
+        if (districts.length === 0) {
+           fetchParking();
+        }
+    
+        if (districts.length > 0) {
+          const filterDistrict = parking.filter((distrito) =>
+            distrito.district.toUpperCase().includes(districts.toUpperCase())
+          );
+          setParking(filterDistrict);
+        }
+    };
+
     const handleDistrict = async (e) => {
-
         setDistrict(e.target.value);
-        const distrito = e.target.value;
+        const districts = e.target.value;
 
-        if (distrito === "all") {
+        if (districts === "all") {
             fetchParking();
           return;
         };
 
-        console.log(distrito)
-
-        const filterDistrict = parking.filter((parklog) =>
-            parklog.district.toUpperCase().includes(distrito.toUpperCase())
+        const filterDistrict = parking.filter((distrito) =>
+            distrito.district.toUpperCase().includes(districts.toUpperCase())
         );
-        
-        setParking(filterDistrict);
 
+        setParking(filterDistrict);
       };
 
     useEffect(() => {
@@ -65,7 +77,14 @@ const ParkingLog = () => {
 
     return (
         <Container maxWidth="xl">
-            <Grid container mt={3} direction={"row"} justifyContent={"end"}>
+            <Grid container mt={3} direction={"row"} justifyContent={"space-between"}>
+                <Grid item md={3}>
+                <TextField
+                    onChange={handleSearchDistrict}
+                    label="Search for a district..."
+                    fullWidth
+                />
+                </Grid>
                 <Grid item md={3}>
                 <FormControl fullWidth>
                     <InputLabel>Filter by Districts</InputLabel>
@@ -124,12 +143,15 @@ const ParkingLog = () => {
                     <MapContainer center={position} zoom={13} style={{ height: 500 }}>
                         <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                        <Marker position={[-12.043973616974938, -76.95295478638475]} icon={markerIcon} >
+                        {/* <Marker position={[-12.043973616974938, -76.95295478638475]} icon={markerIcon} >
                             <Popup>Tecsup Centro Educativo</Popup>
-                        </Marker>
-                        {/* {parking.filter((parkLog)=>(
+                        </Marker> */}
+                        {parking.filter((parkLog)=>(
                             console.log("Geolocalizacion: ",parkLog.geolocation)
-                        ))} */}
+                            // <Marker position={parkLog.geolocation} icon={markerIcon} >
+                            //     <Popup>Tecsup Centro Educativo</Popup>
+                            // </Marker>
+                        ))}
                     </MapContainer>
                 </Grid>
             </Grid>
