@@ -19,50 +19,52 @@ import { Carousel } from 'react-bootstrap';
 const ParkingLog = () => {
     
     const { storeCochera, storeUser } = useContext(CocheraContext);
-
     const [user, setUser] = useState([]);
     const [parking, setParking] = useState([]);
-
     const [district, setDistrict] = useState("");
-
     const position = [-12.04318, -77.02824];
-
     const markerIcon = new L.icon({
         iconUrl: require("../../assets/marker.png"),
         iconSize: [30, 30],
     });
-
     const fetchParking = async () => {
         const data = await getCocheraData("cochera");
-        const userData = await getCocheraData("usuario");
+        const userData = await storeUser(user);
         setParking(data);
         setUser(userData);
     }
 
+    const handleSearchDistrict = (e) => {
+        // Es una buena practica decirle que inicie a contar cuando tengamos mas de 3 letras
+        const districts = e.target.value;
+
+        if (districts.length === 0) {
+           fetchParking();
+        }
+
+        if (districts.length > 0) {
+          const filterDistrict = parking.filter((distrito) =>
+            distrito.district.toUpperCase().includes(districts.toUpperCase())
+          );
+          setParking(filterDistrict);
+        }
+    };
+
     const handleDistrict = async (e) => {
-
         setDistrict(e.target.value);
-        const distrito = e.target.value;
+        const districts = e.target.value;
 
-        if (distrito === "all") {
+        if (districts === "all") {
             fetchParking();
           return;
         };
 
-        console.log(distrito)
-
-        const filterDistrict = parking.filter((parklog) =>
-            parklog.district.toUpperCase().includes(distrito.toUpperCase())
+        const filterDistrict = parking.filter((distrito) =>
+            distrito.district.toUpperCase().includes(districts.toUpperCase())
         );
-        
+
         setParking(filterDistrict);
-
-    };
-
-    const clickUserGarage = () =>{
-        storeCochera(parking)
-        storeUser(user)
-    }
+      };
 
     useEffect(() => {
         fetchParking();
@@ -70,7 +72,14 @@ const ParkingLog = () => {
 
     return (
         <Container maxWidth="xl">
-            <Grid container mt={3} direction={"row"} justifyContent={"end"}>
+            <Grid container mt={3} direction={"row"} justifyContent={"space-between"}>
+                <Grid item md={3}>
+                <TextField
+                    onChange={handleSearchDistrict}
+                    label="Search for a district..."
+                    fullWidth
+                />
+                </Grid>
                 <Grid item md={3}>
                 <FormControl fullWidth>
                     <InputLabel>Filter by Districts</InputLabel>
@@ -100,7 +109,7 @@ const ParkingLog = () => {
                                 </Carousel> 
                             </CardMedia>    
                             <Link to={`/booking/${parking.id}`}>
-                                <CardActionArea onClick={clickUserGarage()} style={{textDecoration:"none"}}>
+                                <CardActionArea onClick={() => storeCochera(parking)}>
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="div" color={"#D93B30"}>{parking.name}</Typography>
                                         <Typography variant="subtitle2" color="primary">{`${parking.description}`}</Typography>
@@ -131,17 +140,19 @@ const ParkingLog = () => {
                     <MapContainer center={position} zoom={13} style={{ height: 500 }}>
                         <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                        <Marker position={[-12.043973616974938, -76.95295478638475]} icon={markerIcon} >
+                        {/* <Marker position={[-12.043973616974938, -76.95295478638475]} icon={markerIcon} >
                             <Popup>Tecsup Centro Educativo</Popup>
-                        </Marker>
-                        {/* {parking.filter((parkLog)=>(
+                        </Marker> */}
+                        {parking.filter((parkLog)=>(
                             console.log("Geolocalizacion: ",parkLog.geolocation)
-                        ))} */}
+                            // <Marker position={parkLog.geolocation} icon={markerIcon} >
+                            //     <Popup>Tecsup Centro Educativo</Popup>
+                            // </Marker>
+                        ))}
                     </MapContainer>
                 </Grid>
             </Grid>
         </Container>
     );
 };
-
 export default ParkingLog;
