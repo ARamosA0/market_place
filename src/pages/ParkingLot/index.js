@@ -100,7 +100,7 @@ const ParkingLog = () => {
                                 </Carousel> 
                             </CardMedia>    
                             <Link to={`/booking/${parking.id}`}>
-                                <CardActionArea onClick={clickUserGarage()}>
+                                <CardActionArea onClick={clickUserGarage()} style={{textDecoration:"none"}}>
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="div" color={"#D93B30"}>{parking.name}</Typography>
                                         <Typography variant="subtitle2" color="primary">{`${parking.description}`}</Typography>
