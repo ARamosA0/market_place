@@ -30,8 +30,10 @@ import {
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+import { useParams } from "react-router-dom";
 
 const Booking = () => {
+  const {id} = useParams();
   const [cocheras, setCocheras] = useState([]);
 
   const fetchData = async () => {
