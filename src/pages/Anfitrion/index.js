@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
-import { getCocheraData, storeCochera, updateIdCochera } from "../../service/firestore";
+import { useState, useEffect, useContext } from "react";
+import { getCocheraData, storeCochera as sc, updateIdCochera } from "../../service/firestore";
+import { CocheraContext } from "../../Context/CocheraContext";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import {
@@ -22,6 +23,8 @@ const Anfitrion = () => {
   const [user, setUser] = useState([]);
   const [cocheras, setCocheras] = useState([]);
 
+  const { storeCochera } = useContext(CocheraContext);
+  const { storeUser } = useContext(CocheraContext);
 
   const fetchData = async () => {
     const dataUser = await getCocheraData("usuario");
@@ -38,8 +41,6 @@ const Anfitrion = () => {
 
     setUser(filterUser);
     setCocheras(filterGarage);
-
-    // localStorage.setItem("garage", JSON.stringify([...basket, product]));
   };
   
   console.log(user)
@@ -52,13 +53,16 @@ const Anfitrion = () => {
     geolocation: [],
     image: [],
     name: "",
-    price: ""
+    price: "",
+    space: "",
   });
 
 
   const handleClickGarge = async () => {
-    await storeCochera(values, "cochera");
-    await updateIdCochera(user, "usuario", values.id)
+    await sc(values, "cochera");
+    await updateIdCochera(user, "usuario", values.id);
+    await storeCochera(values);
+    await storeUser(user);
   };
 
   useEffect(() => {

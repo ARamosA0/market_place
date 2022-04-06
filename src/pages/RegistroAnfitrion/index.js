@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { CocheraContext } from "../../Context/CocheraContext";
 import { Outlet, Link } from "react-router-dom";
 import { getCocheraData } from "../../service/firestore";
 import {Container, Grid, Card, CardContent, CardActions, Button} from "@mui/material"
@@ -18,6 +19,7 @@ import "./index.css"
 
 const RegistroAnfitrion = () => {   
 
+    const {storeCochera, storeuser } =useContext(CocheraContext)
     const [user, setUser] = useState([]);
     const [cocheras, setCocheras] = useState([]);
     const fetchData = async () => {

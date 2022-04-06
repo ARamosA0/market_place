@@ -8,6 +8,7 @@ import ParkingLog from "../pages/ParkingLot"
 import Contact from "../pages/Contact";
 import Anfitrion from "../pages/Anfitrion";
 import RegistroAnfitrion from "../pages/RegistroAnfitrion";
+import Registro from "../pages/Registro";
 
 //Loyout
 import Main from "../layouts/Main"
@@ -16,7 +17,8 @@ import Parking from "../layouts/ParkingLog"
 
 // Borrar
 
-import Registro from "../pages/Home";
+
+
 
 const Router = () => {
   return (
