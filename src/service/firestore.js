@@ -1,5 +1,15 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  setDoc,
+  updateDoc,
+  arrayUnion,
+} from "firebase/firestore/lite";
+import { v4 as uuidv4 } from "uuid";
+
 
 
 const firebaseConfig = {
@@ -17,9 +27,29 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
-export const getCocheraData = async () =>{
-  const collectionCocheras = collection(db, "cochera");
+export const getCocheraData = async (nameDB) =>{
+  const collectionCocheras = collection(db, nameDB);
   const documentCocheras = await getDocs(collectionCocheras);
   const cocheras = documentCocheras.docs.map(doc => doc.data());  
   return cocheras;
 }
+
+// Guardar datos
+export const storeCochera = async (product, nameBd) => {
+  const id = uuidv4().replaceAll("-", "");
+  product.id = id;
+  await setDoc(doc(db, nameBd, id), product);
+};
+
+// actualizar un datos en firebase
+export const updateCochera = async (product, nameBd) => {
+  const productRef = doc(db, nameBd, product.id);
+  await updateDoc(productRef, product);
+};
+
+export const updateIdCochera = async (product, nameBd, newId) => {
+  const productRef = doc(db, nameBd, product.id);
+  await updateDoc(productRef, {idCocheras: arrayUnion(newId)});
+}
+
+

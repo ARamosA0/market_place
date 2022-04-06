@@ -1,4 +1,8 @@
 /*? Animacion y estilo para la pagina principal */
+*{
+    margin: 0;
+    padding: 0;
+}
 body{
     margin: 0;
 }
@@ -26,10 +30,10 @@ body{
 	}
 };
 
-h1{
+.h1{
     font-size: 45px;
 }
-p{
+.p{
     font-size: 20px;
     max-width: 50%;
     min-width: 40%;

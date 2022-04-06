@@ -1,5 +1,10 @@
-
+/* Titulo principal inicio */
+*{
+    margin: 0;
+    padding: 0;
+}
 .titulo-principal{
+    margin-top: 30px;
     padding-top: 5px !important;
 }
 
@@ -10,6 +15,7 @@
     padding-top: 0 !important;
     margin: 0 !important;
     color: rgb(105, 104, 104);
+    margin-top: 30px;
 }
 
 .reserva-items div{
@@ -17,23 +23,59 @@
     justify-content: space-between;
     align-items: center;
 }
+/* Titulo principal final */
 
+/* imagen inicio */
 .img-principal{
-    width: 610px;
-}
-
-
-
-.img-principal{
-    margin: 5px;
+    object-fit: cover;
+    width: 555px;
+    height: 450px;
 }
 
 .img-sec{
-    width: 300px;
-    margin: 3px;
+    object-fit: cover;
+    width: 273px;
+    height: 250px;
+}
+/* imagen final */
+
+/* Descripcion inicio */
+.titulo-cochera{
+    margin: 30px 0;
+}
+.titulo-cochera-uno{
+    margin-top: 30px;
+    font-size: 1.5em;
+    font-weight: 500;
+}
+.titulo-cochera-dos{
+    margin-top: 10px;
+    margin-bottom: 30px;
+    font-weight: 300;
 }
 
+.description{
+    margin: 30px 0;
+}
+/* Descripcion final */
 
+/* Date Static inicio */
+
+.fecha-container{
+    margin: 30px 0;
+}
+.titulo-fechas{
+    margin: 30px 0;
+    font-size: 1.5em;
+    font-weight: 500;   
+}
+
+/* .static-date-container{
+    width: 55vw;
+} */
+/* Date Static fin */
+
+/* card inicio*/
 .date-container{
     margin-top:25px;
     width: 100%;
@@ -48,9 +90,13 @@
     font-size: 1.5em;
 }
 
+.titulo-cochera{
+    text-align: left;
+}
+
 .card-main-info{
     position: sticky;
-    top:30px;
+    top:200px;
 }
 
 .card-info{
@@ -59,54 +105,15 @@
     flex-direction: column;
     justify-content: center;
 }
+/* card final*/
 
-.titulo-propietario{
-    font-weight: 600;
-    font-size: 1.5em;
-    margin: 0;
-}
-
+/* mapa inicio */
 .titulo-mapa{
-    font-weight: 500;
+    margin-top: 30px;
     font-size: 1.5em;
-    margin: 0;
-    margin-bottom: 20px;
+    font-weight: 500;   
 }
+/* mapa final */
 
-.titulo-lugar-mapa{
-    font-weight: 400;
-    font-size: 1.3em;
-    margin: 0;
-    margin-top: 20px;
-}
 
-.titulo-propietario-principal{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 110%;
-}
 
-.img-usuario{
-    margin-left:250px ;
-}
-
-.img-usuario img{
-   width: 70px;
-}
-
-.description{
-    text-align: justify;
-    text-justify: inter-word;
-    width: 110%;
-}
-
-.titulo-fecha{
-    font-size: medium;
-    font-weight: 400;
-}
-
-.calendar-container{
-    display: flex;
-    margin-top: 20px;
-}

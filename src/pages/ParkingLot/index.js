@@ -30,7 +30,7 @@ const ParkingLog = () => {
     });
 
     const fetchParking = async () => {
-        const data = await getCocheraData();
+        const data = await getCocheraData("cochera");
         setParking(data);
     }
 
