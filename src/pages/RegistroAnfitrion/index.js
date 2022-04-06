@@ -19,30 +19,33 @@ import "./index.css"
 
 const RegistroAnfitrion = () => {   
 
-    const {storeCochera, storeuser } =useContext(CocheraContext)
-    const [user, setUser] = useState([]);
-    const [cocheras, setCocheras] = useState([]);
-    const fetchData = async () => {
-      const dataUser = await getCocheraData("usuario");
-      const dataGarage = await getCocheraData("cochera");
-      setUser(dataUser);
-    //   console.log(dataUser);
+    const {user, cochera } =useContext(CocheraContext)
+    const [regUser, setRegUser] = useState([])
+    // const [reg, setRegUser] = useState([])
+
+    const fetchData =  () => {
+        const showUser = JSON.parse(localStorage.getItem('user'))
+        setRegUser(showUser)
+        // console.log(showUser)
     };
+
+    
 
     useEffect(() => {
         fetchData();
-      }, []);
+      }, [user]);
+
 
     return(
         <>
-            {user.length > 0 && (
+            {regUser.length > 0 && (
                 <Container>
                     <Grid container spacing={3} sx={{marginBottom:20, marginTop:10}}>
                         <Grid item md={12}>
                             <h2>Cuenta</h2>
                             <p>
-                                <span>{},&nbsp;</span>
-                                <span>Correo .&nbsp;</span>
+                                <span> <b>{regUser[0].userName} {regUser[0].lastName},&nbsp;</b></span>
+                                <span>{regUser[0].email} .&nbsp;</span>
                                 <Link to="/anfitrion">
                                     <span><Button color="secondary">Ir a perfil</Button></span>
                                 </Link>

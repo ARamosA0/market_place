@@ -1,23 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+import { CocheraContext } from "../../Context/CocheraContext";
 import {
-  Container,
   Grid,
   Dialog,
   DialogContent,
-  DialogTitle,
   TextField,
   Button,
 } from "@mui/material";
-import { storeCochera, updateCochera } from "../../service/firestore";
+import { updatePhotoCochera } from "../../service/firestore";
 import garage1 from "../../assets/garage.jpg";
 
-const RegistroFotos = (props) => {
+const RegistroFotos = () => {
+  const { cochera } =useContext(CocheraContext);
+  const [regCochera, setRegCochera] = useState([])
   const [open, setOpen] = useState(false);
+  const [values, setValues] = useState([]);
+
   const [valorInputs, setValorInputs] = useState({
-    country: "",
-    department: "",
-    districtv: "",
-    adress: "",
+    image: "",
   });
 
   const handleInputValue = (event) => {
@@ -26,11 +26,29 @@ const RegistroFotos = (props) => {
       ...valorInputs,
       [name]: value,
     });
+    console.log(valorInputs)
   };
 
   const handleOpenDialog = () => {
     setOpen(!open);
   };
+
+
+  const fetchData = () => {
+    const showCochera = JSON.parse(localStorage.getItem('cochera'));
+    setRegCochera(showCochera);
+  };
+
+
+  const handleClickUpdate = async () => {
+    await updatePhotoCochera(regCochera[0], valorInputs,"cochera");
+    console.log(valorInputs)
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
 
   return (
     <section>
@@ -61,23 +79,7 @@ const RegistroFotos = (props) => {
                   <Grid item md={12} xs={12}>
                     <TextField
                       label="Foto"
-                      name="country"
-                      fullWidth
-                      onChange={handleInputValue}
-                    />
-                  </Grid>
-                  <Grid item md={12} xs={12}>
-                    <TextField
-                      label="Foto"
-                      name="department"
-                      fullWidth
-                      onChange={handleInputValue}
-                    />
-                  </Grid>
-                  <Grid item md={12} xs={12}>
-                    <TextField
-                      label="Foto"
-                      name="district"
+                      name="image"
                       fullWidth
                       onChange={handleInputValue}
                     />
@@ -87,7 +89,7 @@ const RegistroFotos = (props) => {
                       color="secondary"
                       variant="contained"
                       fullWidth
-                      onChange={handleInputValue}
+                      onChange={handleClickUpdate}
                     >
                       Send
                     </Button>
