@@ -13,6 +13,11 @@ import RegistroAnfitrion from "../pages/RegistroAnfitrion";
 import Main from "../layouts/Main"
 import Parking from "../layouts/ParkingLog"
 
+<<<<<<< HEAD
+=======
+// Borrar
+
+>>>>>>> 080d03d623ccb48a3bcbd09275adf646c6e2216b
 const Router = () => {
   return (
     <BrowserRouter>
@@ -20,7 +25,7 @@ const Router = () => {
         <Route element={<Main/>}>
           <Route path="/" element={<Home />}/>
           <Route path="/about" element={<About />}/>
-          <Route path="/booking" element={<Booking />}/>
+          <Route path="/booking/:id" element={<Booking />}/>
           <Route path="/parkinglog" element={<ParkingLog />}/>
           <Route path="/contact" element={<Contact />}/>
           <Route path="/anfitrion/:id" element={<Anfitrion />} />

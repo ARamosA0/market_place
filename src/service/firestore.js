@@ -41,10 +41,17 @@ export const storeCochera = async (product, nameBd) => {
   await setDoc(doc(db, nameBd, id), product);
 };
 
-// actualizar un datos en firebase
-export const updateCochera = async (product, nameBd) => {
+
+export const updateCochera = async (product,data, nameBd) => {
   const productRef = doc(db, nameBd, product.id);
-  await updateDoc(productRef, product);
+  await updateDoc(productRef, data);
+};
+
+export const updatePhotoCochera = async (product,data, nameBd) => {
+  const productRef = doc(db, nameBd, product.id);
+    await updateDoc(productRef, {image:arrayUnion(data)});
+  
+  
 };
 
 export const updateIdCochera = async (product, nameBd, newId) => {

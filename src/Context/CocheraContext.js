@@ -8,13 +8,11 @@ export const CocheraProvider = (props) => {
     const [user, setUser] = useState([]);
 
     const storeCochera = (product) => {
-        //hace una copia de lo que ya tiene cochera y agrega el nuevo producto
-        // setCochera([...cochera, product]);
-        //agrega el elemento al local storage
         localStorage.setItem("cochera",JSON.stringify([...cochera, product]));
     };
+
     const storeUser = (product)=>{
-      localStorage.setItem("user",JSON.stringify([...user, product]));
+        localStorage.setItem("user",JSON.stringify([...user, product]));
     }
 
     return (

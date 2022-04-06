@@ -30,9 +30,6 @@ const Anfitrion = () => {
     const dataUser = await getCocheraData("usuario");
     const dataGarege = await getCocheraData("cochera");
     const filterUser = dataUser.find((user) => user.id === id);
-    console.log(id)
-    console.log(filterUser)
-    console.log(dataUser[0])
     const garages = filterUser.idCocheras;
 
     const filterGarage = dataGarege.filter((dataGar) =>
@@ -68,7 +65,7 @@ const Anfitrion = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [user]);
 
   return (
     <section>
