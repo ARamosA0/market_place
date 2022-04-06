@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import {storeCochera, getCocheraData} from "../../service/firestore";
 import {
   Grid,
   TextField,
@@ -8,8 +9,10 @@ import {
   DialogTitle,
   Tab,
   styled,
-  FormControl, 
+  FormControl,
+  Typography,
 } from "@mui/material";
+import swal from "sweetalert";
 import { TabContext, TabPanel, TabList } from "@mui/lab";
 import CloseIcon from "@mui/icons-material/Close";
 import PersonPinIcon from "@mui/icons-material/PersonPin";
@@ -27,6 +30,74 @@ const LoginAnfitrion = ({ handleClickOpen, open }) => {
     setValue(newValue);
   };
 
+  //registro de usuario
+  const [users, setUsers] = useState({
+    userName:"",
+    lastName:"",
+    email:"",
+    password:"",
+    dni:"",
+    telefono:"",
+    idCocheras: [],
+    userImage: "",
+  });
+
+  //obteniendo valores de los inputs
+  const handleInputForm = (e) => {
+    const {name, value} = e.target;
+    setUsers({
+      ...users,
+      [name]: value,
+    });
+    
+  };
+  //funcion para verificar el usuario
+
+  const verificarUsuario = async() => {
+    const data = await getCocheraData("usuario");
+    const filtroUser = data.filter((dt) => dt.email === users.email && dt.password === users.password);
+    if (filtroUser.length > 0) {
+        const idUser = filtroUser[0].id;
+        localStorage.setItem("userID",JSON.stringify(idUser));
+        const response = await swal({
+          icon: "success",
+          title: "Inicio de sesion exitoso",
+          text: `Bienvenido ${filtroUser[0].userName}`,
+        });
+        if(response){
+          window.location.replace('');
+        }
+    }else {
+      swal({
+        icon: "error",
+        title: "No se pudo iniciar sesion",
+        text: "Coloque bien su correo o contraseña \n o si no esta registrado registrese primero",
+      });  
+    };
+  };
+ 
+  //funcion para crear usuario
+  const handleClickCreateUser = async() => {
+    await storeCochera(users, "usuario");
+    swal({
+      icon: "success",
+      title: "Cuenta creada",
+      text: "Inicie sesion para continuar",
+    });
+    document.querySelector('form').reset();
+    setUsers({
+      username:"",
+      lastName:"",
+      email:"",
+      password:"",
+      dni:"",
+      telefono:"",
+      idCocheras: [],
+      userImage: "", 
+    })
+    return ;
+  }
+
   //Button personalizado y usado como componente
   const ColorButton = styled(Button)(({ theme }) => ({
     backgroundColor: "#b34c6b",
@@ -39,23 +110,7 @@ const LoginAnfitrion = ({ handleClickOpen, open }) => {
     borderRadius: "12px",
   }));
 
-  //Buttons Registro
-  const ButtonRegister = styled(TextField)({
-    '& label.Mui-focused': {
-      color: '#194c6b ',
-    },
-    '& .MuiOutlinedInput-root': {
-      '& fieldset': {
-        border: '1.5px solid #863850'
-      },
-      '&:hover fieldset': {  
-        borderColor: '#b34c6b',
-      },
-      '&.Mui-focused fieldset': {
-        borderColor: '#194c5b',
-      },
-    },
-  });
+
   //Componente para usar servicios externos para el Login texfield
   const ServiciosGoFa = ({ init }) => {
     return (
@@ -65,18 +120,18 @@ const LoginAnfitrion = ({ handleClickOpen, open }) => {
           fullWidth
           startIcon={<FcGoogle />}
           onClick={handleClickOpen}
-          sx={{ marginTop: "20px", borderColor: "#B0A5AB"}}
+          sx={{ marginTop: "20px", borderColor: "#B0A5AB" }}
         >
-          <span style={{color: "black"}}>{init} con Google</span>
+          <span style={{ color: "black" }}>{init} con Google</span>
         </Button>
         <Button
           variant="outlined"
           fullWidth
           startIcon={<FacebookIcon />}
           onClick={handleClickOpen}
-          sx={{ marginTop: "20px", borderColor: "#B0A5AB"}}
+          sx={{ marginTop: "20px", borderColor: "#B0A5AB" }}
         >
-          <span style={{color: "black"}}>{init} con Facebook</span>
+          <span style={{ color: "black" }}>{init} con Facebook</span>
         </Button>
       </>
     );
@@ -96,24 +151,41 @@ const LoginAnfitrion = ({ handleClickOpen, open }) => {
         }}
       >
         <Grid container alignItems={"center"}>
-          <Grid item sx={{ height: "2px" }}>
+          <Grid item sx={{ height: "1px" }}>
             <Button
               size="small"
               sx={{ justifyContent: "start", color: "#b34c6b" }}
               onClick={handleClickOpen}
             >
-              <CloseIcon sx={{ fontSize: 27 }} />
+              <CloseIcon sx={{ fontSize: 26 }} />
             </Button>
           </Grid>
           <Grid item xs={12} textAlign={"center"}>
-            <span style={{fontSize: "23px", fontWeight: "600"}}>Inicia sesion o Registrate</span>
+            <Typography
+              className="title-card2"
+              variant="h5"
+              gutterBottom
+              component="div"
+              mb={0}
+            >
+              Inicia sesion o Registrate
+            </Typography>
           </Grid>
         </Grid>
       </DialogTitle>
       <DialogContent>
         <Grid container textAlign={"center"} justifyContent={"center"}>
           <Grid item md={12}>
-            <h3>Te damos la bienvenida a Cochera.com</h3>
+            <Typography
+              className="subtitle-card"
+              variant="h5"
+              gutterBottom
+              component="div"
+              mb={0}
+              mt={2}
+            >
+              Te damos la bienvenida a Cochera.pe
+            </Typography>
           </Grid>
         </Grid>
         <TabContext value={value}>
@@ -136,29 +208,32 @@ const LoginAnfitrion = ({ handleClickOpen, open }) => {
               <TextField
                 autoFocus
                 margin="dense"
-                id="email"
                 label="Email Address"
                 type="email"
+                name="email"
                 fullWidth
                 variant="filled"
                 color="secondary"
                 required
+                onChange={handleInputForm}
               />
               <TextField
                 margin="dense"
-                id="password"
                 label="Password"
                 type="password"
+                name="password"
                 fullWidth
                 variant="filled"
                 color="secondary"
                 required
+                onChange={handleInputForm}
               />
               <ColorButton
                 variant="contained"
+                type="submit"
                 fullWidth
                 endIcon={<SendIcon />}
-                onClick={handleClickOpen}
+                onClick={verificarUsuario}
               >
                 Siguiente
               </ColorButton>
@@ -174,71 +249,80 @@ const LoginAnfitrion = ({ handleClickOpen, open }) => {
           {/* Panel 2 - registro*/}
 
           <TabPanel value="2">
-            <Grid container spacing={2}>
-              <Grid item md={6}>
-                <ButtonRegister
-                  autoFocus
-                  margin="dense"
-                  id="text"
-                  label="Name"
-                  type="text"
-                  fullWidth               
-                />
-              </Grid>
-              <Grid item md={6}>
-                <ButtonRegister
-                  margin="dense"
-                  id="text"
-                  label="Last Name"
-                  type="text"
+              <form >  
+                <Grid container spacing={2}>
+                  <Grid item md={6}>
+                    <TextField
+                      autoFocus
+                      margin="dense"
+                      name="userName"
+                      label="Name"
+                      type="text"
+                      fullWidth
+                      onChange={handleInputForm}
+                    />
+                  </Grid>
+                  <Grid item md={6}>
+                    <TextField
+                      margin="dense"
+                      name="lastName"
+                      label="Last Name"
+                      type="text"
+                      fullWidth
+                      onChange={handleInputForm}
+                    />
+                  </Grid>
+                  <Grid item md={6}>
+                    <TextField
+                      margin="dense"
+                      name="email"
+                      label="Email"
+                      type="email"
+                      fullWidth
+                      onChange={handleInputForm}
+                    />
+                  </Grid>
+                  <Grid item md={6}>
+                    <TextField
+                      margin="dense"
+                      name="password"
+                      label="Password"
+                      type="password"
+                      fullWidth
+                      onChange={handleInputForm}
+                    />
+                  </Grid>
+                  <Grid item md={6}>
+                    <TextField
+                      margin="dense"
+                      name="dni"
+                      label="Dni"
+                      type="number"
+                      fullWidth
+                      onChange={handleInputForm}
+                    />
+                  </Grid>
+                  <Grid item md={6}>
+                    <TextField
+                      margin="dense"
+                      name="telefono"
+                      label="Phone"
+                      type="tel"
+                      onChange={handleInputForm}
+                      fullWidth
+                    />
+                  </Grid>
+                </Grid>
+              
+                <ColorButton
+                  variant="contained"
                   fullWidth
-                />
-              </Grid>
-              <Grid item md={6}>
-                <ButtonRegister
-                  margin="dense"
-                  id="email"
-                  label="Email"
-                  type="email"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item md={6}>
-                <ButtonRegister
-                  margin="dense"
-                  id="password"
-                  label="Password"
-                  type="password"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item md={6}>
-                <ButtonRegister
-                  margin="dense"
-                  id="number"
-                  label="Dni"
-                  type="number"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item md={6}>
-                <ButtonRegister
-                  margin="dense"
-                  id="tel"
-                  label="Phone"
-                  type="tel"
-                  fullWidth
-                />
-              </Grid>
-            </Grid>
-            <ColorButton
-              variant="contained"
-              fullWidth
-              endIcon={<AppRegistrationIcon />}
-              onClick={handleClickOpen}
-            >
-              Registrate
-            </ColorButton>
+                  endIcon={<AppRegistrationIcon />}
+                  onClick={handleClickCreateUser}
+                >
+                  Registrate
+                </ColorButton>
+            </form>
             <div className="div-container">
               <div className="division"></div>
               <span>&nbsp;O&nbsp;</span>

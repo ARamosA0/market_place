@@ -1,9 +1,9 @@
 import { Container, Grid, Button } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import Link from '@mui/material/Link';
-import CardsHomeAnfitrion from "../../components/CardsHomeAnfitrion";
 import Booking from "../../components/Booking"
 import "./index.css";
+import Registro from "../../components/Registro";
 
 const Home = () => {
 
@@ -28,10 +28,9 @@ const Home = () => {
             </div>
         </Grid>
         <Container maxWidth="xl" >
-          
           <Booking></Booking>
-          <CardsHomeAnfitrion/>
         </Container>
+        <Registro/>
       </div>
   );
 };
