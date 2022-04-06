@@ -14,11 +14,7 @@ import Registro from "../pages/Registro";
 import Main from "../layouts/Main"
 import Parking from "../layouts/ParkingLog"
 
-
 // Borrar
-
-
-
 
 const Router = () => {
   return (
