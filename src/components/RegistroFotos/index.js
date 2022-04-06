@@ -13,13 +13,17 @@ import garage1 from "../../assets/garage.jpg";
 
 const RegistroFotos = (props) => {
   const [open, setOpen] = useState(false);
-  const [values, setValues] = useState([]);
+  const [valorInputs, setValorInputs] = useState({
+    country: "",
+    department: "",
+    districtv: "",
+    adress: "",
+  });
 
-  const handleChangeInput = (e) => {
-    const { value, name } = e.target;
-
-    setValues({
-      ...values,
+  const handleInputValue = (event) => {
+    const { value, name } = event.target;
+    setValorInputs({
+      ...valorInputs,
       [name]: value,
     });
   };
@@ -30,7 +34,9 @@ const RegistroFotos = (props) => {
 
   return (
     <section>
-      <Button color="secondary" onClick={handleOpenDialog}>Click Aqui</Button>
+      <Button color="secondary" onClick={handleOpenDialog}>
+        Click Aqui
+      </Button>
       <Dialog open={open} onClose={handleOpenDialog}>
         <DialogContent>
           <form>
@@ -53,16 +59,36 @@ const RegistroFotos = (props) => {
                     <h2>Direccion y Ubicacion</h2>
                   </Grid>
                   <Grid item md={12} xs={12}>
-                    <TextField label="Foto" name="country" fullWidth />
+                    <TextField
+                      label="Foto"
+                      name="country"
+                      fullWidth
+                      onChange={handleInputValue}
+                    />
                   </Grid>
                   <Grid item md={12} xs={12}>
-                    <TextField label="Foto" name="department" fullWidth />
+                    <TextField
+                      label="Foto"
+                      name="department"
+                      fullWidth
+                      onChange={handleInputValue}
+                    />
                   </Grid>
                   <Grid item md={12} xs={12}>
-                    <TextField label="Foto" name="district" fullWidth />
+                    <TextField
+                      label="Foto"
+                      name="district"
+                      fullWidth
+                      onChange={handleInputValue}
+                    />
                   </Grid>
                   <Grid item md={12} xs={12}>
-                    <Button color="secondary" variant="contained" fullWidth>
+                    <Button
+                      color="secondary"
+                      variant="contained"
+                      fullWidth
+                      onChange={handleInputValue}
+                    >
                       Send
                     </Button>
                   </Grid>

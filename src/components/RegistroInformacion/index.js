@@ -12,13 +12,17 @@ import { storeCochera, updateCochera } from "../../service/firestore";
 
 const RegistroInformacion = (props) => {
   const [open, setOpen] = useState(false);
-  const [values, setValues] = useState([]);
+  const [valorInputs, setValorInputs] = useState({
+    country: "",
+    department: "",
+    districtv: "",
+    adress: "",
+  });
 
-  const handleChangeInput = (e) => {
-    const { value, name } = e.target;
-
-    setValues({
-      ...values,
+  const handleInputValue = (event) => {
+    const { value, name } = event.target;
+    setValorInputs({
+      ...valorInputs,
       [name]: value,
     });
   };
@@ -47,10 +51,16 @@ const RegistroInformacion = (props) => {
                       label="Nombre del Alquiler"
                       name="name"
                       fullWidth
+                      onChange={handleInputValue}
                     />
                   </Grid>
                   <Grid item md={12} xs={12}>
-                    <TextField label="Precio por hora" name="price" fullWidth />
+                    <TextField
+                      label="Precio por hora"
+                      name="price"
+                      fullWidth
+                      onChange={handleInputValue}
+                    />
                   </Grid>
                   <Grid item md={12} xs={12}>
                     <TextField
@@ -59,10 +69,16 @@ const RegistroInformacion = (props) => {
                       fullWidth
                       multiline
                       rows={4}
+                      onChange={handleInputValue}
                     />
                   </Grid>
                   <Grid item md={12} xs={12}>
-                    <Button color="secondary" variant="contained" fullWidth>
+                    <Button
+                      color="secondary"
+                      variant="contained"
+                      fullWidth
+                      onChange={handleInputValue}
+                    >
                       Send
                     </Button>
                   </Grid>

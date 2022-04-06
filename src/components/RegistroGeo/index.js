@@ -4,8 +4,6 @@ import {
   Grid,
   Dialog,
   DialogContent,
-  DialogTitle,
-  TextField,
   Button,
 } from "@mui/material";
 import {
@@ -38,6 +36,26 @@ const RegistroGeo = (props) => {
     iconSize: [30, 30],
   });
 
+  function LocationMarker() {
+    const [position, setPosition] = useState(null);
+    const map = useMapEvents({
+      click() {
+        map.locate();
+      },
+      locationfound(e) {
+        setPosition(e.latlng);
+        console.log(e.latlng);
+        // map.flyTo(e.latlng, map.getZoom());
+      },
+    });
+
+    return position === null ? null : (
+      <Marker position={position} icon={markerIcon}>
+        <Popup>You are here</Popup>
+      </Marker>
+    );
+  }
+
   const handleOpenDialog = () => {
     setOpen(!open);
   };
@@ -65,6 +83,7 @@ const RegistroGeo = (props) => {
             >
               <Popup>Cochera los Cedros</Popup>
             </Marker>
+            <LocationMarker/>
           </MapContainer>
           <Button color="secondary" variant="contained" fullWidth mt={3}>
             Send

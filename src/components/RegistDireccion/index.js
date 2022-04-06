@@ -11,19 +11,19 @@ import {
 import { storeCochera, updateCochera } from "../../service/firestore";
 import garage1 from "../../assets/garage.jpg";
 
-
 const RegistroDireccion = (props) => {
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState([]);
-  const [valorInputs, setValorInputs] = useState({
-    country:"",
-    department:"",
-    districtv:"",
-    adress:"",
-  })
 
-  const handleChangeInput = (e) => {
-    const { value, name } = e.target;
+  const [valorInputs, setValorInputs] = useState({
+    country: "",
+    department: "",
+    districtv: "",
+    adress: "",
+  });
+
+  const handleInputValue = (event) => {
+    const { value, name } = event.target;
     setValorInputs({
       ...valorInputs,
       [name]: value,
@@ -38,27 +38,25 @@ const RegistroDireccion = (props) => {
   const [cocheras, setCocheras] = useState([]);
   const fetchData = async () => {
     const dataUser = await updateCochera("usuario");
-    
+
     setUser(dataUser);
     console.log(dataUser);
   };
 
-  const handleInputValue = (event) =>{
 
-    return
-  }
-
-  const handleClickUpdate = async () =>{
+  const handleClickUpdate = async () => {
     const dataGarage = await updateCochera("cochera");
-  }
+  };
 
   useEffect(() => {
-      fetchData();
-    }, []);
+    fetchData();
+  }, []);
 
   return (
     <section>
-      <Button color="secondary" onClick={handleOpenDialog}>Click Aqui</Button>
+      <Button color="secondary" onClick={handleOpenDialog}>
+        Click Aqui
+      </Button>
       <Dialog open={open} onClose={handleOpenDialog}>
         <DialogContent>
           <form>
@@ -81,21 +79,50 @@ const RegistroDireccion = (props) => {
                     <h2>Direccion y Ubicacion</h2>
                   </Grid>
                   <Grid item md={12} xs={12}>
-                    <TextField label="Pais" name="country" fullWidth onChange={handleInputValue}/>
+                    <TextField
+                      label="Pais"
+                      type="text"
+                      name="country"
+                      fullWidth
+                      onChange={handleInputValue}
+                    />
                   </Grid>
                   <Grid item md={12} xs={12}>
-                    <TextField label="Region" name="department" fullWidth onChange={handleInputValue}/>
+                    <TextField
+                      label="Region"
+                      type="text"
+                      name="department"
+                      fullWidth
+                      onChange={handleInputValue}
+                    />
                   </Grid>
                   <Grid item md={12} xs={12}>
-                    <TextField label="Distrito" name="district" fullWidth onChange={handleInputValue}/>
+                    <TextField
+                      label="Distrito"
+                      type="text"
+                      name="district"
+                      fullWidth
+                      onChange={handleInputValue}
+                    />
                   </Grid>
                   <Grid item md={12} xs={12}>
-                    <TextField label="Direccion" name="adress" fullWidth onChange={handleInputValue}/>
+                    <TextField
+                      label="Direccion"
+                      type="text"
+                      name="adress"
+                      fullWidth
+                      onChange={handleInputValue}
+                    />
                   </Grid>
                   <Grid item md={12} xs={12}>
-                  <Button color="secondary" variant="contained" fullWidth onClick={handleClickUpdate}>
-                    Send
-                  </Button>
+                    <Button
+                      color="secondary"
+                      variant="contained"
+                      fullWidth
+                      onClick={handleClickUpdate}
+                    >
+                      Send
+                    </Button>
                   </Grid>
                 </Grid>
               </Grid>

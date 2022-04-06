@@ -24,7 +24,7 @@ const RegistroAnfitrion = () => {
       const dataUser = await getCocheraData("usuario");
       const dataGarage = await getCocheraData("cochera");
       setUser(dataUser);
-      console.log(dataUser);
+    //   console.log(dataUser);
     };
 
     useEffect(() => {
