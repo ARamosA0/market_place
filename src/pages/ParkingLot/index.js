@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { CocheraContext } from "../../Context/CocheraContext";
 
-import { Container, Grid, Card, Divider, Chip, CardMedia, CardActionArea, Typography,  CardContent, Stack } from "@mui/material";
+import { Container, Grid, Card, Divider, Chip, CardMedia, CardActionArea, Typography,  CardContent, Stack, TextField, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { getCocheraData } from "../../service/firestore";
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 
@@ -18,9 +18,12 @@ import { Carousel } from 'react-bootstrap';
 
 const ParkingLog = () => {
     
-    const { storeCochera } = useContext(CocheraContext);
+    const { storeCochera, storeUser } = useContext(CocheraContext);
 
+    const [user, setUser] = useState([]);
     const [parking, setParking] = useState([]);
+
+    const [district, setDistrict] = useState("");
 
     const position = [-12.04318, -77.02824];
 
@@ -31,8 +34,30 @@ const ParkingLog = () => {
 
     const fetchParking = async () => {
         const data = await getCocheraData("cochera");
+        const userData = await storeUser(user);
         setParking(data);
+        setUser(userData);
     }
+
+    const handleDistrict = async (e) => {
+
+        setDistrict(e.target.value);
+        const distrito = e.target.value;
+
+        if (distrito === "all") {
+            fetchParking();
+          return;
+        };
+
+        console.log(distrito)
+
+        const filterDistrict = parking.filter((parklog) =>
+            parklog.district.toUpperCase().includes(distrito.toUpperCase())
+        );
+        
+        setParking(filterDistrict);
+
+      };
 
     useEffect(() => {
         fetchParking();
@@ -40,6 +65,21 @@ const ParkingLog = () => {
 
     return (
         <Container maxWidth="xl">
+            <Grid container mt={3} direction={"row"} justifyContent={"end"}>
+                <Grid item md={3}>
+                <FormControl fullWidth>
+                    <InputLabel>Filter by Districts</InputLabel>
+                    <Select label="Filter by Region" value={district} onChange={handleDistrict}>
+                    <MenuItem value="all">Todas las distritos</MenuItem>
+                    <MenuItem value="Chorrillos">Chorrillos</MenuItem>
+                    <MenuItem value="Agustino">Agustino</MenuItem>
+                    <MenuItem value="Comas">Comas</MenuItem>
+                    <MenuItem value="Lima">Lima</MenuItem>
+                    <MenuItem value="Miraflores">Miraflores</MenuItem>
+                    </Select>
+                </FormControl>
+                </Grid>
+            </Grid>
             <Grid container spacing={3} mt={2}>
                 {parking.map((parking) => (
                     <Grid item md={3}>
@@ -61,9 +101,9 @@ const ParkingLog = () => {
                                     <Typography className="parking-text" variant="subtitle2" color="primary">{`Dirección: ${parking.adress}`}</Typography>
                                     <Divider></Divider>
                                     <Stack direction="row" spacing={1} mt={3}>
-                                        <Chip label={`País: ${parking.department}`} color="info" />
+                                        <Chip label={`País: ${parking.country}`} color="info" />
                                         <Chip label={`Región: ${parking.department}`} color="success" />
-                                        <Chip label={`Distríto: ${parking.department}`} color="warning" />
+                                        <Chip label={`Distríto: ${parking.district}`} color="warning" />
                                     </Stack>
                                     <Grid container direction={"row"} justifyContent={"space-between"} mt={15}>
                                         <Grid item>
@@ -87,9 +127,9 @@ const ParkingLog = () => {
                         <Marker position={[-12.043973616974938, -76.95295478638475]} icon={markerIcon} >
                             <Popup>Tecsup Centro Educativo</Popup>
                         </Marker>
-                        {parking.filter((parkLog)=>(
+                        {/* {parking.filter((parkLog)=>(
                             console.log("Geolocalizacion: ",parkLog.geolocation)
-                        ))}
+                        ))} */}
                     </MapContainer>
                 </Grid>
             </Grid>
