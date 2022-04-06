@@ -1,16 +1,16 @@
 .banner {
     height: 88vh !important;
     background-image: linear-gradient(20deg, #1b3444 0%, #2c2542 50%,rgba(0, 0, 0, 0.918) 100%);
-    background-size: 200% 200%;
+    background-size: 200% 200% !important;
     animation: gradient 15s ease infinite;
     background-size: contain;
     padding: 40px 0;
 }
 .div-banner{
     background: linear-gradient(160deg, #1b34445b 0%, #2c254277 50%,rgba(0, 0, 0, 0.479) 100%),url("../../assets/home.webp");
-    animation: gradient 0s ease infinite;
+    animation: gradient 90s ease infinite;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover !important;
     min-width: 76% ;
     max-width: 76% ;
     border-radius: 20px;

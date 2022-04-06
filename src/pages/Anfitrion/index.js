@@ -54,6 +54,7 @@ const Anfitrion = () => {
     space: "",
   });
 
+  const idUsuario = JSON.parse(localStorage.getItem("userID"));
 
   const handleClickGarge = async () => {
     await sc(values, "cochera");
@@ -100,7 +101,7 @@ const Anfitrion = () => {
                   </Grid>
                 </Grid>
                 <Grid item md={12} sx={{ textAlign: "center", marginTop: 4 }}>
-                  <Link to="/anfitrion/:id/registro">
+                  <Link to={`/anfitrion/${idUsuario}/registro`}>
                     <Button
                       variant="contained"
                       color="secondary"
@@ -123,6 +124,7 @@ const Anfitrion = () => {
                           <img
                             className="image-principal"
                             src={cochera.image[0]}
+                            alt=""
                           />
                         </Grid>
                         <Grid item xs={8}>

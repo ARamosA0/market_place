@@ -8,14 +8,16 @@ import ParkingLog from "../pages/ParkingLot"
 import Contact from "../pages/Contact";
 import Anfitrion from "../pages/Anfitrion";
 import RegistroAnfitrion from "../pages/RegistroAnfitrion";
-import Registro from "../pages/Registro";
 
 //Loyout
 import Main from "../layouts/Main"
 import Parking from "../layouts/ParkingLog"
 
+<<<<<<< HEAD
+=======
 // Borrar
 
+>>>>>>> 080d03d623ccb48a3bcbd09275adf646c6e2216b
 const Router = () => {
   return (
     <BrowserRouter>
@@ -32,7 +34,6 @@ const Router = () => {
         <Route element={<Parking/>}>
           <Route path="/parking" element={<ParkingLog />}/>
         </Route>
-        <Route path="/registro" element={<Registro />} />
       </Routes>
     </BrowserRouter>
   );
