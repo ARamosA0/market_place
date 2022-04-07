@@ -54,48 +54,64 @@ const LoginAnfitrion = ({ handleClickOpen, open }) => {
   //funcion para verificar el usuario
 
   const verificarUsuario = async() => {
-    const data = await getCocheraData("usuario");
-    const filtroUser = data.filter((dt) => dt.email === users.email && dt.password === users.password);
-    if (filtroUser.length > 0) {
-        const idUser = filtroUser[0].id;
-        localStorage.setItem("userID",JSON.stringify(idUser));
-        const response = await swal({
-          icon: "success",
-          title: "Inicio de sesion exitoso",
-          text: `Bienvenido ${filtroUser[0].userName}`,
-        });
-        if(response){
-          window.location.replace('');
-        }
-    }else {
+    try {
+      const data = await getCocheraData("usuario");
+      const filtroUser = data.filter((dt) => dt.email === users.email && dt.password === users.password);
+      if (filtroUser.length > 0) {
+          const idUser = {id: filtroUser[0].id, userName: filtroUser[0].userName , lastName: filtroUser[0].lastName};
+          localStorage.setItem("userID",JSON.stringify(idUser));
+          const response = await swal({
+            icon: "success",
+            title: "Inicio de sesion exitoso",
+            text: `Bienvenido ${filtroUser[0].userName}`,
+          });
+          if(response){
+            window.location.replace('');
+          }
+      }else {
+        swal({
+          icon: "error",
+          title: "No se pudo iniciar sesion",
+          text: "Coloque bien su correo o contraseña \n o si no esta registrado registrese primero",
+        });  
+      };
+    } catch (error) {
       swal({
         icon: "error",
-        title: "No se pudo iniciar sesion",
-        text: "Coloque bien su correo o contraseña \n o si no esta registrado registrese primero",
+        title: `${error.message}`,
+        text: "Intenta de nuevo",
       });  
-    };
+    }
   };
  
   //funcion para crear usuario
   const handleClickCreateUser = async() => {
-    await storeCochera(users, "usuario");
-    swal({
-      icon: "success",
-      title: "Cuenta creada",
-      text: "Inicie sesion para continuar",
-    });
-    document.querySelector('form').reset();
-    setUsers({
-      username:"",
-      lastName:"",
-      email:"",
-      password:"",
-      dni:"",
-      telefono:"",
-      idCocheras: [],
-      userImage: "", 
-    })
-    return ;
+    try {
+      await storeCochera(users, "usuario");
+      swal({
+        icon: "success",
+        title: "Cuenta creada",
+        text: "Inicie sesion para continuar",
+      });
+      document.querySelector('form').reset();
+      setUsers({
+        username:"",
+        lastName:"",
+        email:"",
+        password:"",
+        dni:"",
+        telefono:"",
+        idCocheras: [],
+        userImage: "", 
+      })
+      return ;
+    } catch (error) {
+      swal({
+        icon: "error",
+        title: `${error.message}`,
+        text: "Intenta de nuevo dentro de unos minutos",
+      });  
+    }
   }
 
   //Button personalizado y usado como componente
@@ -237,6 +253,7 @@ const LoginAnfitrion = ({ handleClickOpen, open }) => {
               >
                 Siguiente
               </ColorButton>
+              
               <div className="div-container">
                 <div className="division"></div>
                 <span>&nbsp;O&nbsp;</span>
@@ -257,6 +274,7 @@ const LoginAnfitrion = ({ handleClickOpen, open }) => {
                       margin="dense"
                       name="userName"
                       label="Name"
+                      color="secondary"
                       type="text"
                       fullWidth
                       onChange={handleInputForm}
@@ -267,6 +285,7 @@ const LoginAnfitrion = ({ handleClickOpen, open }) => {
                       margin="dense"
                       name="lastName"
                       label="Last Name"
+                      color="secondary"
                       type="text"
                       fullWidth
                       onChange={handleInputForm}
@@ -276,6 +295,7 @@ const LoginAnfitrion = ({ handleClickOpen, open }) => {
                     <TextField
                       margin="dense"
                       name="email"
+                      color="secondary"
                       label="Email"
                       type="email"
                       fullWidth
@@ -286,6 +306,7 @@ const LoginAnfitrion = ({ handleClickOpen, open }) => {
                     <TextField
                       margin="dense"
                       name="password"
+                      color="secondary"
                       label="Password"
                       type="password"
                       fullWidth
@@ -296,6 +317,7 @@ const LoginAnfitrion = ({ handleClickOpen, open }) => {
                     <TextField
                       margin="dense"
                       name="dni"
+                      color="secondary"
                       label="Dni"
                       type="number"
                       fullWidth
@@ -306,6 +328,7 @@ const LoginAnfitrion = ({ handleClickOpen, open }) => {
                     <TextField
                       margin="dense"
                       name="telefono"
+                      color="secondary"
                       label="Phone"
                       type="tel"
                       onChange={handleInputForm}

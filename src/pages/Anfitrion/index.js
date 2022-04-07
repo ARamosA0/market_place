@@ -65,7 +65,7 @@ const Anfitrion = () => {
 
   useEffect(() => {
     fetchData();
-  }, [user]);
+  }, []);
 
   return (
     <section>
