@@ -29,7 +29,7 @@ const ParkingLog = () => {
     });
     const fetchParking = async () => {
         const data = await getCocheraData("cochera");
-        const userData = await storeUser(user);
+        const userData = await getCocheraData("usuario");
         setParking(data);
         setUser(userData);
     }
@@ -47,6 +47,7 @@ const ParkingLog = () => {
             distrito.district.toUpperCase().includes(districts.toUpperCase())
           );
           setParking(filterDistrict);
+          setUser(user);
         }
     };
 
