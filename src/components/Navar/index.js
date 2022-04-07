@@ -12,6 +12,7 @@ import {
   Divider,
   AppBar,
   Link,
+  Container,
 } from "@mui/material";
 import BookOnlineIcon from "@mui/icons-material/BookOnline";
 import HomeIcon from "@mui/icons-material/Home";
@@ -56,156 +57,156 @@ const MenuAppBar = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" sx={{ height: "10vh" }}>
-        <Toolbar sx={{ height: "10vh", padding: "0px 5px" }} className="navar">
-          <Typography
-            variant="h6"
-            component="div"
-            noWrap
-            sx={{ display: { xs: "flex", md: "flex" } }}
-          >
-            <Link href={`/`} underline="none">
-              <span className="logo-titulo1">
-                Cocheras<span className="logo-titulo2">.pe</span>
-              </span>
-            </Link>
-          </Typography>
-
-          <Box sx={{ flexGrow: 1 }} />
-          <Box
-            sx={{ display: { xs: "flex", md: "flex" }, alignItems: "center" }}
-          >
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ display: { xs: "none", sm: "block" }, padding: "15px" }}
-            >
-              <Link href={`/`} color="white" underline="none">
-                <HomeIcon sx={{ fontSize: 20, color: "white" }} />
-                <span className="botones"> Home</span>
-              </Link>
-            </Typography>
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ display: { xs: "none", sm: "block", padding: "15px" } }}
-            >
-              <Link href={`/parkinglog`} color="white" underline="none">
-                <BookOnlineIcon sx={{ fontSize: 20, color: "white" }} />
-                <span className="botones"> Booking</span>
-              </Link>
-            </Typography>
-
-            <div style={{ width: "115px" }}>
-              {!usuario ? (
-                <IconButton
-                  size="large"
-                  onClick={handleMenu}
-                  color="inherit"
-                  className="btn-session"
+        <Box sx={{ flexGrow: 1 }}>
+          <AppBar position="fixed" sx={{ height: "10vh" }}>
+              <Toolbar sx={{ height: "10vh", padding: "0px 5px" }} className="navar">
+                <Typography
+                  variant="h6"
+                  component="div"
+                  noWrap
+                  sx={{ display: { xs: "flex", md: "flex"}}}
                 >
-                  <Avatar
-                    sx={{ width: 38, height: 38 }}
-                    className="btn-session"
-                  ></Avatar>
-                  <span
-                    style={{
-                      fontSize: "18px",
-                      fontWeight: "bold",
-                      width: "66px",
-                    }}
-                  >
-                    &nbsp;Inicia sesion
-                  </span>
-                </IconButton>
-              ) : (
-                <IconButton size="large" onClick={handleMenu} color="inherit">
-                  <Avatar
-                    sx={{ width: 38, height: 38, textTransform: "capitalize" }}
-                  >
-                    {usuario.userName.substring(0, 1)}
-                  </Avatar>
-                  <span style={{ fontSize: "15px" }}>
-                    &nbsp;{usuario.userName}
-                  </span>
-                </IconButton>
-              )}
+                  <Link href={`/`} underline="none">
+                    <span className="logo-titulo1">
+                      Cocheras<span className="logo-titulo2">.pe</span>
+                    </span>
+                  </Link>
+                </Typography>
 
-              <Menu
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-                sx={{ top: "-9px", left: "-10px" }}
-              >
-                {!usuario ? (
-                  <MenuItem>
-                    <Button
-                      onClick={handleClickOpen}
-                      color="secondary"
-                      variant="contained"
-                    >
-                      <PersonAdd fontSize="small" />
-                      &nbsp;&nbsp;Iniciar Sesion
-                    </Button>
-                    <LoginAnfitrion
-                      handleClickOpen={handleClickOpen}
-                      open={open}
-                    />
-                  </MenuItem>
-                ) : (
-                  <MenuItem onClick={handleClose}>
-                    <Link
-                      href={`/anfitrion/${usuario.id}`}
-                      color="black"
-                      underline="none"
-                    >
-                      <PersonAdd fontSize="small" />
-                      &nbsp;&nbsp;Mi cuenta
+                <Box sx={{ flexGrow: 1 }} />
+                <Box
+                  sx={{ display: { xs: "flex", md: "flex" }, alignItems: "center" }}
+                >
+                  <Typography
+                    variant="h6"
+                    component="div"
+                    sx={{ display: { xs: "none", sm: "block" }, padding: "15px" }}
+                  >
+                    <Link href={`/`} color="white" underline="none">
+                      <HomeIcon sx={{ fontSize: 20, color: "white" }} />
+                      <span className="botones"> Home</span>
                     </Link>
-                  </MenuItem>
-                )}
-                {!usuario ? (
-                  <MenuItem
-                    onClick={handleClickCerrarSesion}
-                    className="prueba"
-                    sx={{ display: "none" }}
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    component="div"
+                    sx={{ display: { xs: "none", sm: "block", padding: "15px" } }}
                   >
-                    <Logout fontSize="small" />
-                    &nbsp;&nbsp;Cerrar Sesion
-                  </MenuItem>
-                ) : (
-                  <MenuItem
-                    onClick={handleClickCerrarSesion}
-                    className="prueba"
-                    sx={{ display: "block" }}
-                  >
-                    <Logout fontSize="small" />
-                    &nbsp;&nbsp;Cerrar Sesion
-                  </MenuItem>
-                )}
+                    <Link href={`/parkinglog`} color="white" underline="none">
+                      <BookOnlineIcon sx={{ fontSize: 20, color: "white" }} />
+                      <span className="botones"> Booking</span>
+                    </Link>
+                  </Typography>
 
-                <Divider />
+                  <div style={{ width: "115px" }}>
+                    {!usuario ? (
+                      <IconButton
+                        size="large"
+                        onClick={handleMenu}
+                        color="inherit"
+                        className="btn-session"
+                      >
+                        <Avatar
+                          sx={{ width: 38, height: 38 }}
+                          className="btn-session"
+                        ></Avatar>
+                        <span
+                          style={{
+                            fontSize: "18px",
+                            fontWeight: "bold",
+                            width: "66px",
+                          }}
+                        >
+                          &nbsp;SignUp
+                        </span>
+                      </IconButton>
+                    ) : (
+                      <IconButton size="large" onClick={handleMenu} color="inherit">
+                        <Avatar
+                          sx={{ width: 38, height: 38, textTransform: "capitalize" }}
+                        >
+                          {usuario.userName.substring(0, 1)}
+                        </Avatar>
+                        <span style={{ fontSize: "15px" }}>
+                          &nbsp;{usuario.userName}
+                        </span>
+                      </IconButton>
+                    )}
 
-                <MenuItem onClick={handleClose} className="prueba">
-                  <Link href={`/`} color="black" underline="none">
-                    <HomeIcon fontSize="small" />
-                    &nbsp;&nbsp;Home
-                  </Link>
-                </MenuItem>
+                    <Menu
+                      anchorEl={anchorEl}
+                      open={Boolean(anchorEl)}
+                      onClose={handleClose}
+                      sx={{ top: "-9px", left: "-10px" }}
+                    >
+                      {!usuario ? (
+                        <MenuItem>
+                          <Button
+                            onClick={handleClickOpen}
+                            color="secondary"
+                            variant="contained"
+                          >
+                            <PersonAdd fontSize="small" />
+                            &nbsp;&nbsp;Iniciar Sesion
+                          </Button>
+                          <LoginAnfitrion
+                            handleClickOpen={handleClickOpen}
+                            open={open}
+                          />
+                        </MenuItem>
+                      ) : (
+                        <MenuItem onClick={handleClose}>
+                          <Link
+                            href={`/anfitrion/${usuario.id}`}
+                            color="black"
+                            underline="none"
+                          >
+                            <PersonAdd fontSize="small" />
+                            &nbsp;&nbsp;Mi cuenta
+                          </Link>
+                        </MenuItem>
+                      )}
+                      {!usuario ? (
+                        <MenuItem
+                          onClick={handleClickCerrarSesion}
+                          className="prueba"
+                          sx={{ display: "none" }}
+                        >
+                          <Logout fontSize="small" />
+                          &nbsp;&nbsp;Cerrar Sesion
+                        </MenuItem>
+                      ) : (
+                        <MenuItem
+                          onClick={handleClickCerrarSesion}
+                          className="prueba"
+                          sx={{ display: "block" }}
+                        >
+                          <Logout fontSize="small" />
+                          &nbsp;&nbsp;Cerrar Sesion
+                        </MenuItem>
+                      )}
 
-                <MenuItem onClick={handleClose} className="prueba">
-                  <Link href={`/parkinglog`} color="black" underline="none">
-                    <BookOnlineIcon fontSize="small" />
-                    &nbsp;&nbsp;Booking
-                  </Link>
-                </MenuItem>
-              </Menu>
-            </div>
-          </Box>
-        </Toolbar>
-      </AppBar>
-    </Box>
+                      <Divider />
+
+                      <MenuItem onClick={handleClose} className="prueba">
+                        <Link href={`/`} color="black" underline="none">
+                          <HomeIcon fontSize="small" />
+                          &nbsp;&nbsp;Home
+                        </Link>
+                      </MenuItem>
+
+                      <MenuItem onClick={handleClose} className="prueba">
+                        <Link href={`/parkinglog`} color="black" underline="none">
+                          <BookOnlineIcon fontSize="small" />
+                          &nbsp;&nbsp;Booking
+                        </Link>
+                      </MenuItem>
+                    </Menu>
+                  </div>
+                </Box>
+              </Toolbar>
+          </AppBar>
+        </Box>
   );
 };
 export default MenuAppBar;
