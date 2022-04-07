@@ -81,7 +81,7 @@ const Booking = () => {
             <Grid item md={12} className="reserva-items">
               <div>
                 <StarIcon />
-                <span>4,96 . 84 reseñas &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span>4,96 . 100 reseñas &nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <LocationOnIcon />
                 <span>
                   {filterCochera[0].country}, {filterCochera[0].department},{" "}
