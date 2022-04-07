@@ -11,6 +11,7 @@ import {
   Box,
   Divider,
 } from "@mui/material";
+import { CocheraContext } from "../../Context/CocheraContext";
 import StarIcon from "@mui/icons-material/Star";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import IosShareIcon from "@mui/icons-material/IosShare";
@@ -34,13 +35,19 @@ import { useParams } from "react-router-dom";
 
 const Booking = () => {
   const {id} = useParams();
-  const [cocheras, setCocheras] = useState([]);
+  const {user, cochera } =useContext(CocheraContext)
+  const [filterUser, setFilterUser] = useState([]);
+  const [filterCochera, setFilterCochera] = useState([]);
 
-  const fetchData = async () => {
-    const data = await getCocheraData("usuarioAnfitrion");
-    setCocheras(data);
+  const fetchData = () => {
+    const fetchUser = JSON.parse(localStorage.getItem('user'));
+    const fetchCochera = JSON.parse(localStorage.getItem('cochera'));
+    setFilterUser(fetchUser);
+    setFilterCochera(fetchCochera)
+    console.log(filterUser)
+    console.log(filterCochera)
   };
-  console.log(cocheras)
+  
   // Mapa
   const markerIcon = new L.icon({
     iconUrl: require("../../assets/marker.png"),
@@ -58,11 +65,11 @@ const Booking = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [user, cochera]);
 
   return (
     <section>
-      {cocheras.length > 0 && (
+      {filterUser.length > 0 && (
         <Container sx={{ marginTop: 5 }}>
           <Grid container spacing={3}>
             <Grid item md={12} className="titulo-principal">
