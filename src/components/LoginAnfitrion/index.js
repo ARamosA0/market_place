@@ -52,7 +52,7 @@ const LoginAnfitrion = ({ handleClickOpen, open }) => {
     
   };
   //funcion para verificar el usuario
-
+  // se le da al local storage solo el id de usuario
   const verificarUsuario = async() => {
     const data = await getCocheraData("usuario");
     const filtroUser = data.filter((dt) => dt.email === users.email && dt.password === users.password);
