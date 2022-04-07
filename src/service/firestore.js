@@ -67,9 +67,7 @@ export const updateCochera = async (product,data, nameBd) => {
 
 export const updatePhotoCochera = async (product,data, nameBd) => {
   const productRef = doc(db, nameBd, product.id);
-    await updateDoc(productRef, {image:arrayUnion(data)});
-  
-  
+  await updateDoc(productRef, {image:arrayUnion(data)});
 };
 
 export const updateIdCochera = async (product, nameBd, newId) => {

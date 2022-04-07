@@ -11,18 +11,11 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { storeCochera, updateCochera } from "../../service/firestore";
 
-const RegistroGeo = (props) => {
+const RegistroGeo = () => {
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState([]);
 
-  const handleChangeInput = (e) => {
-    const { value, name } = e.target;
 
-    setValues({
-      ...values,
-      [name]: value,
-    });
-  };
 
   // Mapa
   const markerIcon = new L.icon({
@@ -43,9 +36,10 @@ const RegistroGeo = (props) => {
       // },
     });
 
+
     return position === null ? null : (
       <Marker position={position} icon={markerIcon}>
-        <Popup>You are here</Popup>
+        <Popup>Estas Aqui!!!</Popup>
       </Marker>
     );
   }
@@ -71,9 +65,6 @@ const RegistroGeo = (props) => {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <Marker position={[-12.2047107, -77.0154433]} icon={markerIcon}>
-              <Popup>Cochera los Cedros</Popup>
-            </Marker>
             <LocationMarker />
           </MapContainer>
           <Button color="secondary" variant="contained" fullWidth mt={3}>

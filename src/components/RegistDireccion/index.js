@@ -46,7 +46,6 @@ const RegistroDireccion = () => {
 
   const handleClickUpdate = async () => {
     await updateCochera(regCochera[0], valorInputs,"cochera");
-
   };
 
   useEffect(() => {
@@ -64,70 +63,54 @@ const RegistroDireccion = () => {
           <DialogContent>
             <form>
               <Grid container spacing={2}>
-                <Grid item md={6} xs={4}>
-                  <img
-                    src={garage1}
-                    style={{
-                      objectFit: "cover",
-                      width: 260,
-                      height: 427,
-                      margin: 0,
-                      padding: 0,
-                    }}
+                <Grid item md={12} xs={12}>
+                  <h2>Direccion y Ubicacion</h2>
+                </Grid>
+                <Grid item md={12} xs={12}>
+                  <TextField
+                    label="Pais"
+                    type="text"
+                    name="country"
+                    fullWidth
+                    onChange={handleInputValue}
                   />
                 </Grid>
-                <Grid item md={6} xs={8}>
-                  <Grid container spacing={2}>
-                    <Grid item md={12} xs={12}>
-                      <h2>Direccion y Ubicacion</h2>
-                    </Grid>
-                    <Grid item md={12} xs={12}>
-                      <TextField
-                        label="Pais"
-                        type="text"
-                        name="country"
-                        fullWidth
-                        onChange={handleInputValue}
-                      />
-                    </Grid>
-                    <Grid item md={12} xs={12}>
-                      <TextField
-                        label="Region"
-                        type="text"
-                        name="department"
-                        fullWidth
-                        onChange={handleInputValue}
-                      />
-                    </Grid>
-                    <Grid item md={12} xs={12}>
-                      <TextField
-                        label="Distrito"
-                        type="text"
-                        name="district"
-                        fullWidth
-                        onChange={handleInputValue}
-                      />
-                    </Grid>
-                    <Grid item md={12} xs={12}>
-                      <TextField
-                        label="Direccion"
-                        type="text"
-                        name="adress"
-                        fullWidth
-                        onChange={handleInputValue}
-                      />
-                    </Grid>
-                    <Grid item md={12} xs={12}>
-                      <Button
-                        color="secondary"
-                        variant="contained"
-                        fullWidth
-                        onClick={handleClickUpdate}
-                      >
-                        Send
-                      </Button>
-                    </Grid>
-                  </Grid>
+                <Grid item md={12} xs={12}>
+                  <TextField
+                    label="Region"
+                    type="text"
+                    name="department"
+                    fullWidth
+                    onChange={handleInputValue}
+                  />
+                </Grid>
+                <Grid item md={12} xs={12}>
+                  <TextField
+                    label="Distrito"
+                    type="text"
+                    name="district"
+                    fullWidth
+                    onChange={handleInputValue}
+                  />
+                </Grid>
+                <Grid item md={12} xs={12}>
+                  <TextField
+                    label="Direccion"
+                    type="text"
+                    name="adress"
+                    fullWidth
+                    onChange={handleInputValue}
+                  />
+                </Grid>
+                <Grid item md={12} xs={12}>
+                  <Button
+                    color="secondary"
+                    variant="contained"
+                    fullWidth
+                    onClick={handleClickUpdate}
+                  >
+                    Send
+                  </Button>
                 </Grid>
               </Grid>
             </form>

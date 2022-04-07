@@ -8,7 +8,6 @@ import {
   Button,
 } from "@mui/material";
 import { updateCochera } from "../../service/firestore";
-import garage1 from "../../assets/garage.jpg";
 
 const RegistroInformacion = () => {
   const { cochera } =useContext(CocheraContext);
@@ -61,57 +60,52 @@ const RegistroInformacion = () => {
         <DialogContent>
           <form>
             <Grid container spacing={2}>
-              <Grid item md={6} xs={4}></Grid>
-              <Grid item md={6} xs={8}>
-                <Grid container spacing={2}>
-                  <Grid item md={12} xs={12}>
-                    <h2>Direccion y Ubicacion</h2>
-                  </Grid>
-                  <Grid item md={12} xs={12}>
-                    <TextField
-                      label="Nombre del Alquiler"
-                      name="name"
-                      fullWidth
-                      onChange={handleInputValue}
-                    />
-                  </Grid>
-                  <Grid item md={12} xs={12}>
-                    <TextField
-                      label="Precio por hora"
-                      name="price"
-                      fullWidth
-                      onChange={handleInputValue}
-                    />
-                  </Grid>
-                  <Grid item md={12} xs={12}>
-                    <TextField
-                      label="Cantidad de espacios"
-                      name="space"
-                      fullWidth
-                      onChange={handleInputValue}
-                    />
-                  </Grid>
-                  <Grid item md={12} xs={12}>
-                    <TextField
-                      label="Descripcion"
-                      name="description"
-                      fullWidth
-                      multiline
-                      rows={4}
-                      onChange={handleInputValue}
-                    />
-                  </Grid>
-                  <Grid item md={12} xs={12}>
-                    <Button
-                      color="secondary"
-                      variant="contained"
-                      fullWidth
-                      onClick={handleClickUpdate}
-                    >
-                      Send
-                    </Button>
-                  </Grid>
-                </Grid>
+              <Grid item md={12} xs={12}>
+                <h2>Direccion y Ubicacion</h2>
+              </Grid>
+              <Grid item md={12} xs={12}>
+                <TextField
+                  label="Nombre del Alquiler"
+                  name="name"
+                  fullWidth
+                  onChange={handleInputValue}
+                />
+              </Grid>
+              <Grid item md={12} xs={12}>
+                <TextField
+                  label="Precio por hora"
+                  name="price"
+                  fullWidth
+                  onChange={handleInputValue}
+                />
+              </Grid>
+              <Grid item md={12} xs={12}>
+                <TextField
+                  label="Cantidad de espacios"
+                  name="space"
+                  fullWidth
+                  onChange={handleInputValue}
+                />
+              </Grid>
+              <Grid item md={12} xs={12}>
+                <TextField
+                  label="Descripcion"
+                  name="description"
+                  fullWidth
+                  multiline
+                  rows={4}
+                  onChange={handleInputValue}
+                />
+              </Grid>
+              <Grid item md={12} xs={12}>
+                <Button
+                  color="secondary"
+                  variant="contained"
+                  fullWidth
+                  onClick={handleClickUpdate}
+                >
+                  Send
+                </Button>
               </Grid>
             </Grid>
           </form>

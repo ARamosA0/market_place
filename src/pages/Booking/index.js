@@ -44,12 +44,7 @@ const Booking = () => {
     const fetchCochera = JSON.parse(localStorage.getItem('cochera'));
     setFilterUser(fetchUser);
     setFilterCochera(fetchCochera)
-    console.log(fetchUser)
-    console.log(fetchCochera)
   };
-
-  console.log("filter",filterUser)
-  console.log("filter",filterCochera)
   
   // Mapa
   const markerIcon = new L.icon({
