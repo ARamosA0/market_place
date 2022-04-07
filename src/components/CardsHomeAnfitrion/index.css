@@ -1,0 +1,49 @@
+/*? card de anfitrion principal*/
+.grid-container-two{
+    width: 98% !important;
+    margin: auto !important;
+    /* height: 90vh; */
+}
+.home-huespedes {
+    box-sizing: border-box;
+    padding: 0 15px;
+    height: 78vh;
+}
+.head-card {
+    color: #194c6b;
+}
+.home-huespedes-card{
+    height: 68vh;
+    border-radius: 20px;
+    background: linear-gradient(8deg, #1b34443b 0%, #2c254265 50%,rgba(0, 0, 0, 0.493) 100%),url(../../assets/cocheraHome2.jpg);
+    background-size: cover;
+}
+.home-huespedes-card-2{
+    height: 68vh;
+    border-radius: 20px;
+    background: linear-gradient(8deg, #1b34443b 0%, #2c254273 50%,rgba(0, 0, 0, 0.493) 100%),url(../../assets/preguntasSigno.jpg);
+    background-size: cover;
+}
+.subtitle-card{
+    font-size: 32px;
+}
+.button-card{
+    padding: 0 !important;
+    margin-top: 8px !important;
+    font-size: 14px !important;
+    color: rgb(0, 0, 0)  !important;
+    border-radius: 15px !important;
+    background-color: rgb(243, 243, 243) !important;
+}
+.btn-link{
+    display: flex !important;
+    text-decoration: none !important;
+    color: black !important;
+    transition: 0.2s !important;
+    padding: 10px !important;
+    font-size: 15px !important;
+
+}
+.btn-link:hover{
+    color: rgb(129, 122, 122);
+}

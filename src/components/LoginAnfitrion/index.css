@@ -1,0 +1,30 @@
+/*? componentes, de inicar sesion y registro, modificados mediante sus clases */
+.css-1e5i0ke-MuiGrid-root {
+    height: 90vh !important;
+}
+.MuiTabs-flexContainer{
+    justify-content: center;
+}
+.css-tlc64q-MuiPaper-root-MuiDialog-paper{
+    border-radius: 25px !important;
+}
+/* color inicio sesion */
+.css-h0q0iv-MuiButtonBase-root-MuiTab-root.Mui-selected{
+    color: #194c6b !important;
+    font-size: 14px;
+    font-weight: 700;
+}
+/* color animacion de raya debalo del inicio y registro */
+.css-1aquho2-MuiTabs-indicator{
+    background-color: #612351 !important;
+}
+
+/* title card register*/
+.title-card2 {
+    color: rgb(12, 77, 114);
+    font-weight: 700 !important;
+}
+.subtitle-card {
+    color: rgb(28, 27, 90);
+    font-weight: 400 !important;  
+}

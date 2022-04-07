@@ -1,273 +1,360 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { getCocheraData } from "../../service/firestore";
 import {
   Grid,
   Container,
   Card,
-  CardActions,
   CardContent,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
   Stack,
   TextField,
   Button,
   Box,
+  Divider,
 } from "@mui/material";
+import { CocheraContext } from "../../Context/CocheraContext";
 import StarIcon from "@mui/icons-material/Star";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
-import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import "./index.css";
-import { flexbox } from "@mui/system";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import StaticDateRangePicker from "@mui/lab/StaticDateRangePicker";
+import StaticTimePicker from "@mui/lab/StaticTimePicker";
+import DateAdapter from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import StaticDatePicker from "@mui/lab/StaticDatePicker";
+import DesktopDateRangePicker from "@mui/lab/DesktopDateRangePicker";
+import DesktopTimePicker from "@mui/lab/DesktopTimePicker";
+import { Link } from "react-router-dom";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+} from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+import { useParams } from "react-router-dom";
 
 const Booking = () => {
-  // const [cocheras, setCochera] = useState([
-  //   {
-  //     photo: [cochera1, cochera2, cochera3],
-  //     name: "Cochera Arequipa Cerro Colorado",
-  //     ubicacion: {
-  //       pais: "Peru",
-  //       region: "Arequipa",
-  //       distrito: "Cerro Colorado"
-  //     },
-  //     mapaUbicacion:"https://i.blogs.es/b4dd5c/maps/1366_2000.png",
-  //     anfitrion: "Natalia",
-  //     photoAnfitrion:"https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359554_960_720.png",
-  //     tipodeCochera: "Doble 3m x 5m",
-  //     precio: 20,
-  //     tipoAuto: ["camioneta", "SUV", "Electrico"],
-  //     descripcion: "La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa La cochera esta ubicada en Cerro Colorado a 10 minutos del CC. Arequipa"
-  //   },
-  // ]);
+  const {user, cochera } =useContext(CocheraContext)
+  const [filterUser, setFilterUser] = useState([]);
+  const [filterCochera, setFilterCochera] = useState([]);
 
-  const [cocheras, setCocheras] = useState([]);
-
-  const fetchData = async () => {
-    const data = await getCocheraData("usuarioAnfitrion");
-    setCocheras(data);
-    console.log(data[0])
+  const fetchData = () => {
+    const fetchUser = JSON.parse(localStorage.getItem('user'));
+    const fetchCochera = JSON.parse(localStorage.getItem('cochera'));
+    setFilterUser(fetchUser);
+    setFilterCochera(fetchCochera)
+    console.log(fetchUser)
+    console.log(fetchCochera)
   };
 
-  const [auto, setAuto] = useState("");
-  const handleSelectChange = (event) => {
-    setAuto(event.target.value);
-  };
+  console.log("filter",filterUser)
+  console.log("filter",filterCochera)
+  
+  // Mapa
+  const markerIcon = new L.icon({
+    iconUrl: require("../../assets/marker.png"),
+    iconSize: [30, 30],
+  });
 
-  const [value, setValue] = React.useState(new Date());
+  // Date Range picker
+  const [valueDate, setValueDate] = React.useState([null, null]);
+
+  // Time picker
+  const [valueStartTime, setValueStartTime] = React.useState(new Date());
+  const [valueEndTime, setValueEndTime] = React.useState(new Date());
+
+
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [user, cochera]);
 
   return (
     <section>
-      
-      {cocheras.length > 0 &&
-          <Container sx={{ marginTop: 3 }}>
-            <Grid container spacing={3}>
-              <Grid item md={12} className="titulo-principal">
-                <h1>{cocheras[0].nameAlquiler}</h1>
-              </Grid>
-              <Grid item md={12} className="reserva-items">
-                <div>
-                  <StarIcon />
-                  <span>4,96 . 84 reseñas &nbsp;&nbsp;&nbsp;&nbsp;</span>
-                  <LocationOnIcon />
-                  <span>{cocheras[0].pais}, {cocheras[0].region}, {cocheras[0].distrito} </span>
-                </div>
-                
-                <div>
-                  <IosShareIcon />
-                  <span>Compartir &nbsp;&nbsp;&nbsp;&nbsp;</span>
-                  <BookmarkAddIcon />
-                  <span>Guardar</span>
-                </div>
-              </Grid>
-              <Grid item md={6}sx={{marginTop:2, }}>
-                <Grid container>
-                  <Grid item className="img-container">
-                    <img className="img-principal" src={"https://cdn.corrieredellosport.it/images/sq/1200/1200/2015/11/20/143549356-64724baa-1f3e-4d66-b57c-e0c0dc25b797.jpg"} />
-                    <div className="img-container-sec">
-                      <img
-                        className="img-sec"
-                        width={500}
-                        src={"https://st.hzcdn.com/simgs/pictures/garages/a-dream-garage-in-sevenoaks-garageflex-img~d201afca0d5eb13e_4-9921-1-50048b5.jpg"}
-                      />
-                      <img
-                        className="img-sec"
-                        width={500}
-                        src={"https://cdn.bmwblog.com/wp-content/uploads/2020/12/bmw-garage-door-opener-01.jpg"}
-                      />
-                    </div>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid className="card-main-info" item md={6} sx={{marginTop:3}}>
-                <Card sx={{ maxWidth:350, marginLeft:20}}>
-                  <CardContent className="card-info">
-                    <div>
-                      <span className="card-precio">S/{cocheras[0].costo}</span>
-                      <span className="card-precio-aux">/hora</span>
-                    </div>
-                    <div>
-                      <div className="date-container">
-                        <Stack component="form" noValidate spacing={3}>
-                          <TextField
-                            id="datetime-local"
-                            label="Llegada"
-                            type="datetime-local"
-                            defaultValue="2017-05-24T10:30"
-                            fullWidth
-                            sx={{ marginTop: 1 }}
-                            InputLabelProps={{
-                              shrink: true,
-                            }}
-                          />
-                        </Stack>
-                        <Stack component="form" noValidate spacing={3}>
-                          <TextField
-                            id="datetime-local"
-                            label="Salida"
-                            type="datetime-local"
-                            defaultValue="2017-05-24T10:30"
-                            fullWidth
-                            sx={{ marginTop: 2, }}
-                            InputLabelProps={{
-                              shrink: true,
-                            }}
-                          />
-                        </Stack>
-                      </div>
-
-                      <FormControl fullWidth sx={{ minWidth: 120, marginTop: 2,  }}>
-                        <InputLabel id="demo-simple-select-label">
-                          Tipo de Auto
-                        </InputLabel>
-                        <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          value={auto}
-                          onChange={handleSelectChange}
-                          label="Age"
-                        >
-                          <MenuItem value="">
-                            <em>None</em>
-                          </MenuItem>
-                          {/* <MenuItem value={10}>{cocheras[0].tipoAuto[0]}</MenuItem>
-                          <MenuItem value={20}>{cocheras[0].tipoAuto[1]}</MenuItem>
-                          <MenuItem value={30}>{cocheras[0].tipoAuto[2]}</MenuItem> */}
-                        </Select>
-                      </FormControl>
-                    </div>
-
-                    <div>
-                      <Button fullWidth size="large" variant="contained" sx={{ marginTop: 2, marginBottom:2}}>
-                        Reservar
-                      </Button>
-                    </div>
-
-                    <div>
-                    <hr/>
-                      <Box
-                        sx={{
-                          p: 2,
-                          fontSize: 20,
-                          fontWeight: "medium",
-                          minWidth: 300,
-                          display: "inline",
-                          marginRight:1
-                        }}
-                      >
-                        Precio Total
-                      </Box>
-                      <Box
-                        sx={{
-                          p: 2,
-                          fontSize: 20,
-                          fontWeight: "medium",
-                          display: "inline",
-                          marginLeft:5
-                        }}
-                      >
-                        S/ 123123
-                      </Box>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item md={6}>
-                <div className="titulo-propietario-principal">
-                <div>
-                  <p className="titulo-propietario">Cochera Privada - {cocheras[0].nameAnfitrion}</p>
-                  <p>Tipo de Cochera - {cocheras[0].tipoCochera}</p>
-                </div>
-                  
-                  <div className="img-usuario">
-                    <img src={cocheras[0].fotoAnfitrion}/>
-                  </div>
-                </div>
-                <div className="description">
-                    <p className="">{cocheras[0].descripcion}</p>
-                </div>
-                
-                <div >
-                    <p className="titulo-propietario">{cocheras[0].region}, {cocheras[0].distrito}</p>
-                    <div className="calendar-container">
-                      <div >
-                        <LocalizationProvider dateAdapter={AdapterDateFns}>
-                          <StaticDatePicker
-                            displayStaticWrapperAs="desktop"
-                            openTo="day"
-                            value={value}
-                            onChange={(newValue) => {
-                              setValue(newValue);
-                            }}
-                            renderInput={(params) => <TextField {...params} />}
-                          />
-                        </LocalizationProvider>
-                      </div>
-                      <div>
-                        <LocalizationProvider dateAdapter={AdapterDateFns}>
-                          <StaticDatePicker
-                            displayStaticWrapperAs="desktop"
-                            openTo="day"
-                            value={value}
-                            onChange={(newValue) => {
-                              setValue(newValue);
-                            }}
-                            renderInput={(params) => <TextField {...params} />}
-                          />
-                        </LocalizationProvider>
-                      </div>
-                    </div>
-                </div>
-                </Grid>
-                <Grid item md={12}>
-                  
-                  <p className="titulo-mapa">A donde iras</p>
-                  <img width={1200} src={"https://i.blogs.es/b4dd5c/maps/1366_2000.png"}/>
-                  <p className="titulo-lugar-mapa">{cocheras[0].region}, {cocheras[0].distrito}</p>
-                  
-                </Grid>
-                <Grid item md={12}>
-                  <Grid container spacing={3}>
-                      <Grid item md={4}>
-                          <h4>Asistencia</h4>
-                          <ul>
-                            <li></li>
-                          </ul>
-                      </Grid>
-                  </Grid>
-                </Grid>
+      {filterUser.length > 0 && filterCochera.length>0 &&(
+        <Container sx={{ marginTop: 5 }}>
+          <Grid container spacing={3}>
+            <Grid item md={12} className="titulo-principal">
+              <h1>{filterCochera[0].name}</h1>
             </Grid>
-          </Container>
-        }
+            <Grid item md={12} className="reserva-items">
+              <div>
+                <StarIcon />
+                <span>4,96 . 100 reseñas &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <LocationOnIcon />
+                <span>
+                  {filterCochera[0].country}, {filterCochera[0].department},{" "}
+                  {filterCochera[0].district}{" "}
+                </span>
+              </div>
+              <div>
+                <IosShareIcon />
+                <span>Compartir &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <BookmarkAddIcon />
+                <span>Guardar</span>
+              </div>
+            </Grid>
+            <Grid item md={6} sx={{ marginTop: 2 }}>
+              <Grid container>
+                <Grid item md={12}>
+                  <img className="img-principal" src={filterCochera[0].image[0]} />
+                </Grid>
+                <Grid item md={6}>
+                  <img className="img-sec" src={filterCochera[0].image[1]} />
+                </Grid>
+                <Grid item md={6}>
+                  <img className="img-sec" src={filterCochera[0].image[2]} />
+                </Grid>
+                <Grid item md={12} className="titulo-cochera">
+                  <Divider  sx={{marginTop:5}}/>
+                  <p className="titulo-cochera-uno">
+                    Cochera Privada - {filterCochera[0].name}
+                  </p>
+                  <p className="titulo-cochera-dos">
+                    Anfitrion - <Link to={`/anfitrion/${filterUser[0].id}`}>{filterUser[0].userName} {filterUser[0].lastName}</Link> 
+                  </p>
+                  <p className="titulo-cochera-dos">
+                    Tipo de Cochera - {filterCochera[0].space} espacios
+                  </p>
+                  <Divider/>
+                  <div className="description">
+                    <p className="">{filterCochera[0].description}</p>
+                  </div>
+                </Grid>
+              </Grid>
+            </Grid>
+
+            <Grid className="card-main-info" item md={6} sx={{ marginTop: 3 }}>
+              <Card sx={{ maxWidth: 350, marginLeft: 20 }}>
+                <CardContent className="card-info">
+                  <div>
+                    <span className="card-precio">S/{filterCochera[0].price}</span>
+                    <span className="card-precio-aux">/hora</span>
+                  </div>
+                  <div>
+                    {/* Date Range picker*/}
+                    <div className="date-container">
+                      <LocalizationProvider dateAdapter={DateAdapter}>
+                        <Stack spacing={3}>
+                          <DesktopDateRangePicker
+                            startText="Fecha Inicio"
+                            inputFormat="dd-MM-yyyy"
+                            value={valueDate}
+                            onChange={(newValue) => {
+                              setValueDate(newValue);
+                            }}
+                            
+                            renderInput={(startProps, endProps) => (
+                              <React.Fragment>
+                                <TextField {...startProps}/>
+                                <Box sx={{ mx: 2 }}> to </Box>
+                                <TextField {...endProps}/>
+                              </React.Fragment>
+                            )}
+                          />
+                        </Stack>
+                      </LocalizationProvider>
+                    </div>
+                    {/* Time Start picker*/}
+                    <div className="date-container">
+                      <LocalizationProvider dateAdapter={DateAdapter}>
+                        <Stack spacing={3}>
+                          <DesktopTimePicker
+                            label="Hora inicio"
+                            value={valueStartTime}
+                            onChange={(newValue) => {
+                              setValueStartTime(newValue);
+                            }}
+                            renderInput={(params) => <TextField {...params} />}
+                          />
+                        </Stack>
+                      </LocalizationProvider>
+                    </div>
+                    {/* Time End picker*/}
+                    <div className="date-container">
+                      <LocalizationProvider dateAdapter={DateAdapter}>
+                        <Stack spacing={3}>
+                          <DesktopTimePicker
+                            label="Hora final"
+                            value={valueEndTime}
+                            onChange={(newValue) => {
+                              setValueEndTime(newValue);
+                            }}
+                            renderInput={(params) => <TextField {...params} />}
+                          />
+                        </Stack>
+                      </LocalizationProvider>
+                    </div>
+                  </div>
+
+                  <div>
+                    <Button
+                      fullWidth
+                      size="large"
+                      variant="contained"
+                      color="secondary"
+                      sx={{ marginTop: 2, marginBottom: 2 }}
+                    >
+                      Reservar
+                    </Button>
+                  </div>
+                  <Divider />
+                  <div style={{ marginTop: 10 }}>
+                    <Box
+                      sx={{
+                        p: 2,
+                        fontSize: 17,
+                        fontWeight: "medium",
+                        minWidth: 300,
+                        display: "inline",
+                      }}
+                    >
+                      Tiempo Total
+                    </Box>
+                    <Box
+                      sx={{
+                        p: 2,
+                        fontSize: 17,
+                        fontWeight: "medium",
+                        display: "inline",
+                      }}
+                    >
+                      
+            
+                    </Box>
+                  </div>
+                  <Divider />
+                  <div style={{ marginTop: 10 }}>
+                    <Box
+                      sx={{
+                        p: 2,
+                        fontSize: 17,
+                        fontWeight: "medium",
+                        minWidth: 300,
+                        display: "inline",
+                        marginRight: 1,
+                      }}
+                    >
+                      Precio Total
+                    </Box>
+                    <Box
+                      sx={{
+                        p: 2,
+                        fontSize: 17,
+                        fontWeight: "medium",
+                        display: "inline",
+                        marginLeft: 5,
+                      }}
+                    >
+                      
+            
+                    </Box>
+                  </div>
+                </CardContent>
+              </Card>
+            </Grid>
+
+            <Grid item md={12}>
+              <Grid container>
+                <Grid item md={6}>
+                  <p className="titulo-fechas">
+                    {filterCochera[0].region}, {filterCochera[0].district}
+                  </p>
+                  {/* Date Range picker */}
+                  <div className="static-date-container">
+                    <LocalizationProvider dateAdapter={DateAdapter}>
+                      <StaticDateRangePicker
+                        displayStaticWrapperAs="desktop"
+                        value={valueDate}
+                        onChange={(newValueDate) => {
+                          setValueDate(newValueDate);
+                        }}
+                        renderInput={(startProps, endProps) => (
+                          <React.Fragment>
+                            <TextField {...startProps}/>
+                            <Box sx={{ mx: 2 }}> to </Box>
+                            <TextField {...endProps}/>
+                          </React.Fragment>
+                        )}
+                      />
+                    </LocalizationProvider>
+                  </div>
+                  {/* Time Range picker */}
+                  <Grid container spacing={3} sx={{marginTop:5, marginBottom:5}}>
+                    <Grid item md={6}>
+                      <span>Inicio</span>
+                      <LocalizationProvider dateAdapter={DateAdapter}>
+                        <StaticTimePicker
+                          displayStaticWrapperAs="mobile"
+                          value={valueStartTime}
+                          color="secondary"
+                          onChange={(newValueTime) => {
+                            setValueStartTime(newValueTime);
+                          }}
+                          renderInput={(params) => <TextField {...params} />}
+                        />
+                      </LocalizationProvider>
+                    </Grid>
+                    <Grid item md={6}>
+                      <span>Final</span>
+                      <LocalizationProvider dateAdapter={DateAdapter}>
+                        <StaticTimePicker
+                          displayStaticWrapperAs="mobile"
+                          value={valueEndTime}
+                          onChange={(newValueTime) => {
+                            setValueEndTime(newValueTime);
+                          }}
+                          renderInput={(params) => <TextField {...params} />}
+                        />
+                      </LocalizationProvider>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid item md={6}></Grid>
+              </Grid>
+
+              <Divider />
+              <div>
+                <p className="titulo-mapa">A donde irás?</p>
+
+                {/* Mapa */}
+
+                <Grid container sx={{ marginTop: 3, marginBottom: 5 }}>
+                  <Grid item md={12}>
+                    <MapContainer
+                      center={[
+                        filterCochera[0].geolocation.latitude,
+                        filterCochera[0].geolocation.longitude,
+                      ]}
+                      zoom={18}
+                      style={{ height: 500 }}
+                    >
+                      <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                      />
+                      <Marker
+                        position={[
+                          filterCochera[0].geolocation.latitude,
+                          filterCochera[0].geolocation.longitude,
+                        ]}
+                        icon={markerIcon}
+                      >
+                        <Popup>Estas aqui</Popup>
+                      </Marker>
+                    </MapContainer>
+                  </Grid>
+                </Grid>
+
+                <p className="titulo-lugar-mapa">
+                  {filterCochera[0].department}, {filterCochera[0].district}
+                </p>
+              </div>
+            </Grid>
+          </Grid>
+        </Container>
+      )}
     </section>
   );
 };

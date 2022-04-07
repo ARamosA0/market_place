@@ -6,14 +6,12 @@ import About from "../pages/About";
 import Booking from "../pages/Booking";
 import ParkingLog from "../pages/ParkingLot"
 import Contact from "../pages/Contact";
+import Anfitrion from "../pages/Anfitrion";
+import RegistroAnfitrion from "../pages/RegistroAnfitrion";
 
 //Loyout
 import Main from "../layouts/Main"
-
-
-// Borrar
-
-import Registro from "../pages/Registro";
+import Parking from "../layouts/ParkingLog"
 
 const Router = () => {
   return (
@@ -22,17 +20,15 @@ const Router = () => {
         <Route element={<Main/>}>
           <Route path="/" element={<Home />}/>
           <Route path="/about" element={<About />}/>
-          <Route path="/booking" element={<Booking />}/>
+          <Route path="/booking/:id" element={<Booking />}/>
           <Route path="/parkinglog" element={<ParkingLog />}/>
           <Route path="/contact" element={<Contact />}/>
-          
+          <Route path="/anfitrion/:id" element={<Anfitrion />} />
+          <Route path="/anfitrion/:id/registro" element={<RegistroAnfitrion />} />
         </Route>
-
-        {/* borrar */}
-
-        <Route path="/registro" element={<Registro />} />
-
-
+        <Route element={<Parking/>}>
+          <Route path="/parking" element={<ParkingLog />}/>
+        </Route>
       </Routes>
     </BrowserRouter>
   );
