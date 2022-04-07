@@ -1,5 +1,5 @@
 .banner {
-    height: 91vh !important;
+    height: 92vh !important;
     background-image: linear-gradient(20deg, #1b3444 0%, #2c2542 50%,rgba(0, 0, 0, 0.918) 100%);
     background-size: 200% 200% !important;
     animation: gradient 15s ease infinite;

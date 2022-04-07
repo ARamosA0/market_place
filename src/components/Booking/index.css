@@ -1,6 +1,9 @@
 .head-card {
     color: #194c6b;
 }
+.card-container{
+    height: 43vh !important;
+}
 
 .cardContent-paracas {
     background-color: #D93B30;

@@ -24,7 +24,7 @@ const Registro = () => {
           >
             <Grid item md={12} className="grid1">
               <h1 className="h1">
-                Conviertete en anfitrión en <br /> Cochera.com
+                Conviertete en anfitrión en <br /> Cocheras.pe
               </h1>
               <p className="p">Unete a nosotros, te ayudaremos en cada fase del proceso</p>
               <Button

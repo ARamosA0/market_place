@@ -90,7 +90,7 @@ const ParkingLog = () => {
 
     return (
         <Container maxWidth="xl">
-            <Grid container mt={3} direction={"row"} justifyContent={"space-between"}>
+            <Grid container mt={16} direction={"row"} justifyContent={"space-between"}>
                 <Grid item md={3}>
                 <TextField
                     onChange={handleSearchDistrict}

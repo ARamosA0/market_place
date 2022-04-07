@@ -98,13 +98,13 @@ const Booking = () => {
             <Grid item md={6} sx={{ marginTop: 2 }}>
               <Grid container>
                 <Grid item md={12}>
-                  <img className="img-principal" src={filterCochera[0].image[0]} />
+                  <img className="img-principal" src={filterCochera[0].image[0]}alt="" />
                 </Grid>
                 <Grid item md={6}>
-                  <img className="img-sec" src={filterCochera[0].image[1]} />
+                  <img className="img-sec" src={filterCochera[0].image[1]} alt=""/>
                 </Grid>
                 <Grid item md={6}>
-                  <img className="img-sec" src={filterCochera[0].image[2]} />
+                  <img className="img-sec" src={filterCochera[0].image[2]}alt="" />
                 </Grid>
                 <Grid item md={12} className="titulo-cochera">
                   <Divider  sx={{marginTop:5}}/>

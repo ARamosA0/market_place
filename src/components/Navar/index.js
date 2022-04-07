@@ -57,6 +57,7 @@ const MenuAppBar = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
+      {/* posotion > para cambiar el navbar a static o fixed */}
       <AppBar position="fixed" sx={{ height: "10vh" }}>
         <Toolbar sx={{ height: "10vh", padding: "0px 5px" }} className="navar">
           <Typography
@@ -139,7 +140,8 @@ const MenuAppBar = () => {
                 sx={{ top: "-9px", left: "-10px" }}
               >
                 {!usuario ? (
-                  <MenuItem>
+                  <div>
+                  <MenuItem >
                     <Button
                       onClick={handleClickOpen}
                       color="secondary"
@@ -148,11 +150,13 @@ const MenuAppBar = () => {
                       <PersonAdd fontSize="small" />
                       &nbsp;&nbsp;Iniciar Sesion
                     </Button>
-                    <LoginAnfitrion
+                  </MenuItem>
+                  <LoginAnfitrion
                       handleClickOpen={handleClickOpen}
                       open={open}
                     />
-                  </MenuItem>
+                  </div>
+                  
                 ) : (
                   <MenuItem onClick={handleClose}>
                     <Link
