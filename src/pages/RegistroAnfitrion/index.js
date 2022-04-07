@@ -40,13 +40,13 @@ const RegistroAnfitrion = () => {
         <>
             {regUser.length > 0 && (
                 <Container>
-                    <Grid container spacing={3} sx={{marginBottom:20, marginTop:10}}>
+                    <Grid container spacing={3} sx={{marginBottom:20, marginTop:20}}>
                         <Grid item md={12}>
                             <h2>Cuenta</h2>
                             <p>
                                 <span> <b>{regUser[0].userName} {regUser[0].lastName},&nbsp;</b></span>
                                 <span>{regUser[0].email} .&nbsp;</span>
-                                <Link to="/anfitrion">
+                                <Link to={`/anfitrion/${regUser.id}`}>
                                     <span><Button color="secondary">Ir a perfil</Button></span>
                                 </Link>
                 
