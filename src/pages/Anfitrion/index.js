@@ -39,8 +39,6 @@ const Anfitrion = () => {
     setUser(filterUser);
     setCocheras(filterGarage);
   };
-  
-  console.log(user)
   const [values, setValues] = useState({
     adress: "",
     country: "",
@@ -101,7 +99,7 @@ const Anfitrion = () => {
                   </Grid>
                 </Grid>
                 <Grid item md={12} sx={{ textAlign: "center", marginTop: 4 }}>
-                  <Link to={`/anfitrion/${idUsuario}/registro`}>
+                  <Link to={`/anfitrion/${user.idUsuario}/registro`}>
                     <Button
                       variant="contained"
                       color="secondary"
