@@ -3,13 +3,13 @@ import SearchIcon from '@mui/icons-material/Search';
 import Link from '@mui/material/Link';
 import Booking from "../../components/Booking"
 import "./index.css";
-import Registro from "../../components/Registro";
+import Registro from "../../components/RegistroHome";
 
 const Home = () => {
 
   return (
       <div>
-        <Grid container className="banner" direction={"column"} justifyContent={"center"} alignItems={"center"}>
+        <Grid container className="banner" direction={"column"} justifyContent={"center"} alignItems={"center"} mt={12}>
           <div className="banner div-banner">
             <Grid item textAlign={"center"}>
               <span className="title">Mas de 10 000 cocheras a tu disposicion, encuentra una cochera segura en donde estes.</span>
