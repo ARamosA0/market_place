@@ -29,9 +29,6 @@ const Router = () => {
           <Route path="/anfitrion/:id" element={<Anfitrion />} />
           <Route path="/anfitrion/:id/registro" element={<RegistroAnfitrion />} />
         </Route>
-        <Route element={<Parking/>}>
-          <Route path="/parking" element={<ParkingLog />}/>
-        </Route>
         <Route path="/registro" element={<Registro />} />
       </Routes>
     </BrowserRouter>

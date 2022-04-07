@@ -1,8 +1,11 @@
 import { useState, useEffect, useContext } from "react";
-import { CocheraContext } from "../../Context/CocheraContext";
 
 import { Container, Grid, Card, Divider, Chip, CardMedia, CardActionArea, Typography,  CardContent, Stack, TextField, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+
 import { getCocheraData } from "../../service/firestore";
+import { CocheraContext } from "../../Context/CocheraContext";
+
+//Iconos
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 //Mapa referencias
@@ -13,8 +16,9 @@ import L from "leaflet";
 //CSS referencias
 import "./index.css"
 
-//Iconos
+//Bootstrap
 import { Carousel } from 'react-bootstrap';
+import { async } from "@firebase/util";
 
 const ParkingLog = () => {
     
@@ -27,6 +31,8 @@ const ParkingLog = () => {
 
     const position = [-12.04318, -77.02824];
 
+    // const [ubicacion, setUbicacion] = useState([]);
+
     const markerIcon = new L.icon({
         iconUrl: require("../../assets/marker.png"),
         iconSize: [30, 30],
@@ -37,31 +43,32 @@ const ParkingLog = () => {
         const userData = await storeUser(user);
         setParking(data);
         setUser(userData);
+        // localizacion(parking);
     }
 
     const handleSearchDistrict = (e) => {
-        // Es una buena practica decirle que inicie a contar cuando tengamos mas de 3 letras
         const districts = e.target.value;
-    
+
         if (districts.length === 0) {
            fetchParking();
         }
-    
+
         if (districts.length > 0) {
           const filterDistrict = parking.filter((distrito) =>
             distrito.district.toUpperCase().includes(districts.toUpperCase())
           );
+
           setParking(filterDistrict);
+
         }
     };
 
     const handleDistrict = async (e) => {
-        setDistrict(e.target.value);
         const districts = e.target.value;
 
+        setDistrict(districts);
         if (districts === "all") {
             fetchParking();
-          return;
         };
 
         const filterDistrict = parking.filter((distrito) =>
@@ -69,7 +76,16 @@ const ParkingLog = () => {
         );
 
         setParking(filterDistrict);
+        
       };
+
+    //   const localizacion = async (cochera) => {
+    //     const ubicaciones = cochera.map((parkLog)=>(
+    //         [parkLog.geolocation._lat, parkLog.geolocation._long]
+    //     ))
+    //     setUbicacion(ubicaciones);
+    //     console.log("ubicacion:", ubicacion);
+    //   }
 
     useEffect(() => {
         fetchParking();
@@ -88,7 +104,7 @@ const ParkingLog = () => {
                 <Grid item md={3}>
                 <FormControl fullWidth>
                     <InputLabel>Filter by Districts</InputLabel>
-                    <Select label="Filter by Region" value={district} onChange={handleDistrict}>
+                    <Select label="Filter by Districts" value={district} onChange={handleDistrict}>
                     <MenuItem value="all">Todas las distritos</MenuItem>
                     <MenuItem value="Chorrillos">Chorrillos</MenuItem>
                     <MenuItem value="Agustino">Agustino</MenuItem>
@@ -146,9 +162,9 @@ const ParkingLog = () => {
                         {/* <Marker position={[-12.043973616974938, -76.95295478638475]} icon={markerIcon} >
                             <Popup>Tecsup Centro Educativo</Popup>
                         </Marker> */}
-                        {parking.filter((parkLog)=>(
-                            console.log("Geolocalizacion: ",parkLog.geolocation)
-                            // <Marker position={parkLog.geolocation} icon={markerIcon} >
+                        {parking.filter((localizacion)=>(
+                            console.log("Geolocalizacion: ",[localizacion.geolocation._lat,localizacion.geolocation._long])
+                            // <Marker position={[localizacion.geolocation._lat,localizacion.geolocation._long]} icon={markerIcon} >
                             //     <Popup>Tecsup Centro Educativo</Popup>
                             // </Marker>
                         ))}
