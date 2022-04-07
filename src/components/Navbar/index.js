@@ -18,6 +18,7 @@ const Navbar = () => {
     setOpen(!open);
   };
   //trayendo el usuario del localStorage
+  // arregldos problemas con .map
   const idUsuario = JSON.parse(localStorage.getItem("userID"));
 
   return (
