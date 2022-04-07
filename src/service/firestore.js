@@ -23,14 +23,22 @@ const firebaseConfig = {
   // appId: "1:20250602522:web:272b36e2881d44c30f75a3",
   // measurementId: "G-YSBB9BFB1R"
 
-  // Base de datos nueva
-  apiKey: "AIzaSyAEGEh1mEMQrVZlSNPft4I2LDY8MyTiCqY",
-  authDomain: "garage-35e3d.firebaseapp.com",
-  projectId: "garage-35e3d",
-  storageBucket: "garage-35e3d.appspot.com",
-  messagingSenderId: "133245440991",
-  appId: "1:133245440991:web:ac02f6f6d3be9c3403ea6a",
-  measurementId: "G-DB563BGT2B"
+  // Segunda Base de datos 
+  // apiKey: "AIzaSyAEGEh1mEMQrVZlSNPft4I2LDY8MyTiCqY",
+  // authDomain: "garage-35e3d.firebaseapp.com",
+  // projectId: "garage-35e3d",
+  // storageBucket: "garage-35e3d.appspot.com",
+  // messagingSenderId: "133245440991",
+  // appId: "1:133245440991:web:ac02f6f6d3be9c3403ea6a",
+  // measurementId: "G-DB563BGT2B"
+
+  // Tercera BD
+  apiKey: "AIzaSyDELXoNOjGgXBzhVk3kW2IkItngcVa1qVA",
+  authDomain: "garage-b2ab3.firebaseapp.com",
+  projectId: "garage-b2ab3",
+  storageBucket: "garage-b2ab3.appspot.com",
+  messagingSenderId: "71363030259",
+  appId: "1:71363030259:web:121f617f4f6aa647e05b86"
 };
 
 const app = initializeApp(firebaseConfig);
