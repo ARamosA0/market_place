@@ -1,5 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 
+import {Link} from "react-router-dom"
+
 import { Container, Grid, Card, Divider, Chip, CardMedia, CardActionArea, Typography,  CardContent, Stack, TextField, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 import { getCocheraData } from "../../service/firestore";
@@ -18,19 +20,14 @@ import "./index.css"
 
 //Bootstrap
 import { Carousel } from 'react-bootstrap';
-import { async } from "@firebase/util";
 
 const ParkingLog = () => {
     
     const { storeCochera, storeUser } = useContext(CocheraContext);
-
     const [user, setUser] = useState([]);
     const [parking, setParking] = useState([]);
-
     const [district, setDistrict] = useState("");
-
     const position = [-12.04318, -77.02824];
-
     // const [ubicacion, setUbicacion] = useState([]);
 
     const markerIcon = new L.icon({
@@ -40,7 +37,7 @@ const ParkingLog = () => {
 
     const fetchParking = async () => {
         const data = await getCocheraData("cochera");
-        const userData = await storeUser(user);
+        const userData = await getCocheraData("usuario");
         setParking(data);
         setUser(userData);
         // localizacion(parking);
@@ -59,7 +56,7 @@ const ParkingLog = () => {
           );
 
           setParking(filterDistrict);
-
+          setUser(user);
         }
     };
 
@@ -129,27 +126,29 @@ const ParkingLog = () => {
                                     ))}
                                 </Carousel> 
                             </CardMedia>    
-                            <CardActionArea onClick={() => storeCochera(parking)}>
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" component="div" color={"#D93B30"}>{parking.name}</Typography>
-                                    <Typography variant="subtitle2" color="primary">{`${parking.description}`}</Typography>
-                                    <Typography className="parking-text" variant="subtitle2" color="primary">{`Dirección: ${parking.adress}`}</Typography>
-                                    <Divider></Divider>
-                                    <Stack direction="row" spacing={1} mt={3}>
-                                        <Chip label={`País: ${parking.country}`} color="info" />
-                                        <Chip label={`Región: ${parking.department}`} color="success" />
-                                        <Chip label={`Distríto: ${parking.district}`} color="warning" />
-                                    </Stack>
-                                    <Grid container direction={"row"} justifyContent={"space-between"} mt={15}>
-                                        <Grid item>
-                                            <Typography variant="button" color="primary">Rating: <StarBorderIcon color="warning"/></Typography>
+                            <Link to={`/booking/${parking.id}`}>
+                                <CardActionArea onClick={() => storeCochera(parking)}>
+                                    <CardContent>
+                                        <Typography gutterBottom variant="h5" component="div" color={"#D93B30"}>{parking.name}</Typography>
+                                        <Typography variant="subtitle2" color="primary">{`${parking.description}`}</Typography>
+                                        <Typography className="parking-text" variant="subtitle2" color="primary">{`Dirección: ${parking.adress}`}</Typography>
+                                        <Divider></Divider>
+                                        <Stack direction="row" spacing={1} mt={3}>
+                                            <Chip label={`País: ${parking.country}`} color="info" />
+                                            <Chip label={`Región: ${parking.department}`} color="success" />
+                                            <Chip label={`Distríto: ${parking.district}`} color="warning" />
+                                        </Stack>
+                                        <Grid container direction={"row"} justifyContent={"space-between"} mt={15}>
+                                            <Grid item>
+                                                <Typography variant="button" color="primary">Rating: <StarBorderIcon color="warning"/></Typography>
+                                            </Grid>
+                                            <Grid item>
+                                                <Typography variant="button" color="error">Price: s/.{parking.price}</Typography>
+                                            </Grid>
                                         </Grid>
-                                        <Grid item>
-                                            <Typography variant="button" color="error">Price: s/.{parking.price}</Typography>
-                                        </Grid>
-                                    </Grid>
-                                </CardContent>                
-                            </CardActionArea>
+                                    </CardContent>                
+                                </CardActionArea>
+                            </Link>
                         </Card>
                     </Grid>
                 ))}
@@ -174,5 +173,4 @@ const ParkingLog = () => {
         </Container>
     );
 };
-
 export default ParkingLog;

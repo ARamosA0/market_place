@@ -1,22 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+import { CocheraContext } from "../../Context/CocheraContext";
 import {
-  Container,
   Grid,
   Dialog,
   DialogContent,
-  DialogTitle,
   TextField,
   Button,
 } from "@mui/material";
-import { storeCochera, updateCochera } from "../../service/firestore";
+import { updateCochera } from "../../service/firestore";
+import garage1 from "../../assets/garage.jpg";
 
-const RegistroInformacion = (props) => {
+const RegistroInformacion = () => {
+  const { cochera } =useContext(CocheraContext);
+  const [regCochera, setRegCochera] = useState([])
   const [open, setOpen] = useState(false);
+  const [values, setValues] = useState([]);
+
   const [valorInputs, setValorInputs] = useState({
-    country: "",
-    department: "",
-    districtv: "",
-    adress: "",
+    name: "",
+    price: "",
+    space: "",
+    description: "",
   });
 
   const handleInputValue = (event) => {
@@ -25,11 +29,28 @@ const RegistroInformacion = (props) => {
       ...valorInputs,
       [name]: value,
     });
+    
   };
 
   const handleOpenDialog = () => {
     setOpen(!open);
   };
+
+
+  const fetchData = () => {
+    const showCochera = JSON.parse(localStorage.getItem('cochera'));
+    setRegCochera(showCochera);
+  };
+
+
+  const handleClickUpdate = async () => {
+    await updateCochera(regCochera[0], valorInputs,"cochera");
+    console.log(valorInputs)
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <section>
@@ -64,6 +85,14 @@ const RegistroInformacion = (props) => {
                   </Grid>
                   <Grid item md={12} xs={12}>
                     <TextField
+                      label="Cantidad de espacios"
+                      name="space"
+                      fullWidth
+                      onChange={handleInputValue}
+                    />
+                  </Grid>
+                  <Grid item md={12} xs={12}>
+                    <TextField
                       label="Descripcion"
                       name="description"
                       fullWidth
@@ -77,7 +106,7 @@ const RegistroInformacion = (props) => {
                       color="secondary"
                       variant="contained"
                       fullWidth
-                      onChange={handleInputValue}
+                      onClick={handleClickUpdate}
                     >
                       Send
                     </Button>
@@ -93,3 +122,5 @@ const RegistroInformacion = (props) => {
 };
 
 export default RegistroInformacion;
+
+

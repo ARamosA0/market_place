@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Grid, Button } from "@mui/material";
-import Carrusel from "../../components/Carrusel";
-import LoginAnfitrion from "../../components/LoginAnfitrion";
+import Carrusel from "../Carrusel";
+import LoginAnfitrion from "../LoginAnfitrion";
 import "./index.css";
 
 const Registro = () => {
@@ -18,7 +18,7 @@ const Registro = () => {
             container
             justifyContent="center"
             alignItems="center"
-            sx={{ height: "90vh !important" }}
+            sx={{ height: "107vh !important" }}
             spacing={1}
             rowGap="1"
           >

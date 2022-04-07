@@ -14,7 +14,17 @@
     font-size: 14px;
     font-weight: 700;
 }
-/* color animacion de raya debalo del inibio y registro */
+/* color animacion de raya debalo del inicio y registro */
 .css-1aquho2-MuiTabs-indicator{
     background-color: #612351 !important;
+}
+
+/* title card register*/
+.title-card2 {
+    color: rgb(12, 77, 114);
+    font-weight: 700 !important;
+}
+.subtitle-card {
+    color: rgb(28, 27, 90);
+    font-weight: 400 !important;  
 }

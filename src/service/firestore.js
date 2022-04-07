@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from "uuid";
 const firebaseConfig = {
 
   //Jeffara
+  // base de datos antigua
   // apiKey: "AIzaSyB4lr10cmD_uKuQ2UC6JSMzOWjYV4K6vAc",
   // authDomain: "cochera-ae184.firebaseapp.com",
   // databaseURL: "https://cochera-ae184-default-rtdb.firebaseio.com",
@@ -25,6 +26,7 @@ const firebaseConfig = {
   // measurementId: "G-YSBB9BFB1R"
 
   //Aldo
+  // Segunda Base de datos 
   // apiKey: "AIzaSyAEGEh1mEMQrVZlSNPft4I2LDY8MyTiCqY",
   // authDomain: "garage-35e3d.firebaseapp.com",
   // projectId: "garage-35e3d",
@@ -32,6 +34,7 @@ const firebaseConfig = {
   // messagingSenderId: "133245440991",
   // appId: "1:133245440991:web:ac02f6f6d3be9c3403ea6a",
   // measurementId: "G-DB563BGT2B"
+
 
   //Roberto
   apiKey: "AIzaSyD36x2aYrNKcPORpayq81KcFDCX7l2h9sE",
@@ -42,6 +45,13 @@ const firebaseConfig = {
   appId: "1:640634564300:web:22be63f04dddc7d3f5dc69",
   measurementId: "G-T58KYD30N1"
   
+  // Tercera BD
+  // apiKey: "AIzaSyDELXoNOjGgXBzhVk3kW2IkItngcVa1qVA",
+  // authDomain: "garage-b2ab3.firebaseapp.com",
+  // projectId: "garage-b2ab3",
+  // storageBucket: "garage-b2ab3.appspot.com",
+  // messagingSenderId: "71363030259",
+  // appId: "1:71363030259:web:121f617f4f6aa647e05b86"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -62,10 +72,17 @@ export const storeCochera = async (product, nameBd) => {
   await setDoc(doc(db, nameBd, id), product);
 };
 
-// actualizar un datos en firebase
-export const updateCochera = async (product, nameBd) => {
+
+export const updateCochera = async (product,data, nameBd) => {
   const productRef = doc(db, nameBd, product.id);
-  await updateDoc(productRef, product);
+  await updateDoc(productRef, data);
+};
+
+export const updatePhotoCochera = async (product,data, nameBd) => {
+  const productRef = doc(db, nameBd, product.id);
+    await updateDoc(productRef, {image:arrayUnion(data)});
+  
+  
 };
 
 export const updateIdCochera = async (product, nameBd, newId) => {
