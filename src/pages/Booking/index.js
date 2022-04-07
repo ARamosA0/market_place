@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { getCocheraData } from "../../service/firestore";
 import {
   Grid,
@@ -23,6 +23,7 @@ import DateAdapter from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DesktopDateRangePicker from "@mui/lab/DesktopDateRangePicker";
 import DesktopTimePicker from "@mui/lab/DesktopTimePicker";
+import { Link } from "react-router-dom";
 import {
   MapContainer,
   TileLayer,
@@ -34,7 +35,6 @@ import L from "leaflet";
 import { useParams } from "react-router-dom";
 
 const Booking = () => {
-  const {id} = useParams();
   const {user, cochera } =useContext(CocheraContext)
   const [filterUser, setFilterUser] = useState([]);
   const [filterCochera, setFilterCochera] = useState([]);
@@ -44,9 +44,12 @@ const Booking = () => {
     const fetchCochera = JSON.parse(localStorage.getItem('cochera'));
     setFilterUser(fetchUser);
     setFilterCochera(fetchCochera)
-    console.log(filterUser)
-    console.log(filterCochera)
+    console.log(fetchUser)
+    console.log(fetchCochera)
   };
+
+  console.log("filter",filterUser)
+  console.log("filter",filterCochera)
   
   // Mapa
   const markerIcon = new L.icon({
@@ -69,11 +72,11 @@ const Booking = () => {
 
   return (
     <section>
-      {filterUser.length > 0 && (
+      {filterUser.length > 0 && filterCochera.length>0 &&(
         <Container sx={{ marginTop: 5 }}>
           <Grid container spacing={3}>
             <Grid item md={12} className="titulo-principal">
-              <h1>{cocheras[0].nameAlquiler}</h1>
+              <h1>{filterCochera[0].name}</h1>
             </Grid>
             <Grid item md={12} className="reserva-items">
               <div>
@@ -81,8 +84,8 @@ const Booking = () => {
                 <span>4,96 . 84 reseñas &nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <LocationOnIcon />
                 <span>
-                  {cocheras[0].pais}, {cocheras[0].region},{" "}
-                  {cocheras[0].distrito}{" "}
+                  {filterCochera[0].country}, {filterCochera[0].department},{" "}
+                  {filterCochera[0].district}{" "}
                 </span>
               </div>
               <div>
@@ -95,25 +98,28 @@ const Booking = () => {
             <Grid item md={6} sx={{ marginTop: 2 }}>
               <Grid container>
                 <Grid item md={12}>
-                  <img className="img-principal" src={cocheras[0].photos[0]} />
+                  <img className="img-principal" src={filterCochera[0].image[0]} />
                 </Grid>
                 <Grid item md={6}>
-                  <img className="img-sec" src={cocheras[0].photos[1]} />
+                  <img className="img-sec" src={filterCochera[0].image[1]} />
                 </Grid>
                 <Grid item md={6}>
-                  <img className="img-sec" src={cocheras[0].photos[2]} />
+                  <img className="img-sec" src={filterCochera[0].image[2]} />
                 </Grid>
                 <Grid item md={12} className="titulo-cochera">
                   <Divider  sx={{marginTop:5}}/>
                   <p className="titulo-cochera-uno">
-                    Cochera Privada - {cocheras[0].nameAnfitrion}
+                    Cochera Privada - {filterCochera[0].name}
                   </p>
                   <p className="titulo-cochera-dos">
-                    Tipo de Cochera - {cocheras[0].tipoCochera}
+                    Anfitrion - <Link to={`/anfitrion/${filterUser[0].id}`}>{filterUser[0].userName} {filterUser[0].lastName}</Link> 
+                  </p>
+                  <p className="titulo-cochera-dos">
+                    Tipo de Cochera - {filterCochera[0].space} espacios
                   </p>
                   <Divider/>
                   <div className="description">
-                    <p className="">{cocheras[0].descripcion}</p>
+                    <p className="">{filterCochera[0].description}</p>
                   </div>
                 </Grid>
               </Grid>
@@ -123,7 +129,7 @@ const Booking = () => {
               <Card sx={{ maxWidth: 350, marginLeft: 20 }}>
                 <CardContent className="card-info">
                   <div>
-                    <span className="card-precio">S/{cocheras[0].costo}</span>
+                    <span className="card-precio">S/{filterCochera[0].price}</span>
                     <span className="card-precio-aux">/hora</span>
                   </div>
                   <div>
@@ -137,8 +143,6 @@ const Booking = () => {
                             value={valueDate}
                             onChange={(newValue) => {
                               setValueDate(newValue);
-                              // console.log(newValue)
-                              // console.log(newValue[0].toLocaleDateString())
                             }}
                             
                             renderInput={(startProps, endProps) => (
@@ -255,7 +259,7 @@ const Booking = () => {
               <Grid container>
                 <Grid item md={6}>
                   <p className="titulo-fechas">
-                    {cocheras[0].region}, {cocheras[0].Distrito}
+                    {filterCochera[0].region}, {filterCochera[0].district}
                   </p>
                   {/* Date Range picker */}
                   <div className="static-date-container">
@@ -320,8 +324,8 @@ const Booking = () => {
                   <Grid item md={12}>
                     <MapContainer
                       center={[
-                        cocheras[0].geolocalization.latitude,
-                        cocheras[0].geolocalization.longitude,
+                        filterCochera[0].geolocation.latitude,
+                        filterCochera[0].geolocation.longitude,
                       ]}
                       zoom={18}
                       style={{ height: 500 }}
@@ -332,8 +336,8 @@ const Booking = () => {
                       />
                       <Marker
                         position={[
-                          cocheras[0].geolocalization.latitude,
-                          cocheras[0].geolocalization.longitude,
+                          filterCochera[0].geolocation.latitude,
+                          filterCochera[0].geolocation.longitude,
                         ]}
                         icon={markerIcon}
                       >
@@ -344,7 +348,7 @@ const Booking = () => {
                 </Grid>
 
                 <p className="titulo-lugar-mapa">
-                  {cocheras[0].region}, {cocheras[0].distrito}
+                  {filterCochera[0].department}, {filterCochera[0].district}
                 </p>
               </div>
             </Grid>

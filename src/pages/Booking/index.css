@@ -49,9 +49,13 @@
     font-weight: 500;
 }
 .titulo-cochera-dos{
-    margin-top: 10px;
-    margin-bottom: 30px;
+    /* margin-top: 10px;
+    margin-bottom: 30px; */
     font-weight: 300;
+}
+
+.titulo-cochera-dos span{
+    font-weight: 700;
 }
 
 .description{

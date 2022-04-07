@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Grid, Container} from "@mui/material";
 import LoginAnfitrion from "../../components/LoginAnfitrion";
 import { Link as LinkReact} from "react-router-dom";
@@ -13,15 +13,26 @@ import "./index.css";
 const Navbar = () => {
   //useState para registro  
   const [open, setOpen] = useState(false);
+  const [user, setUser] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(!open);
   };
+
+  const fetchData = () => {
   //trayendo el usuario del localStorage
-  const idUsuario = JSON.parse(localStorage.getItem("userID"));
+  const idUsuario = JSON.parse(localStorage.getItem("user"));
+  setUser(idUsuario)
+  }
+  
+  
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div className="nav-container">
+      {user.length > 0 && (
       <Container maxWidth="xl">
         <Grid
           container
@@ -51,7 +62,7 @@ const Navbar = () => {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href={`/anfitrion/${idUsuario}`} color="white" underline="none">
+                <Link href={`/anfitrion/${user[0].id}`} color="white" underline="none">
                   <AlternateEmailIcon sx={{ fontSize: 20, color: "white" }} />
                   <span className="botones"> Contact</span>
                 </Link>
@@ -75,6 +86,7 @@ const Navbar = () => {
           </Grid>
         </Grid>
       </Container>
+    )}
     </div>
   );
 };
