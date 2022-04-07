@@ -66,7 +66,7 @@ const Anfitrion = () => {
 
   useEffect(() => {
     fetchData();
-  }, [user]);
+  }, []);
 
 
   //Eliminar Registro 
