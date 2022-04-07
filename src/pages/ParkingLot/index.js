@@ -39,7 +39,6 @@ const ParkingLog = () => {
       setParking(data);
       setUser(userData);
       return data;
-      // localizacion(parking);
     };
   
     const handleSearchDistrict = (e) => {
