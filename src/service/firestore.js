@@ -32,7 +32,7 @@ const firebaseConfig = {
   // appId: "1:133245440991:web:ac02f6f6d3be9c3403ea6a",
   // measurementId: "G-DB563BGT2B"
 
-  // Tercera Base de datos
+  // Tercera BD
   apiKey: "AIzaSyDELXoNOjGgXBzhVk3kW2IkItngcVa1qVA",
   authDomain: "garage-b2ab3.firebaseapp.com",
   projectId: "garage-b2ab3",
