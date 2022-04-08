@@ -16,6 +16,7 @@ import {
 import "./index.css";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 
+import { doc, deleteDoc } from "firebase/firestore";
 
 const Anfitrion = () => {
   
@@ -69,8 +70,8 @@ const Anfitrion = () => {
 
 
   //Eliminar Registro 
-
-  const deleteElementFromCocheras = (id) => {
+  const deleteElementFromCocheras = async (id) => {
+    await deleteDoc(doc("cochera", id));
   };
   
   return (
