@@ -57,7 +57,7 @@ const MenuAppBar = () => {
   };
 
   return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1, marginBottom:10 }}>
           <AppBar position="fixed" sx={{ height: "10vh" }}>
               <Toolbar sx={{ height: "10vh", padding: "0px 5px" }} className="navar">
                 <Typography
@@ -125,7 +125,7 @@ const MenuAppBar = () => {
                         <Avatar
                           sx={{ width: 38, height: 38, textTransform: "capitalize" }}
                         >
-                          {usuario.userName.substring(0, 1)}
+                          {usuario.userName}
                         </Avatar>
                         <span style={{ fontSize: "15px" }}>
                           &nbsp;{usuario.userName}

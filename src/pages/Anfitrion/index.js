@@ -16,11 +16,12 @@ import {
   CardContent,
   Button,
 } from "@mui/material";
-
 import "./index.css";
 import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import photoUser from "../../assets/user.png";
+import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+import { GeoPoint } from "firebase/firestore/lite";
 
 import { doc, deleteDoc } from "firebase/firestore";
 
@@ -45,7 +46,6 @@ const Anfitrion = () => {
     setUser(filterUser);
     setCocheras(filterGarage);
   };
-
   const [values, setValues] = useState({
     adress: "",
     country: "",
@@ -173,6 +173,16 @@ const Anfitrion = () => {
                         </Grid>
                       </Grid>
                     </CardContent>
+                    <CardActions>
+                    <Link to={`/booking/${cochera.id}`}>
+                      <Button
+                        sx={{ marginLeft: 100 }}
+                        color="secondary"
+                      >
+                        Ver publicacion
+                      </Button>
+                    </Link>
+                    </CardActions>
                   </Card>
                 </Grid>
               ))}

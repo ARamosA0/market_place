@@ -144,7 +144,7 @@ const ParkingLog = () => {
         </Grid>
         <Grid container>
           <Grid item md={12} mb={2} mt={5}>
-            <MapContainer center={position} zoom={13} style={{ height: 500 }}>
+            {/* <MapContainer center={position} zoom={13} style={{ height: 500 }}>
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -163,7 +163,7 @@ const ParkingLog = () => {
                     </Popup>
                   </Marker>
                 ))}
-            </MapContainer>
+            </MapContainer> */}
           </Grid>
         </Grid>
       </Container>

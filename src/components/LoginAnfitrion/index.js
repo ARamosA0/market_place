@@ -52,7 +52,7 @@ const LoginAnfitrion = ({ handleClickOpen, open }) => {
     
   };
   //funcion para verificar el usuario
-
+  // se le da al local storage solo el id de usuario
   const verificarUsuario = async() => {
     try {
       const data = await getCocheraData("usuario");

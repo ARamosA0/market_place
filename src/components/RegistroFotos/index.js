@@ -8,13 +8,13 @@ import {
   Button,
 } from "@mui/material";
 import { updatePhotoCochera } from "../../service/firestore";
+import swal from "sweetalert";
 import garage1 from "../../assets/garage.jpg";
 
 const RegistroFotos = () => {
   const { cochera } =useContext(CocheraContext);
   const [regCochera, setRegCochera] = useState([])
   const [open, setOpen] = useState(false);
-  const [values, setValues] = useState([]);
 
   const [valorInputs, setValorInputs] = useState({
     image: "",
@@ -26,7 +26,6 @@ const RegistroFotos = () => {
       ...valorInputs,
       [name]: value,
     });
-    // console.log(valorInputs.image)
   };
 
   const handleOpenDialog = () => {
@@ -38,11 +37,8 @@ const RegistroFotos = () => {
     const showCochera = JSON.parse(localStorage.getItem('cochera'));
     setRegCochera(showCochera);
   };
-
-
   const handleClickUpdate = async () => {
     await updatePhotoCochera(regCochera[0], valorInputs.image,"cochera");
-    console.log(valorInputs)
   };
 
   useEffect(() => {
@@ -59,16 +55,15 @@ const RegistroFotos = () => {
         <DialogContent>
           <form>
             <Grid container spacing={2}>
-              <Grid item md={6} xs={4}>
-                <img
-                  src={garage1}
-                  style={{
-                    objectFit: "cover",
-                    width: 260,
-                    height: 427,
-                    margin: 0,
-                    padding: 0,
-                  }}
+              <Grid item md={12} xs={12}>
+                <h2>Direccion y Ubicacion</h2>
+              </Grid>
+              <Grid item md={12} xs={12}>
+                <TextField
+                  label="Foto"
+                  name="image"
+                  fullWidth
+                  onChange={handleInputValue}
                 />
               </Grid>
               <Grid item md={6} xs={8}>
@@ -89,7 +84,7 @@ const RegistroFotos = () => {
                       color="secondary"
                       variant="contained"
                       fullWidth
-                      onChange={handleClickUpdate}
+                      onClick={handleClickUpdate}
                     >
                       Send
                     </Button>
