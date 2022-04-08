@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext } from "react";
-
 import {Link} from "react-router-dom"
 
 import { Container, Grid, Card, Divider, Chip, CardMedia, CardActionArea, Typography,  CardContent, Stack, TextField, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
+//Context
 import { getCocheraData } from "../../service/firestore";
 import { CocheraContext } from "../../Context/CocheraContext";
 
@@ -39,7 +39,6 @@ const ParkingLog = () => {
       setParking(data);
       setUser(userData);
       return data;
-      // localizacion(parking);
     };
   
     const handleSearchDistrict = (e) => {
