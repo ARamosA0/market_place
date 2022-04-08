@@ -46,7 +46,7 @@ const RegistroDireccion = () => {
 
 
   const handleClickUpdate = async () => {
-<<<<<<< HEAD
+    // await updateCochera(regCochera[0], valorInputs,"cochera");
     try{
       await updateCochera(regCochera[0], valorInputs,"cochera");
       const response = await swal({
@@ -63,9 +63,6 @@ const RegistroDireccion = () => {
         text: "Intenta de nuevo",
       }); 
     }
-=======
-    await updateCochera(regCochera[0], valorInputs,"cochera");
->>>>>>> b6759b8632c5b0016b008019955c792adaacd556
   };
 
   useEffect(() => {

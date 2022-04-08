@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { getCocheraData } from "../../service/firestore";
+import { getCocheraData, updateSpaceCochera } from "../../service/firestore";
 import {
   Grid,
   Container,
@@ -23,29 +23,26 @@ import DateAdapter from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DesktopDateRangePicker from "@mui/lab/DesktopDateRangePicker";
 import DesktopTimePicker from "@mui/lab/DesktopTimePicker";
-import { Link } from "react-router-dom";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-} from "react-leaflet";
+import { Link, useParams } from "react-router-dom";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import swal from "sweetalert";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
 const Booking = () => {
-  const {user, cochera } =useContext(CocheraContext)
+  const {id} = useParams();
+  const { user, cochera } = useContext(CocheraContext);
   const [filterUser, setFilterUser] = useState([]);
   const [filterCochera, setFilterCochera] = useState([]);
 
   const fetchData = () => {
-    const fetchUser = JSON.parse(localStorage.getItem('user'));
-    const fetchCochera = JSON.parse(localStorage.getItem('cochera'));
+    const fetchUser = JSON.parse(localStorage.getItem("user"));
+    const fetchCochera = JSON.parse(localStorage.getItem("cochera"));
     setFilterUser(fetchUser);
-    setFilterCochera(fetchCochera)
+    setFilterCochera(fetchCochera);
   };
-  
+
   // Mapa
   const markerIcon = new L.icon({
     iconUrl: require("../../assets/marker.png"),
@@ -59,7 +56,37 @@ const Booking = () => {
   const [valueStartTime, setValueStartTime] = React.useState(new Date());
   const [valueEndTime, setValueEndTime] = React.useState(new Date());
 
-
+  // Boton Reservar
+  const handleOnClickReservar = async () => {
+    try {
+      const fireBaseGarage = await getCocheraData("cochera")
+      const filterGarage = fireBaseGarage.find((cochera) => cochera.id === id);
+      if(+filterGarage.space > 0){
+        const space = +filterGarage.space - 1
+        await updateSpaceCochera(filterGarage, space.toString(), "cochera")
+        console.log(filterGarage)
+        await swal({
+          icon: "success",
+          title: "Se subieron los datos",
+        });
+      } 
+      if (+filterGarage.space === 0){
+        swal({
+          icon: "error",
+          title: "Ya no hay espacio en esta cochera",
+        });
+      }
+      console.log(filterGarage.space)
+      
+      } catch(error){
+        console.log(error.message)
+      swal({
+        icon: "error",
+        title: `No se pudo reservar`,
+        text: "Intenta de nuevo",
+      }); 
+    }
+  }
 
   useEffect(() => {
     fetchData();
@@ -67,7 +94,7 @@ const Booking = () => {
 
   return (
     <section>
-      {filterUser.length > 0 && filterCochera.length>0 &&(
+      {filterUser.length > 0 && filterCochera.length > 0 && (
         <Container sx={{ marginTop: 5 }}>
           <Grid container spacing={3}>
             <Grid item md={12} className="titulo-principal">
@@ -93,7 +120,10 @@ const Booking = () => {
             <Grid item md={6} sx={{ marginTop: 2 }}>
               <Grid container>
                 <Grid item md={12}>
-                  <img className="img-principal" src={filterCochera[0].image[0]} />
+                  <img
+                    className="img-principal"
+                    src={filterCochera[0].image[0]}
+                  />
                 </Grid>
                 <Grid item md={6}>
                   <img className="img-sec" src={filterCochera[0].image[1]} />
@@ -102,17 +132,20 @@ const Booking = () => {
                   <img className="img-sec" src={filterCochera[0].image[2]} />
                 </Grid>
                 <Grid item md={12} className="titulo-cochera">
-                  <Divider  sx={{marginTop:5}}/>
+                  <Divider sx={{ marginTop: 5 }} />
                   <p className="titulo-cochera-uno">
                     Cochera Privada - {filterCochera[0].name}
                   </p>
                   <p className="titulo-cochera-dos">
-                    Anfitrion - <Link to={`/anfitrion/${filterUser[0].id}`}>{filterUser[0].userName} {filterUser[0].lastName}</Link> 
+                    Anfitrion -{" "}
+                    <Link to={`/anfitrion/${filterUser[0].id}`}>
+                      {filterUser[0].userName} {filterUser[0].lastName}
+                    </Link>
                   </p>
                   <p className="titulo-cochera-dos">
                     Tipo de Cochera - {filterCochera[0].space} espacios
                   </p>
-                  <Divider/>
+                  <Divider />
                   <div className="description">
                     <p className="">{filterCochera[0].description}</p>
                   </div>
@@ -124,7 +157,9 @@ const Booking = () => {
               <Card sx={{ maxWidth: 350, marginLeft: 20 }}>
                 <CardContent className="card-info">
                   <div>
-                    <span className="card-precio">S/{filterCochera[0].price}</span>
+                    <span className="card-precio">
+                      S/{filterCochera[0].price}
+                    </span>
                     <span className="card-precio-aux">/hora</span>
                   </div>
                   <div>
@@ -139,12 +174,11 @@ const Booking = () => {
                             onChange={(newValue) => {
                               setValueDate(newValue);
                             }}
-                            
                             renderInput={(startProps, endProps) => (
                               <React.Fragment>
-                                <TextField {...startProps}/>
+                                <TextField {...startProps} />
                                 <Box sx={{ mx: 2 }}> to </Box>
-                                <TextField {...endProps}/>
+                                <TextField {...endProps} />
                               </React.Fragment>
                             )}
                           />
@@ -189,6 +223,7 @@ const Booking = () => {
                       size="large"
                       variant="contained"
                       color="secondary"
+                      onClick={handleOnClickReservar}
                       sx={{ marginTop: 2, marginBottom: 2 }}
                     >
                       Reservar
@@ -214,10 +249,7 @@ const Booking = () => {
                         fontWeight: "medium",
                         display: "inline",
                       }}
-                    >
-                      
-            
-                    </Box>
+                    ></Box>
                   </div>
                   <Divider />
                   <div style={{ marginTop: 10 }}>
@@ -241,10 +273,7 @@ const Booking = () => {
                         display: "inline",
                         marginLeft: 5,
                       }}
-                    >
-                      
-            
-                    </Box>
+                    ></Box>
                   </div>
                 </CardContent>
               </Card>
@@ -267,16 +296,20 @@ const Booking = () => {
                         }}
                         renderInput={(startProps, endProps) => (
                           <React.Fragment>
-                            <TextField {...startProps}/>
+                            <TextField {...startProps} />
                             <Box sx={{ mx: 2 }}> to </Box>
-                            <TextField {...endProps}/>
+                            <TextField {...endProps} />
                           </React.Fragment>
                         )}
                       />
                     </LocalizationProvider>
                   </div>
                   {/* Time Range picker */}
-                  <Grid container spacing={3} sx={{marginTop:5, marginBottom:5}}>
+                  <Grid
+                    container
+                    spacing={3}
+                    sx={{ marginTop: 5, marginBottom: 5 }}
+                  >
                     <Grid item md={6}>
                       <span>Inicio</span>
                       <LocalizationProvider dateAdapter={DateAdapter}>
@@ -319,8 +352,8 @@ const Booking = () => {
                   <Grid item md={12}>
                     <MapContainer
                       center={[
-                        filterCochera[0].geolocation.latitude,
-                        filterCochera[0].geolocation.longitude,
+                        filterCochera[0].geolocation[0],
+                        filterCochera[0].geolocation[1],
                       ]}
                       zoom={18}
                       style={{ height: 500 }}
@@ -331,8 +364,8 @@ const Booking = () => {
                       />
                       <Marker
                         position={[
-                          filterCochera[0].geolocation.latitude,
-                          filterCochera[0].geolocation.longitude,
+                          filterCochera[0].geolocation[0],
+                          filterCochera[0].geolocation[1],
                         ]}
                         icon={markerIcon}
                       >

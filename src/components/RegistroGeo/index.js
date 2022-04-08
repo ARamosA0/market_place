@@ -17,24 +17,7 @@ const RegistroGeo = () => {
   const [open, setOpen] = useState(false);
   const [regCochera, setRegCochera] = useState([])
 
-<<<<<<< HEAD
   const [position, setPosition] = useState(null);
-
-  const [valorInputs, setValorInputs] = useState({
-    geolocation: new GeoPoint(0,0),
-  });
-  
-
-  const handleInputValue = (event) => {
-    const { value, name } = event.target;
-    setValorInputs({
-      ...valorInputs,
-      [name]: value,
-    });
-  };
-=======
-
->>>>>>> b6759b8632c5b0016b008019955c792adaacd556
 
   const fetchData = () => {
     const showCochera = JSON.parse(localStorage.getItem('cochera'));
@@ -106,11 +89,7 @@ const RegistroGeo = () => {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-<<<<<<< HEAD
             <LocationMarker position={position} setPosition={setPosition} />
-=======
-            <LocationMarker />
->>>>>>> b6759b8632c5b0016b008019955c792adaacd556
           </MapContainer>
           <Button
             color="secondary"

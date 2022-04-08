@@ -26,7 +26,6 @@ const RegistroAnfitrion = () => {
         // console.log(showUser)
     };
 
-
     useEffect(() => {
         fetchData();
       }, [user]);
@@ -42,8 +41,8 @@ const RegistroAnfitrion = () => {
                             <p>
                                 <span> <b>{regUser[0].userName} {regUser[0].lastName},&nbsp;</b></span>
                                 <span>{regUser[0].email} .&nbsp;</span>
-                                <Link to={`/anfitrion/${regUser.id}`}>
-                                    <span><Button color="secondary">Ir a perfil</Button></span>
+                                <Link to={`/anfitrion/${regUser[0].id}`}>
+                                    <Button color="secondary">Ir a perfil</Button>
                                 </Link>
                 
                             </p>

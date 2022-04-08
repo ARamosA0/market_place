@@ -48,7 +48,7 @@ const Anfitrion = () => {
     department: "",
     description: "",
     district: "",
-    geolocation: new GeoPoint(0,0),
+    geolocation: [],
     image: [],
     name: "",
     price: "",
@@ -164,12 +164,14 @@ const Anfitrion = () => {
                     </CardContent>
 
                     <CardActions>
+                    <Link to={`/booking/${cochera.id}`}>
                       <Button
                         sx={{ marginLeft: 100 }}
                         color="secondary"
                       >
                         Ver publicacion
                       </Button>
+                    </Link>
                     </CardActions>
                   </Card>
                 </Grid>

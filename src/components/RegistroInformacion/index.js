@@ -8,10 +8,7 @@ import {
   Button,
 } from "@mui/material";
 import { updateCochera } from "../../service/firestore";
-<<<<<<< HEAD
 import swal from "sweetalert";
-=======
->>>>>>> b6759b8632c5b0016b008019955c792adaacd556
 
 const RegistroInformacion = () => {
   const { cochera } =useContext(CocheraContext);

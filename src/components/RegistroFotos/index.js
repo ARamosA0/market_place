@@ -66,7 +66,6 @@ const RegistroFotos = () => {
                   onChange={handleInputValue}
                 />
               </Grid>
-<<<<<<< HEAD
               <Grid item md={6} xs={8}>
                 <Grid container spacing={2}>
                   <Grid item md={12} xs={12}>
@@ -91,24 +90,6 @@ const RegistroFotos = () => {
                     </Button>
                   </Grid>
                 </Grid>
-=======
-              <Grid item md={12} xs={12}>
-                <TextField
-                  label="Nombre"
-                  name="name"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item md={12} xs={12}>
-                <Button
-                  color="secondary"
-                  variant="contained"
-                  fullWidth
-                  onChange={handleClickUpdate}
-                >
-                  Send
-                </Button>
->>>>>>> b6759b8632c5b0016b008019955c792adaacd556
               </Grid>
             </Grid>
           </form>
