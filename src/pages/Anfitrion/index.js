@@ -41,7 +41,7 @@ const Anfitrion = () => {
     setCocheras(filterGarage);
   };
   
-  console.log(user)
+  
   const [values, setValues] = useState({
     adress: "",
     country: "",
