@@ -60,7 +60,8 @@ const Anfitrion = () => {
   });
 
   const idUsuario = JSON.parse(localStorage.getItem("userID"));
-  
+  const reservaCochera = JSON.parse(localStorage.getItem("cochera"))
+
   const handleClickGarge = async () => {
     await sc(values, "cochera");
     await updateIdCochera(user, "usuario", values.id);
