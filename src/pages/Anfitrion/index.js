@@ -81,7 +81,7 @@ const Anfitrion = () => {
   return (
     <section>
       {Object.keys(user).length > 0 && (
-        <Container sx={{ paddingTop: 10, paddingBottom: 10 }}>
+        <Container sx={{ paddingTop: 25.1, paddingBottom: 10 }}>
           <Grid container sx={{ textAlign: "center" }}>
             <Grid
               container
