@@ -74,9 +74,7 @@ const ParkingLog = () => {
 
 
     const handleDistrict = async (e) => {
-      const districts = e?.target?.value ?? name;
-      // const districts = e.target.value;
-  
+      const districts = e?.target?.value ?? name; 
       setDistrict(districts);
       if (districts === "all") {
         fetchParking();
@@ -91,16 +89,11 @@ const ParkingLog = () => {
   
       setParking(filterDistrict);
     };
-    
-
-
 
     useEffect(() => {
-      // fetchParking();
       handleDistrict();
     }, []);
     
-
     return (
       <Container maxWidth="xl">
         <Grid container mt={3} sx={{ marginTop: 30, }} direction={"row"} justifyContent={"space-between"} >
@@ -138,7 +131,6 @@ const ParkingLog = () => {
                 </CardMedia>
                   <CardActionArea onClick={() => storeCochera(parking)} component={Link} to={`/booking/${parking.id}`}>
                     <CardContent>
-                      
                       <Typography variant="h5" component="div" color={"#D93B30"}>{parking.name}</Typography>
                       <Typography variant="subtitle2" color="primary" >{`${parking.description}`}</Typography>
                       <Typography className="parking-text" variant="subtitle2" color="primary" >{`Dirección: ${parking.adress}`}</Typography>
