@@ -155,7 +155,7 @@ const ParkingLog = () => {
               />
               {parking.length > 0 &&
                 parking.map((parking) => (
-                  <Marker position={[ parking.geolocation._lat, parking.geolocation._long,]} icon={markerIcon} >
+                  <Marker position={[ parking.geolocation[0], parking.geolocation[1]]} icon={markerIcon} >
                     <Popup>
                       <CardActionArea component={Link} to={`/booking/${parking.id}`}>
                         <div>
