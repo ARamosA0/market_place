@@ -62,16 +62,6 @@ const MenuAppBar = () => {
   };
 
   return (
-<<<<<<< HEAD
-        <Box sx={{ flexGrow: 1, marginBottom:3 }}>
-          <AppBar position="fixed" sx={{ height: "10vh" }}>
-              <Toolbar sx={{ height: "10vh", padding: "0px 5px" }} className="navar">
-                <Typography
-                  variant="h6"
-                  component="div"
-                  noWrap
-                  sx={{ display: { xs: "flex", md: "flex"}}}
-=======
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" sx={{ height: "10vh" }}>
         <Toolbar sx={{ height: "10vh", padding: "0px 5px" }} className="navar">
@@ -137,7 +127,6 @@ const MenuAppBar = () => {
                   onClick={handleMenu}
                   color="inherit"
                   className="btn-session"
->>>>>>> ff60719a48a68cd2ff2f8bb29b40f3cde91782b9
                 >
                   <Avatar
                     sx={{ width: 38, height: 38 }}

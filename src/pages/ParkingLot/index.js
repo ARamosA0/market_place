@@ -29,15 +29,18 @@ const ParkingLog = () => {
       iconUrl: require("../../assets/marker.png"),
       iconSize: [30, 30],
     });
-  
     const fetchParking = async () => {
       const data = await getCocheraData("cochera");
       const userData = await getCocheraData("usuario");
       setParking(data);
       setUser(userData);
-      return data;
     };
-    // console.log(parking[0].geolocation)
+
+    const saveUserData = (data) =>{
+      // const filterUser = user.filter((dataUser) =>data.id.includes(user.idCocheras)); 
+      // console.log(dataUser)
+      // storeUser(filterUser);
+    }
   
     const handleSearchDistrict = async (e) => {
       const districts = e.target.value;
@@ -55,7 +58,6 @@ const ParkingLog = () => {
         
       }
     };
-    // console.log(parking)
 
     const handleDistrict = async (e) => {
       const districts = e.target.value;  
@@ -76,8 +78,8 @@ const ParkingLog = () => {
       setParking(filterDistrict);
     };
 
-    console.log(parking)
-    console.log(user)
+    
+
 
     useEffect(() => {
       fetchParking();
@@ -119,7 +121,10 @@ const ParkingLog = () => {
                     )}
                   </Carousel>
                 </CardMedia>
-                  <CardActionArea onClick={() => storeCochera(parking)} component={Link} to={`/booking/${parking.id}`}>
+                  <CardActionArea onClick={() => {
+                    storeCochera(parking);
+                    saveUserData(parking)
+                  }} component={Link} to={`/booking/${parking.id}`}>
                     <CardContent>
                       <Typography variant="h5" component="div" color={"#D93B30"}>{parking.name}</Typography>
                       <Typography variant="subtitle2" color="primary" >{`${parking.description}`}</Typography>
