@@ -74,9 +74,9 @@
     font-weight: 500;   
 }
 
-/* .static-date-container{
-    width: 55vw;
-} */
+.static-date-container{
+    display: flex;
+} 
 /* Date Static fin */
 
 /* card inicio*/

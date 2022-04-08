@@ -17,12 +17,13 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import "./index.css";
+import DatePicker from '@mui/lab/DatePicker';
 import StaticDateRangePicker from "@mui/lab/StaticDateRangePicker";
-import StaticTimePicker from "@mui/lab/StaticTimePicker";
 import DateAdapter from "@mui/lab/AdapterDateFns";
+import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import StaticDatePicker from '@mui/lab/StaticDatePicker';
 import DesktopDateRangePicker from "@mui/lab/DesktopDateRangePicker";
-import DesktopTimePicker from "@mui/lab/DesktopTimePicker";
 import { Link, useParams } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import swal from "sweetalert";
@@ -51,10 +52,8 @@ const Booking = () => {
 
   // Date Range picker
   const [valueDate, setValueDate] = React.useState([null, null]);
+  const [valueDateFin, setValueDateFin] = React.useState([null, null]);
 
-  // Time picker
-  const [valueStartTime, setValueStartTime] = React.useState(new Date());
-  const [valueEndTime, setValueEndTime] = React.useState(new Date());
 
   // Boton Reservar
   const handleOnClickReservar = async () => {
@@ -150,6 +149,54 @@ const Booking = () => {
                     <p className="">{filterCochera[0].description}</p>
                   </div>
                 </Grid>
+                <Grid item md={12}>
+                <Grid container>
+                <Grid item md={6}>
+                  <p className="titulo-fechas">
+                    Cochera en {filterCochera[0].department}, {filterCochera[0].district}
+                  </p>
+                  {/* Date Range picker */}
+                  <div className="static-date-container">
+                  <div >
+                    <h5>Fecha Inicio</h5>
+                    <LocalizationProvider dateAdapter={DateAdapter}>
+                      <StaticDatePicker
+                        displayStaticWrapperAs="desktop"
+                        openTo="day"
+                        value={valueDate}
+                        onChange={(newValue) => {
+                          setValueDate(newValue);
+                        }}
+                        renderInput={(params) => <TextField {...params} />}
+                      />
+                    </LocalizationProvider>
+                  </div>
+                  <div>
+                    <h5>Fecha Fin</h5>
+                    <LocalizationProvider dateAdapter={DateAdapter}>
+                      <StaticDatePicker
+                        displayStaticWrapperAs="desktop"
+                        openTo="day"
+                        value={valueDateFin}
+                        onChange={(newValue) => {
+                          setValueDateFin(newValue);
+                        }}
+                        renderInput={(params) => <TextField {...params} />}
+                      />
+                    </LocalizationProvider>
+                  </div>
+                  </div>
+                  {/* Time Range picker */}
+                  <Grid
+                    container
+                    spacing={3}
+                    sx={{ marginTop: 5, marginBottom: 5 }}
+                  >
+                  </Grid>
+                </Grid>
+                <Grid item md={6}></Grid>
+              </Grid>
+                </Grid>
               </Grid>
             </Grid>
 
@@ -166,53 +213,30 @@ const Booking = () => {
                     {/* Date Range picker*/}
                     <div className="date-container">
                       <LocalizationProvider dateAdapter={DateAdapter}>
-                        <Stack spacing={3}>
-                          <DesktopDateRangePicker
-                            startText="Fecha Inicio"
-                            inputFormat="dd-MM-yyyy"
-                            value={valueDate}
-                            onChange={(newValue) => {
-                              setValueDate(newValue);
-                            }}
-                            renderInput={(startProps, endProps) => (
-                              <React.Fragment>
-                                <TextField {...startProps} />
-                                <Box sx={{ mx: 2 }}> to </Box>
-                                <TextField {...endProps} />
-                              </React.Fragment>
-                            )}
-                          />
-                        </Stack>
+                        <DatePicker
+                          label="Escoge la fecha inicial"
+                          openTo="day"
+                          views={['year', 'month', 'day']}
+                          value={valueDate}
+                          onChange={(newValue) => {
+                            setValueDate(newValue);
+                          }}
+                          renderInput={(params) => <TextField {...params} />}
+                        />
                       </LocalizationProvider>
                     </div>
-                    {/* Time Start picker*/}
                     <div className="date-container">
                       <LocalizationProvider dateAdapter={DateAdapter}>
-                        <Stack spacing={3}>
-                          <DesktopTimePicker
-                            label="Hora inicio"
-                            value={valueStartTime}
-                            onChange={(newValue) => {
-                              setValueStartTime(newValue);
-                            }}
-                            renderInput={(params) => <TextField {...params} />}
-                          />
-                        </Stack>
-                      </LocalizationProvider>
-                    </div>
-                    {/* Time End picker*/}
-                    <div className="date-container">
-                      <LocalizationProvider dateAdapter={DateAdapter}>
-                        <Stack spacing={3}>
-                          <DesktopTimePicker
-                            label="Hora final"
-                            value={valueEndTime}
-                            onChange={(newValue) => {
-                              setValueEndTime(newValue);
-                            }}
-                            renderInput={(params) => <TextField {...params} />}
-                          />
-                        </Stack>
+                        <DatePicker
+                          label="Escoge la fecha final"
+                          openTo="day"
+                          views={['year', 'month', 'day']}
+                          value={valueDateFin}
+                          onChange={(newValue) => {
+                            setValueDateFin(newValue);
+                          }}
+                          renderInput={(params) => <TextField {...params} />}
+                        />
                       </LocalizationProvider>
                     </div>
                   </div>
@@ -280,67 +304,7 @@ const Booking = () => {
             </Grid>
 
             <Grid item md={12}>
-              <Grid container>
-                <Grid item md={6}>
-                  <p className="titulo-fechas">
-                    {filterCochera[0].region}, {filterCochera[0].district}
-                  </p>
-                  {/* Date Range picker */}
-                  <div className="static-date-container">
-                    <LocalizationProvider dateAdapter={DateAdapter}>
-                      <StaticDateRangePicker
-                        displayStaticWrapperAs="desktop"
-                        value={valueDate}
-                        onChange={(newValueDate) => {
-                          setValueDate(newValueDate);
-                        }}
-                        renderInput={(startProps, endProps) => (
-                          <React.Fragment>
-                            <TextField {...startProps} />
-                            <Box sx={{ mx: 2 }}> to </Box>
-                            <TextField {...endProps} />
-                          </React.Fragment>
-                        )}
-                      />
-                    </LocalizationProvider>
-                  </div>
-                  {/* Time Range picker */}
-                  <Grid
-                    container
-                    spacing={3}
-                    sx={{ marginTop: 5, marginBottom: 5 }}
-                  >
-                    <Grid item md={6}>
-                      <span>Inicio</span>
-                      <LocalizationProvider dateAdapter={DateAdapter}>
-                        <StaticTimePicker
-                          displayStaticWrapperAs="mobile"
-                          value={valueStartTime}
-                          color="secondary"
-                          onChange={(newValueTime) => {
-                            setValueStartTime(newValueTime);
-                          }}
-                          renderInput={(params) => <TextField {...params} />}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
-                    <Grid item md={6}>
-                      <span>Final</span>
-                      <LocalizationProvider dateAdapter={DateAdapter}>
-                        <StaticTimePicker
-                          displayStaticWrapperAs="mobile"
-                          value={valueEndTime}
-                          onChange={(newValueTime) => {
-                            setValueEndTime(newValueTime);
-                          }}
-                          renderInput={(params) => <TextField {...params} />}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item md={6}></Grid>
-              </Grid>
+              
 
               <Divider />
               <div>
