@@ -59,10 +59,8 @@ const Anfitrion = () => {
     space: "",
   });
 
-
   const idUsuario = JSON.parse(localStorage.getItem("userID"));
-  const reservaCochera = JSON.parse(localStorage.getItem("reservaCochera"));
-  console.log(reservaCochera)
+  
   const handleClickGarge = async () => {
     await sc(values, "cochera");
     await updateIdCochera(user, "usuario", values.id);
@@ -107,7 +105,7 @@ const Anfitrion = () => {
                 </p>
               </Grid>
               <Grid item xs={12} sm={12} xl={12}>
-                <Link to={`/anfitrion/${idUsuario}/registro`}>
+                <Link to={`/anfitrion/${idUsuario.id}/registro`}>
                   <Button
                     variant="contained"
                     color="secondary"
