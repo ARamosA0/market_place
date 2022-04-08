@@ -12,6 +12,10 @@ export const CocheraProvider = (props) => {
         localStorage.setItem("cochera",JSON.stringify([...cochera, product]));
     };
 
+    const storeReservaCochera = (product) => {
+      localStorage.setItem("reservaCochera",JSON.stringify([...cochera, product]));
+  };
+
     const storeUser = (product)=> {
         localStorage.setItem("user",JSON.stringify([...user, product]));
     }
@@ -29,6 +33,7 @@ export const CocheraProvider = (props) => {
             storeUser,
             distrito,
             storeDistrito,
+            storeReservaCochera,
           }}
         >
           {props.children}

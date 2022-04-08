@@ -85,6 +85,16 @@ export const updatePhotoCochera = async (product,data, nameBd) => {
   await updateDoc(productRef, {image:arrayUnion(data)});
 };
 
+export const updateReservaCochera = async (product,data, nameBd) => {
+  const productRef = doc(db, nameBd, product.id);
+  await updateDoc(productRef, {idCocherasReservadas:arrayUnion[data]});
+};
+
+export const updateFechaReservaCochera = async (product,data, nameBd) => {
+  const productRef = doc(db, nameBd, product.id);
+  await updateDoc(productRef, {fechaReservaFin:[data]});
+};
+
 export const updateSpaceCochera = async (product,data, nameBd) => {
   const productRef = doc(db, nameBd, product.id);
   await updateDoc(productRef, {space:data});
@@ -92,9 +102,9 @@ export const updateSpaceCochera = async (product,data, nameBd) => {
 
 export const updateGeoCochera = async (product, data, nameBd) => {
   const productRef = doc(db, nameBd, product.id);
-  await updateDoc(productRef, {geolocation:arrayUnion(data.lat)});
+  // await updateDoc(productRef, {geolocation:arrayUnion(data.lat)});
   // await updateDoc(productRef, {geolocation:arrayUnion(data.lng.toString())});
-  // await updateDoc(productRef, {geolocation: [data.lat.toString(), data.lng.toString()]});
+  await updateDoc(productRef, {geolocation: [data.lat.toString(), data.lng.toString()]});
 };
 
 export const updateIdCochera = async (product, nameBd, newId) => {

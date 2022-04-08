@@ -19,7 +19,7 @@ import "./index.css"
 import { Carousel } from 'react-bootstrap';
 
 const ParkingLog = () => {
-    const { storeCochera, distrito, storeDistrito } = useContext(CocheraContext);
+    const { storeCochera, distrito, storeDistrito, storeUser } = useContext(CocheraContext);
     const [user, setUser] = useState([]);
     const [parking, setParking] = useState([]);
     const [district, setDistrict] = useState("");
@@ -52,7 +52,7 @@ const ParkingLog = () => {
         );
   
         setParking(filterDistrict);
-        setUser(user);
+        
       }
     };
     // console.log(parking)
@@ -68,20 +68,16 @@ const ParkingLog = () => {
       }
   
       const parking = await fetchParking();
-<<<<<<< HEAD
-      // console.log("parking", parking);
-      const filterDistrict = parking.filter((distrito) =>
-        distrito.district.toUpperCase().includes(districts.toUpperCase())
-=======
       
       const filterDistrict = parking.filter((distritos) =>
         distritos.district.toUpperCase().includes(districts.toUpperCase())
->>>>>>> 24191e5a1f36b85f3bf5a8976b36c32c56bc1fbd
       );
   
       setParking(filterDistrict);
-      setUser(user);
     };
+
+    console.log(parking)
+    console.log(user)
 
     useEffect(() => {
       fetchParking();
@@ -161,20 +157,20 @@ const ParkingLog = () => {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-              {parking.length > 0 &&
+              {/* {parking.length > 0 &&
                 parking.map((parking) => (
                   <Marker position={[ parking.geolocation[0], parking.geolocation[1]]} icon={markerIcon} >
                     <Popup>
-                      <CardActionArea component={Link} to={`/booking/${park.id}`}>
+                      <CardActionArea component={Link} to={`/booking/${parking.id}`}>
                         <div>
                             <Typography variant="button" component={"div"} color="secondary">{`Ubicacion: ${parking.name}`}</Typography>
-                            <Typography variant="button" color="primary">{`Precio: ${park.price} - `}</Typography>
-                            <Typography variant="button" color="error">{` Espacios: ${park.space}`}</Typography>
+                            <Typography variant="button" color="primary">{`Precio: ${parking.price} - `}</Typography>
+                            <Typography variant="button" color="error">{` Espacios: ${parking.space}`}</Typography>
                         </div>
                       </CardActionArea>
                     </Popup>
                   </Marker>
-                ))}
+                ))} */}
             </MapContainer>
           </Grid>
         </Grid>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { getCocheraData, updateSpaceCochera } from "../../service/firestore";
+import { getCocheraData, updateSpaceCochera, updateReservaCochera, updateFechaReservaCochera} from "../../service/firestore";
 import {
   Grid,
   Container,
@@ -26,6 +26,7 @@ import StaticDatePicker from '@mui/lab/StaticDatePicker';
 import DesktopDateRangePicker from "@mui/lab/DesktopDateRangePicker";
 import { Link, useParams } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { storeCochera } from "../../service/firestore";
 import swal from "sweetalert";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -33,9 +34,10 @@ import L from "leaflet";
 
 const Booking = () => {
   const {id} = useParams();
-  const { user, cochera } = useContext(CocheraContext);
+  const { user, cochera, storeReservaCochera } = useContext(CocheraContext);
   const [filterUser, setFilterUser] = useState([]);
   const [filterCochera, setFilterCochera] = useState([]);
+  const [registerCochera, setRegisterCochera] = useState([]);
 
   const fetchData = () => {
     const fetchUser = JSON.parse(localStorage.getItem("user"));
@@ -51,8 +53,12 @@ const Booking = () => {
   });
 
   // Date Range picker
-  const [valueDate, setValueDate] = React.useState([null, null]);
-  const [valueDateFin, setValueDateFin] = React.useState([null, null]);
+  const [valueDate, setValueDate] = React.useState(null);
+  const [valueDateFin, setValueDateFin] = React.useState(null);
+  console.log(valueDate)
+  console.log(valueDateFin)
+  console.log(filterUser)
+
 
 
   // Boton Reservar
@@ -62,8 +68,11 @@ const Booking = () => {
       const filterGarage = fireBaseGarage.find((cochera) => cochera.id === id);
       if(+filterGarage.space > 0){
         const space = +filterGarage.space - 1
-        await updateSpaceCochera(filterGarage, space.toString(), "cochera")
-        console.log(filterGarage)
+        await updateSpaceCochera(filterGarage, space.toString(), "cochera");
+        await updateReservaCochera(filterUser[0], filterGarage.id, "cochera")
+        await updateFechaReservaCochera(filterGarage, [valueDate, valueDateFin], "cochera")
+        storeReservaCochera(filterGarage);
+        console.log(filterGarage);
         await swal({
           icon: "success",
           title: "Se subieron los datos",
@@ -253,7 +262,7 @@ const Booking = () => {
                       Reservar
                     </Button>
                   </div>
-                  <Divider />
+                  {/* <Divider />
                   <div style={{ marginTop: 10 }}>
                     <Box
                       sx={{
@@ -298,7 +307,7 @@ const Booking = () => {
                         marginLeft: 5,
                       }}
                     ></Box>
-                  </div>
+                  </div> */}
                 </CardContent>
               </Card>
             </Grid>
