@@ -1,5 +1,9 @@
 import { useState, useEffect, useContext } from "react";
-import { getCocheraData, storeCochera as sc, updateIdCochera } from "../../service/firestore";
+import {
+  getCocheraData,
+  storeCochera as sc,
+  updateIdCochera,
+} from "../../service/firestore";
 import { CocheraContext } from "../../Context/CocheraContext";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
@@ -14,13 +18,14 @@ import {
 } from "@mui/material";
 
 import "./index.css";
-import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import photoUser from "../../assets/user.png";
 
 import { doc, deleteDoc } from "firebase/firestore";
 
 const Anfitrion = () => {
-  
-  const {id} = useParams();
+  const { id } = useParams();
   const [user, setUser] = useState([]);
   const [cocheras, setCocheras] = useState([]);
 
@@ -40,8 +45,7 @@ const Anfitrion = () => {
     setUser(filterUser);
     setCocheras(filterGarage);
   };
-  
-  console.log(user)
+
   const [values, setValues] = useState({
     adress: "",
     country: "",
@@ -68,75 +72,74 @@ const Anfitrion = () => {
     fetchData();
   }, []);
 
-
-  //Eliminar Registro 
+  //Eliminar Registro
   const deleteElementFromCocheras = async (id) => {
     await deleteDoc(doc("cochera", id));
+    console.log(id);
   };
-  
+
   return (
     <section>
       {Object.keys(user).length > 0 && (
         <Container sx={{ paddingTop: 10, paddingBottom: 10 }}>
-          <Grid container>
-            <Grid item md={12}>
-              <Grid container>
-                <Grid item md={6} sm={12} xs={2} className="foto-perfil">
-                  <img src={user.userImage} />
-                </Grid>
-                <Grid item md={6} sm={12} xs={10} className="container-datos">
-                  <Grid container>
-                    <Grid
-                      item
-                      md={12}
-                      sx={{ textAlign: "center", marginBottom: 3 }}
-                    >
-                      <h1>{user.userName} {user.lastName}</h1>
-                    </Grid>
-                    <Grid item md={6} sx={{ textAlign: "center" }}>
-                      <span className="datos-subtitulo">
-                        EMAIL:&nbsp;&nbsp;
-                      </span>
-                      <span>{user.email}</span>
-                    </Grid>
-                    <Grid item md={6} sx={{ textAlign: "center" }}>
-                      <span className="datos-subtitulo">
-                        TELEFONO:&nbsp;&nbsp;
-                      </span>
-                      <span>{user.telefono}</span>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item md={12} sx={{ textAlign: "center", marginTop: 4 }}>
-                  <Link to={`/anfitrion/${idUsuario}/registro`}>
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      onClick={handleClickGarge}
-                    >
-                      ANADIR REGISTROS
-                    </Button>
-                  </Link>
-                </Grid>
+          <Grid container sx={{ textAlign: "center" }}>
+            <Grid
+              container
+              spacing={2}
+              alignItems="center"
+              className="grid-user"
+              padding={2}
+            >
+              <Grid item xs={12} sm={6} xl={6} className="foto-perfil">
+                <img src={photoUser} />
+              </Grid>
+              <Grid item xs={12} sm={6} xl={6}>
+                <h3 className="datos-name">
+                  {user.userName}, {user.lastName}
+                </h3>
+                <p className="datos-subtitulo">
+                  email:&nbsp;&nbsp;{user.email}
+                </p>
+                <p className="datos-subtitulo">
+                  telefono:&nbsp;&nbsp;{user.telefono}
+                </p>
+              </Grid>
+              <Grid item xs={12} sm={12} xl={12}>
+                <Link to={`/anfitrion/${idUsuario}/registro`}>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={handleClickGarge}
+                  >
+                    <AddCircleIcon />
+                    &nbsp;&nbsp;CREAR COCHERA
+                  </Button>
+                </Link>
               </Grid>
             </Grid>
             {Object.keys(cocheras).length > 0 &&
               cocheras.map((cochera) => (
                 <Grid item md={12}>
                   <Divider sx={{ marginTop: 5, marginBottom: 5 }} />
-                  <Card>
+                  <Card className="card-cocheras">
                     <CardContent>
-                      <Grid container>
-                        <Grid item xs={4}>
+                      <Grid
+                        container
+                        alignItems="center"
+                        sx={{ textAlign: "center" }}
+                        spacing={2}
+                      >
+                        <Grid item xs={12} sm={6} md={5} xl={4}>
                           <img
                             className="image-principal"
                             src={cochera.image[0]}
                             alt=""
                           />
                         </Grid>
-                        <Grid item xs={6}>
+
+                        <Grid item xs={12} sm={6} md={5} xl={6}>
                           <div>
-                          <h2>{cochera.name}</h2>
+                            <h2>{cochera.name}</h2>
 
                             <span>{cochera.country},&nbsp;</span>
                             <span>{cochera.department},&nbsp;</span>
@@ -147,30 +150,29 @@ const Anfitrion = () => {
                             <h6 style={{ marginBottom: 10 }}>
                               Direccion : {cochera.adress}
                             </h6>
-                            <h6>Estacionamientos disponibles: {cochera.space}</h6>
-                            <p style={{ textAlign: "justify" }}>
-                             Descripcion:  {cochera.description}
-                            </p>
+                            <h6>
+                              Estacionamientos disponibles: {cochera.space}
+                            </h6>
+                            <span style={{ textAlign: "justify" }}>
+                              Descripcion: {cochera.description}
+                            </span>
                           </div>
                         </Grid>
-                        <Grid item xs={2}>
 
-                        <Button onClick={() => deleteElementFromCocheras(cochera.id)} >
-                          <DeleteForeverRoundedIcon/>
-                        </Button>
-
+                        <Grid item xs={12} sm={12} md={2} xl={2}>
+                          <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={() =>
+                              deleteElementFromCocheras(cochera.id)
+                            }
+                          >
+                            <DoDisturbOnIcon />
+                            &nbsp;&nbsp;Eliminar
+                          </Button>
                         </Grid>
                       </Grid>
                     </CardContent>
-
-                    <CardActions>
-                      <Button
-                        sx={{ marginLeft: 100 }}
-                        color="secondary"
-                      >
-                        Ver publicacion
-                      </Button>
-                    </CardActions>
                   </Card>
                 </Grid>
               ))}
@@ -179,6 +181,6 @@ const Anfitrion = () => {
       )}
     </section>
   );
-}
+};
 
 export default Anfitrion;
