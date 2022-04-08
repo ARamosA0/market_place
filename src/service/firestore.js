@@ -7,9 +7,9 @@ import {
   setDoc,
   updateDoc,
   arrayUnion,
+  firestore
 } from "firebase/firestore/lite";
 import { v4 as uuidv4 } from "uuid";
-
 
 
 const firebaseConfig = {
@@ -58,6 +58,8 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
+
+
 export const getCocheraData = async (nameDB) =>{
   const collectionCocheras = collection(db, nameDB);
   const documentCocheras = await getDocs(collectionCocheras);
@@ -81,8 +83,12 @@ export const updateCochera = async (product,data, nameBd) => {
 export const updatePhotoCochera = async (product,data, nameBd) => {
   const productRef = doc(db, nameBd, product.id);
     await updateDoc(productRef, {image:arrayUnion(data)});
-  
-  
+};
+
+export const updateGeoCochera = async (product,data, nameBd) => {
+  const productRef = doc(db, nameBd, product.id);
+  await updateDoc(productRef, {geolocation: [data.lat.toString(), data.lng.toString()]},
+  );
 };
 
 export const updateIdCochera = async (product, nameBd, newId) => {

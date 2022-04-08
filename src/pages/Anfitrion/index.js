@@ -15,6 +15,7 @@ import {
 
 import "./index.css";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+import { GeoPoint } from "firebase/firestore/lite";
 
 
 const Anfitrion = () => {
@@ -47,7 +48,7 @@ const Anfitrion = () => {
     department: "",
     description: "",
     district: "",
-    geolocation: [],
+    geolocation: new GeoPoint(0,0),
     image: [],
     name: "",
     price: "",

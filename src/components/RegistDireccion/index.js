@@ -8,6 +8,7 @@ import {
   Button,
 } from "@mui/material";
 import { updateCochera } from "../../service/firestore";
+import swal from "sweetalert";
 import garage1 from "../../assets/garage.jpg";
 
 const RegistroDireccion = () => {
@@ -45,8 +46,22 @@ const RegistroDireccion = () => {
 
 
   const handleClickUpdate = async () => {
-    await updateCochera(regCochera[0], valorInputs,"cochera");
-
+    try{
+      await updateCochera(regCochera[0], valorInputs,"cochera");
+      const response = await swal({
+        icon: "success",
+        title: "Se subieron los datos",
+      });
+      if(response){
+        window.location.replace('');
+      }
+    } catch(error){
+      swal({
+        icon: "error",
+        title: `${error.message}`,
+        text: "Intenta de nuevo",
+      }); 
+    }
   };
 
   useEffect(() => {

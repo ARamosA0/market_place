@@ -8,6 +8,7 @@ import {
   Button,
 } from "@mui/material";
 import { updatePhotoCochera } from "../../service/firestore";
+import swal from "sweetalert";
 import garage1 from "../../assets/garage.jpg";
 
 const RegistroFotos = () => {
@@ -26,7 +27,6 @@ const RegistroFotos = () => {
       ...valorInputs,
       [name]: value,
     });
-    // console.log(valorInputs.image)
   };
 
   const handleOpenDialog = () => {
@@ -89,7 +89,7 @@ const RegistroFotos = () => {
                       color="secondary"
                       variant="contained"
                       fullWidth
-                      onChange={handleClickUpdate}
+                      onClick={handleClickUpdate}
                     >
                       Send
                     </Button>

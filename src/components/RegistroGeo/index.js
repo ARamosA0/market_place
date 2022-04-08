@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, Grid, Dialog, DialogContent, Button } from "@mui/material";
 import {
   MapContainer,
@@ -10,18 +10,31 @@ import {
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { storeCochera, updateCochera } from "../../service/firestore";
+import { GeoPoint } from "firebase/firestore/lite";
+import swal from "sweetalert";
 
-const RegistroGeo = (props) => {
+const RegistroGeo = () => {
   const [open, setOpen] = useState(false);
-  const [values, setValues] = useState([]);
+  const [regCochera, setRegCochera] = useState([])
 
-  const handleChangeInput = (e) => {
-    const { value, name } = e.target;
+  const [position, setPosition] = useState(null);
 
-    setValues({
-      ...values,
+  const [valorInputs, setValorInputs] = useState({
+    geolocation: new GeoPoint(0,0),
+  });
+  
+
+  const handleInputValue = (event) => {
+    const { value, name } = event.target;
+    setValorInputs({
+      ...valorInputs,
       [name]: value,
     });
+  };
+
+  const fetchData = () => {
+    const showCochera = JSON.parse(localStorage.getItem('cochera'));
+    setRegCochera(showCochera);
   };
 
   // Mapa
@@ -30,29 +43,46 @@ const RegistroGeo = (props) => {
     iconSize: [30, 30],
   });
 
-  const LocationMarker = () => {
-    const [position, setPosition] = useState(null);
+  const LocationMarker = ({ position, setPosition }) => {
     const map = useMapEvents({
       click() {
-        setPosition(map.locate()._lastCenter)
-      },
-      // locationfound(e) {
-      //   setPosition(e.latlng);
-      //   console.log(e.latlng);
-      //   map.flyTo(e.latlng, map.getZoom());
-      // },
+        setPosition(map.locate()._lastCenter);
+      }
     });
 
     return position === null ? null : (
       <Marker position={position} icon={markerIcon}>
-        <Popup>You are here</Popup>
+        <Popup>Estas Aqui!!!</Popup>
       </Marker>
     );
+  };
+
+  
+
+  const handleClickSendUbi = async () => {
+    try{
+      await updateCochera(regCochera[0], position,"cochera");
+      console.log(position.lat)
+      console.log(position.lng)
+    } catch(error){
+      console.log(regCochera[0])
+      console.log(position.lat.toString())
+      console.log(position.lng.toString())
+      swal({
+        icon: "error",
+        title: `${error.message}`,
+        text: "Intenta de nuevo",
+      }); 
+    }
   }
 
   const handleOpenDialog = () => {
     setOpen(!open);
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -71,12 +101,15 @@ const RegistroGeo = (props) => {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <Marker position={[-12.2047107, -77.0154433]} icon={markerIcon}>
-              <Popup>Cochera los Cedros</Popup>
-            </Marker>
-            <LocationMarker />
+            <LocationMarker position={position} setPosition={setPosition} />
           </MapContainer>
-          <Button color="secondary" variant="contained" fullWidth mt={3}>
+          <Button
+            color="secondary"
+            onClick={handleClickSendUbi}
+            variant="contained"
+            fullWidth
+            mt={3}
+          >
             Send
           </Button>
         </DialogContent>

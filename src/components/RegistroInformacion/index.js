@@ -8,7 +8,7 @@ import {
   Button,
 } from "@mui/material";
 import { updateCochera } from "../../service/firestore";
-import garage1 from "../../assets/garage.jpg";
+import swal from "sweetalert";
 
 const RegistroInformacion = () => {
   const { cochera } =useContext(CocheraContext);
@@ -44,10 +44,25 @@ const RegistroInformacion = () => {
 
 
   const handleClickUpdate = async () => {
-    await updateCochera(regCochera[0], valorInputs,"cochera");
-    console.log(valorInputs)
+    try{
+      await updateCochera(regCochera[0], valorInputs,"cochera");
+      const response = await swal({
+        icon: "success",
+        title: "Se subieron los datos",
+      });
+      if(response){
+        window.location.replace('');
+      }
+    } catch(error){
+      swal({
+        icon: "error",
+        title: `${error.message}`,
+        text: "Intenta de nuevo",
+      }); 
+    }
   };
 
+  
   useEffect(() => {
     fetchData();
   }, []);
