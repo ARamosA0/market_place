@@ -7,9 +7,6 @@ import { Container, Grid, Card, Divider, Chip, CardMedia, CardActionArea, Typogr
 import { getCocheraData } from "../../service/firestore";
 import { CocheraContext } from "../../Context/CocheraContext";
 
-//Iconos
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-
 //Mapa referencias
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -29,7 +26,7 @@ import { useParams } from "react-router-dom";
 
 
 const ParkingLog = () => {
-    const { storeCochera, storeUser } = useContext(CocheraContext);
+    const { storeCochera, distrito, storeDistrito } = useContext(CocheraContext);
     const [user, setUser] = useState([]);
     const [parking, setParking] = useState([]);
     const [district, setDistrict] = useState("");
@@ -59,12 +56,12 @@ const ParkingLog = () => {
       const districts = e?.target?.value ?? name;
   
       if (districts.length === 0) {
-        fetchParking();
+        await fetchParking();
       }
   
       if (districts.length > 0) {
-        const filterDistrict = parking.filter((distrito) =>
-          distrito.district.toUpperCase().includes(districts.toUpperCase())
+        const filterDistrict = parking.filter((distritos) =>
+          distritos.district.toUpperCase().includes(districts.toUpperCase())
         );
   
         setParking(filterDistrict);
@@ -77,17 +74,18 @@ const ParkingLog = () => {
       const districts = e?.target?.value ?? name; 
       setDistrict(districts);
       if (districts === "all") {
-        fetchParking();
+        await fetchParking();
         return;
       }
   
       const parking = await fetchParking();
-      console.log("parking", parking);
-      const filterDistrict = parking.filter((distrito) =>
-        distrito.district.toUpperCase().includes(districts.toUpperCase())
+      
+      const filterDistrict = parking.filter((distritos) =>
+        distritos.district.toUpperCase().includes(districts.toUpperCase())
       );
   
       setParking(filterDistrict);
+      setUser(user);
     };
 
     useEffect(() => {

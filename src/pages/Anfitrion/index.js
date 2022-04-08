@@ -62,7 +62,7 @@ const Anfitrion = () => {
   });
 
   const idUsuario = JSON.parse(localStorage.getItem("userID"));
-
+  
   const handleClickGarge = async () => {
     await sc(values, "cochera");
     await updateIdCochera(user, "usuario", values.id);
@@ -85,7 +85,7 @@ const Anfitrion = () => {
   return (
     <section>
       {Object.keys(user).length > 0 && (
-        <Container sx={{ paddingTop: 10, paddingBottom: 10 }}>
+        <Container sx={{ paddingTop: 25.1, paddingBottom: 10 }}>
           <Grid container sx={{ textAlign: "center" }}>
             <Grid
               container
@@ -110,7 +110,7 @@ const Anfitrion = () => {
                 </p>
               </Grid>
               <Grid item xs={12} sm={12} xl={12}>
-                <Link to={`/anfitrion/${idUsuario}/registro`}>
+                <Link to={`/anfitrion/${idUsuario.id}/registro`}>
                   <Button
                     variant="contained"
                     color="secondary"
