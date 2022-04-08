@@ -36,16 +36,6 @@ const firebaseConfig = {
   // measurementId: "G-DB563BGT2B"
 
 
-<<<<<<< HEAD
-  //Roberto
-  // apiKey: "AIzaSyD36x2aYrNKcPORpayq81KcFDCX7l2h9sE",
-  // authDomain: "garage-2a267.firebaseapp.com",
-  // projectId: "garage-2a267",
-  // storageBucket: "garage-2a267.appspot.com",
-  // messagingSenderId: "640634564300",
-  // appId: "1:640634564300:web:22be63f04dddc7d3f5dc69",
-  // measurementId: "G-T58KYD30N1"
-=======
   //Roberto Parking
   apiKey: "AIzaSyD36x2aYrNKcPORpayq81KcFDCX7l2h9sE",
   authDomain: "garage-2a267.firebaseapp.com",
@@ -54,15 +44,14 @@ const firebaseConfig = {
   messagingSenderId: "640634564300",
   appId: "1:640634564300:web:22be63f04dddc7d3f5dc69",
   measurementId: "G-T58KYD30N1"
->>>>>>> 24191e5a1f36b85f3bf5a8976b36c32c56bc1fbd
   
   // Tercera BD
-  apiKey: "AIzaSyDELXoNOjGgXBzhVk3kW2IkItngcVa1qVA",
-  authDomain: "garage-b2ab3.firebaseapp.com",
-  projectId: "garage-b2ab3",
-  storageBucket: "garage-b2ab3.appspot.com",
-  messagingSenderId: "71363030259",
-  appId: "1:71363030259:web:121f617f4f6aa647e05b86"
+  // apiKey: "AIzaSyDELXoNOjGgXBzhVk3kW2IkItngcVa1qVA",
+  // authDomain: "garage-b2ab3.firebaseapp.com",
+  // projectId: "garage-b2ab3",
+  // storageBucket: "garage-b2ab3.appspot.com",
+  // messagingSenderId: "71363030259",
+  // appId: "1:71363030259:web:121f617f4f6aa647e05b86"
 };
 
 const app = initializeApp(firebaseConfig);
