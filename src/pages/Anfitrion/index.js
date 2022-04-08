@@ -77,6 +77,7 @@ const Anfitrion = () => {
 
   // Guardar Datos del usuario en LocalStorage
   const saveUserInfo = () =>{
+    storeCochera(cocheras);
     storeUser(user)
   }
 

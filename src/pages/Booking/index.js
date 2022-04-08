@@ -26,7 +26,6 @@ import StaticDatePicker from '@mui/lab/StaticDatePicker';
 import DesktopDateRangePicker from "@mui/lab/DesktopDateRangePicker";
 import { Link, useParams } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { storeCochera } from "../../service/firestore";
 import swal from "sweetalert";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -39,13 +38,16 @@ const Booking = () => {
   const [filterCochera, setFilterCochera] = useState([]);
   const [registerCochera, setRegisterCochera] = useState([]);
 
-  const fetchData = () => {
-    const fetchUser = JSON.parse(localStorage.getItem("user"));
-    const fetchCochera = JSON.parse(localStorage.getItem("cochera"));
-    setFilterUser(fetchUser);
-    setFilterCochera(fetchCochera);
+  const fetchData = async () => {
+    await getCocheraData("usuario")
+    await getCocheraData("cochera")
+    
+    // const fetchUser = JSON.parse(localStorage.getItem("user"));
+    // const fetchCochera = JSON.parse(localStorage.getItem("cochera"));
+    // setFilterUser(fetchUser);
+    // setFilterCochera(fetchCochera);
   };
-
+  
   // Mapa
   const markerIcon = new L.icon({
     iconUrl: require("../../assets/marker.png"),
@@ -55,9 +57,9 @@ const Booking = () => {
   // Date Range picker
   const [valueDate, setValueDate] = React.useState(null);
   const [valueDateFin, setValueDateFin] = React.useState(null);
-  console.log(valueDate)
-  console.log(valueDateFin)
-  console.log(filterUser)
+  // console.log(valueDate)
+  // console.log(valueDateFin)
+  // console.log(filterUser)
 
 
 
@@ -95,6 +97,7 @@ const Booking = () => {
       }); 
     }
   }
+  console.log(filterCochera[0].geolocation)
 
   useEffect(() => {
     fetchData();
@@ -262,52 +265,6 @@ const Booking = () => {
                       Reservar
                     </Button>
                   </div>
-                  {/* <Divider />
-                  <div style={{ marginTop: 10 }}>
-                    <Box
-                      sx={{
-                        p: 2,
-                        fontSize: 17,
-                        fontWeight: "medium",
-                        minWidth: 300,
-                        display: "inline",
-                      }}
-                    >
-                      Tiempo Total
-                    </Box>
-                    <Box
-                      sx={{
-                        p: 2,
-                        fontSize: 17,
-                        fontWeight: "medium",
-                        display: "inline",
-                      }}
-                    ></Box>
-                  </div>
-                  <Divider />
-                  <div style={{ marginTop: 10 }}>
-                    <Box
-                      sx={{
-                        p: 2,
-                        fontSize: 17,
-                        fontWeight: "medium",
-                        minWidth: 300,
-                        display: "inline",
-                        marginRight: 1,
-                      }}
-                    >
-                      Precio Total
-                    </Box>
-                    <Box
-                      sx={{
-                        p: 2,
-                        fontSize: 17,
-                        fontWeight: "medium",
-                        display: "inline",
-                        marginLeft: 5,
-                      }}
-                    ></Box>
-                  </div> */}
                 </CardContent>
               </Card>
             </Grid>
@@ -323,7 +280,7 @@ const Booking = () => {
 
                 <Grid container sx={{ marginTop: 3, marginBottom: 5 }}>
                   <Grid item md={12}>
-                    <MapContainer
+                    {/* <MapContainer
                       center={[
                         filterCochera[0].geolocation[0],
                         filterCochera[0].geolocation[1],
@@ -344,7 +301,7 @@ const Booking = () => {
                       >
                         <Popup>Estas aqui</Popup>
                       </Marker>
-                    </MapContainer>
+                    </MapContainer> */}
                   </Grid>
                 </Grid>
 
