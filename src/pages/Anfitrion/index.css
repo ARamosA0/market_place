@@ -3,24 +3,11 @@
     padding: 0;
 }
 
-.container{
-    margin: 30px 0;
-}
-
-.foto-perfil{
-    text-align: center;
-}
-
 .foto-perfil img{
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
     object-fit: fill;
-}
-
-.container-datos{
-    display: flex;
-    align-items: center;
 }
 
 .datos-subtitulo{
@@ -28,8 +15,27 @@
     font-weight: 700;
 }
 
+.datos-name{
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
 .image-principal{
     object-fit: cover;
     width: 300px;
     height: 250px;
+}
+
+.card-cocheras{
+    background-color:#2c2542 !important;
+    color: white !important;
+}
+
+.grid-user{
+    background-color: #e5ecf3;
+}
+
+link{
+    list-style: none;
+
 }
