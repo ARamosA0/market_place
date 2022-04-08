@@ -22,7 +22,9 @@ import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import photoUser from "../../assets/user.png";
 
-import { doc, deleteDoc } from "firebase/firestore";
+// import { doc, deleteDoc, updateDoc } from "firebase/firestore";
+
+import {eliminarRegistro} from "../../service/firestore"
 
 const Anfitrion = () => {
   const { id } = useParams();
@@ -74,9 +76,11 @@ const Anfitrion = () => {
 
   //Eliminar Registro
   const deleteElementFromCocheras = async (id) => {
-    await deleteDoc(doc("cochera", id));
-    console.log(id);
+    await eliminarRegistro(id);
+    await fetchData();
   };
+
+
 
   return (
     <section>

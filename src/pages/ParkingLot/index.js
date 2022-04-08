@@ -21,12 +21,24 @@ import "./index.css"
 //Bootstrap
 import { Carousel } from 'react-bootstrap';
 
+//cc
+import { useParams } from "react-router-dom";
+
+
+
+
+
 const ParkingLog = () => {
     const { storeCochera, storeUser } = useContext(CocheraContext);
     const [user, setUser] = useState([]);
     const [parking, setParking] = useState([]);
     const [district, setDistrict] = useState("");
     const position = [-12.04318, -77.02824];
+
+
+    const {name} = useParams() 
+
+
   
     const markerIcon = new L.icon({
       iconUrl: require("../../assets/marker.png"),
@@ -41,8 +53,10 @@ const ParkingLog = () => {
       return data;
     };
   
+
     const handleSearchDistrict = (e) => {
-      const districts = e.target.value;
+      
+      const districts = e?.target?.value ?? name;
   
       if (districts.length === 0) {
         fetchParking();
@@ -57,9 +71,11 @@ const ParkingLog = () => {
         setUser(user);
       }
     };
-  
+
+
     const handleDistrict = async (e) => {
-      const districts = e.target.value;
+      const districts = e?.target?.value ?? name;
+      // const districts = e.target.value;
   
       setDistrict(districts);
       if (districts === "all") {
@@ -75,11 +91,16 @@ const ParkingLog = () => {
   
       setParking(filterDistrict);
     };
+    
+
+
 
     useEffect(() => {
-      fetchParking();
+      // fetchParking();
+      handleDistrict();
     }, []);
-  
+    
+
     return (
       <Container maxWidth="xl">
         <Grid container mt={3} sx={{ marginTop: 30, }} direction={"row"} justifyContent={"space-between"} >
@@ -143,7 +164,7 @@ const ParkingLog = () => {
         </Grid>
         <Grid container>
           <Grid item md={12} mb={2} mt={5}>
-            {/* <MapContainer center={position} zoom={13} style={{ height: 500 }}>
+            <MapContainer center={position} zoom={13} style={{ height: 500 }}>
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -162,7 +183,7 @@ const ParkingLog = () => {
                     </Popup>
                   </Marker>
                 ))}
-            </MapContainer> */}
+            </MapContainer>
           </Grid>
         </Grid>
       </Container>
