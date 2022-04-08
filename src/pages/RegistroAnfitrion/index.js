@@ -1,10 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { CocheraContext } from "../../Context/CocheraContext";
-import { Outlet, Link } from "react-router-dom";
-import { getCocheraData } from "../../service/firestore";
+import { Link } from "react-router-dom";
 import {Container, Grid, Card, CardContent, CardActions, Button} from "@mui/material"
-import { useParams } from "react-router-dom";
-import { height } from "@mui/system";
 import WysiwygIcon from '@mui/icons-material/Wysiwyg';
 import BusinessIcon from '@mui/icons-material/Business';
 import MapIcon from '@mui/icons-material/Map';
@@ -29,8 +26,6 @@ const RegistroAnfitrion = () => {
         // console.log(showUser)
     };
 
-    
-
     useEffect(() => {
         fetchData();
       }, [user]);
@@ -40,14 +35,14 @@ const RegistroAnfitrion = () => {
         <>
             {regUser.length > 0 && (
                 <Container>
-                    <Grid container spacing={3} sx={{marginBottom:20, marginTop:10}}>
+                    <Grid container spacing={3} sx={{marginBottom:20, marginTop:20}}>
                         <Grid item md={12}>
                             <h2>Cuenta</h2>
                             <p>
                                 <span> <b>{regUser[0].userName} {regUser[0].lastName},&nbsp;</b></span>
                                 <span>{regUser[0].email} .&nbsp;</span>
-                                <Link to="/anfitrion">
-                                    <span><Button color="secondary">Ir a perfil</Button></span>
+                                <Link to={`/anfitrion/${regUser[0].id}`}>
+                                    <Button color="secondary">Ir a perfil</Button>
                                 </Link>
                 
                             </p>

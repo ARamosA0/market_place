@@ -7,9 +7,9 @@ import {
   setDoc,
   updateDoc,
   arrayUnion,
+  firestore
 } from "firebase/firestore/lite";
 import { v4 as uuidv4 } from "uuid";
-
 
 
 const firebaseConfig = {
@@ -36,6 +36,7 @@ const firebaseConfig = {
   // measurementId: "G-DB563BGT2B"
 
 
+<<<<<<< HEAD
   //Roberto
   // apiKey: "AIzaSyD36x2aYrNKcPORpayq81KcFDCX7l2h9sE",
   // authDomain: "garage-2a267.firebaseapp.com",
@@ -44,6 +45,16 @@ const firebaseConfig = {
   // messagingSenderId: "640634564300",
   // appId: "1:640634564300:web:22be63f04dddc7d3f5dc69",
   // measurementId: "G-T58KYD30N1"
+=======
+  //Roberto Parking
+  apiKey: "AIzaSyD36x2aYrNKcPORpayq81KcFDCX7l2h9sE",
+  authDomain: "garage-2a267.firebaseapp.com",
+  projectId: "garage-2a267",
+  storageBucket: "garage-2a267.appspot.com",
+  messagingSenderId: "640634564300",
+  appId: "1:640634564300:web:22be63f04dddc7d3f5dc69",
+  measurementId: "G-T58KYD30N1"
+>>>>>>> 24191e5a1f36b85f3bf5a8976b36c32c56bc1fbd
   
   // Tercera BD
   apiKey: "AIzaSyDELXoNOjGgXBzhVk3kW2IkItngcVa1qVA",
@@ -57,6 +68,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
+
+
 
 export const getCocheraData = async (nameDB) =>{
   const collectionCocheras = collection(db, nameDB);
@@ -80,9 +93,19 @@ export const updateCochera = async (product,data, nameBd) => {
 
 export const updatePhotoCochera = async (product,data, nameBd) => {
   const productRef = doc(db, nameBd, product.id);
-    await updateDoc(productRef, {image:arrayUnion(data)});
-  
-  
+  await updateDoc(productRef, {image:arrayUnion(data)});
+};
+
+export const updateSpaceCochera = async (product,data, nameBd) => {
+  const productRef = doc(db, nameBd, product.id);
+  await updateDoc(productRef, {space:data});
+};
+
+export const updateGeoCochera = async (product, data, nameBd) => {
+  const productRef = doc(db, nameBd, product.id);
+  await updateDoc(productRef, {geolocation:arrayUnion(data.lat)});
+  // await updateDoc(productRef, {geolocation:arrayUnion(data.lng.toString())});
+  // await updateDoc(productRef, {geolocation: [data.lat.toString(), data.lng.toString()]});
 };
 
 export const updateIdCochera = async (product, nameBd, newId) => {
