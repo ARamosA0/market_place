@@ -28,3 +28,8 @@
     color: rgb(28, 27, 90);
     font-weight: 400 !important;  
 }
+.input-error{
+    font-size: 13px;
+    margin-left: 5px;
+    color: #ff00009c;
+}
