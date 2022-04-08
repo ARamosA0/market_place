@@ -1,5 +1,5 @@
 import React from "react";
-import { storeCochera } from "../../service/firestore";
+import { storeCochera, getCocheraData } from "../../service/firestore";
 import { Grid, TextField, Button, styled } from "@mui/material";
 import { Formik, ErrorMessage } from "formik";
 import swal from "sweetalert";
@@ -69,13 +69,26 @@ const RegisterUser = () => {
         resetForm();
         //funcion para crear usuario
         try {
-          await storeCochera(valores, "usuario");
-          swal({
-            icon: "success",
-            title: "Cuenta creada",
-            text: "Inicie sesion para continuar",
-          });
-          return;
+          const data = await getCocheraData("usuario");
+          const filtroUser = data.filter(
+            (dt) => dt.email === valores.email || dt.dni === valores.dni
+          );
+          if (filtroUser.length > 0) {
+            swal({
+              icon: "error",
+              title: "El correo o el DNI ya estan registrados",
+              text: "Coloque un correo o DNI que no esten registrados",
+            });
+            return;
+          } else {
+            await storeCochera(valores, "usuario");
+            swal({
+              icon: "success",
+              title: "Cuenta creada",
+              text: "Inicie sesion para continuar",
+            });
+            return;
+          }
         } catch (error) {
           swal({
             icon: "error",

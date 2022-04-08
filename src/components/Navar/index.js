@@ -51,7 +51,7 @@ const MenuAppBar = () => {
         if (response) {
           window.location.replace("");
         }
-      }, 2500);
+      }, 2000);
     }
   };
   //llamando al boton registro
