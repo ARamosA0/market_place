@@ -57,7 +57,7 @@ const MenuAppBar = () => {
   };
 
   return (
-        <Box sx={{ flexGrow: 1, marginBottom:10 }}>
+        <Box sx={{ flexGrow: 1, marginBottom:3 }}>
           <AppBar position="fixed" sx={{ height: "10vh" }}>
               <Toolbar sx={{ height: "10vh", padding: "0px 5px" }} className="navar">
                 <Typography

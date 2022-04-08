@@ -40,6 +40,7 @@ const ParkingLog = () => {
       setUser(userData);
       return data;
     };
+    // console.log(parking[0].geolocation)
   
     const handleSearchDistrict = (e) => {
       const districts = e.target.value;
@@ -57,7 +58,8 @@ const ParkingLog = () => {
         setUser(user);
       }
     };
-  
+    // console.log(parking)
+
     const handleDistrict = async (e) => {
       const districts = e.target.value;
   
@@ -68,7 +70,7 @@ const ParkingLog = () => {
       }
   
       const parking = await fetchParking();
-      console.log("parking", parking);
+      // console.log("parking", parking);
       const filterDistrict = parking.filter((distrito) =>
         distrito.district.toUpperCase().includes(districts.toUpperCase())
       );
@@ -143,26 +145,26 @@ const ParkingLog = () => {
         </Grid>
         <Grid container>
           <Grid item md={12} mb={2} mt={5}>
-            {/* <MapContainer center={position} zoom={13} style={{ height: 500 }}>
+            <MapContainer center={position} zoom={13} style={{ height: 500 }}>
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-              {parking.length > 0 &&
-                parking.map((parking) => (
-                  <Marker position={[ parking.geolocation._lat, parking.geolocation._long,]} icon={markerIcon} >
+              {/* {parking.length > 0 &&
+                parking.map((park) => (
+                  <Marker position={[ park.geolocation[0], park.geolocation[1],]} icon={markerIcon} >
                     <Popup>
-                      <CardActionArea component={Link} to={`/booking/${parking.id}`}>
+                      <CardActionArea component={Link} to={`/booking/${park.id}`}>
                         <div>
                             <Typography variant="button" component={"div"} color="secondary">{`Ubicacion: ${parking.name}`}</Typography>
-                            <Typography variant="button" color="primary">{`Precio: ${parking.price} - `}</Typography>
-                            <Typography variant="button" color="error">{` Espacios: ${parking.space}`}</Typography>
+                            <Typography variant="button" color="primary">{`Precio: ${park.price} - `}</Typography>
+                            <Typography variant="button" color="error">{` Espacios: ${park.space}`}</Typography>
                         </div>
                       </CardActionArea>
                     </Popup>
                   </Marker>
-                ))}
-            </MapContainer> */}
+                ))} */}
+            </MapContainer>
           </Grid>
         </Grid>
       </Container>

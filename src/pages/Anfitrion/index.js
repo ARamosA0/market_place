@@ -19,7 +19,7 @@ import {
 import "./index.css";
 import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import photoUser from "../../assets/user.png";
+// import photoUser from "../../assets/user.png";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 import { GeoPoint } from "firebase/firestore/lite";
 
@@ -91,7 +91,7 @@ const Anfitrion = () => {
               padding={2}
             >
               <Grid item xs={12} sm={6} xl={6} className="foto-perfil">
-                <img src={photoUser} />
+                <img src={user.userImage} />
               </Grid>
               <Grid item xs={12} sm={6} xl={6}>
                 <h3 className="datos-name">
