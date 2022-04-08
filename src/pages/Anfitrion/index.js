@@ -15,6 +15,7 @@ import {
 
 import "./index.css";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+import { GeoPoint } from "firebase/firestore/lite";
 
 
 const Anfitrion = () => {
@@ -40,7 +41,7 @@ const Anfitrion = () => {
     setCocheras(filterGarage);
   };
   
-  console.log(user)
+  
   const [values, setValues] = useState({
     adress: "",
     country: "",
@@ -163,12 +164,14 @@ const Anfitrion = () => {
                     </CardContent>
 
                     <CardActions>
+                    <Link to={`/booking/${cochera.id}`}>
                       <Button
                         sx={{ marginLeft: 100 }}
                         color="secondary"
                       >
                         Ver publicacion
                       </Button>
+                    </Link>
                     </CardActions>
                   </Card>
                 </Grid>

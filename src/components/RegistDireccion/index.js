@@ -8,6 +8,7 @@ import {
   Button,
 } from "@mui/material";
 import { updateCochera } from "../../service/firestore";
+import swal from "sweetalert";
 import garage1 from "../../assets/garage.jpg";
 
 const RegistroDireccion = () => {
@@ -45,8 +46,23 @@ const RegistroDireccion = () => {
 
 
   const handleClickUpdate = async () => {
-    await updateCochera(regCochera[0], valorInputs,"cochera");
-
+    // await updateCochera(regCochera[0], valorInputs,"cochera");
+    try{
+      await updateCochera(regCochera[0], valorInputs,"cochera");
+      const response = await swal({
+        icon: "success",
+        title: "Se subieron los datos",
+      });
+      if(response){
+        window.location.replace('');
+      }
+    } catch(error){
+      swal({
+        icon: "error",
+        title: `${error.message}`,
+        text: "Intenta de nuevo",
+      }); 
+    }
   };
 
   useEffect(() => {
@@ -64,70 +80,54 @@ const RegistroDireccion = () => {
           <DialogContent>
             <form>
               <Grid container spacing={2}>
-                <Grid item md={6} xs={4}>
-                  <img
-                    src={garage1}
-                    style={{
-                      objectFit: "cover",
-                      width: 260,
-                      height: 427,
-                      margin: 0,
-                      padding: 0,
-                    }}
+                <Grid item md={12} xs={12}>
+                  <h2>Direccion y Ubicacion</h2>
+                </Grid>
+                <Grid item md={12} xs={12}>
+                  <TextField
+                    label="Pais"
+                    type="text"
+                    name="country"
+                    fullWidth
+                    onChange={handleInputValue}
                   />
                 </Grid>
-                <Grid item md={6} xs={8}>
-                  <Grid container spacing={2}>
-                    <Grid item md={12} xs={12}>
-                      <h2>Direccion y Ubicacion</h2>
-                    </Grid>
-                    <Grid item md={12} xs={12}>
-                      <TextField
-                        label="Pais"
-                        type="text"
-                        name="country"
-                        fullWidth
-                        onChange={handleInputValue}
-                      />
-                    </Grid>
-                    <Grid item md={12} xs={12}>
-                      <TextField
-                        label="Region"
-                        type="text"
-                        name="department"
-                        fullWidth
-                        onChange={handleInputValue}
-                      />
-                    </Grid>
-                    <Grid item md={12} xs={12}>
-                      <TextField
-                        label="Distrito"
-                        type="text"
-                        name="district"
-                        fullWidth
-                        onChange={handleInputValue}
-                      />
-                    </Grid>
-                    <Grid item md={12} xs={12}>
-                      <TextField
-                        label="Direccion"
-                        type="text"
-                        name="adress"
-                        fullWidth
-                        onChange={handleInputValue}
-                      />
-                    </Grid>
-                    <Grid item md={12} xs={12}>
-                      <Button
-                        color="secondary"
-                        variant="contained"
-                        fullWidth
-                        onClick={handleClickUpdate}
-                      >
-                        Send
-                      </Button>
-                    </Grid>
-                  </Grid>
+                <Grid item md={12} xs={12}>
+                  <TextField
+                    label="Region"
+                    type="text"
+                    name="department"
+                    fullWidth
+                    onChange={handleInputValue}
+                  />
+                </Grid>
+                <Grid item md={12} xs={12}>
+                  <TextField
+                    label="Distrito"
+                    type="text"
+                    name="district"
+                    fullWidth
+                    onChange={handleInputValue}
+                  />
+                </Grid>
+                <Grid item md={12} xs={12}>
+                  <TextField
+                    label="Direccion"
+                    type="text"
+                    name="adress"
+                    fullWidth
+                    onChange={handleInputValue}
+                  />
+                </Grid>
+                <Grid item md={12} xs={12}>
+                  <Button
+                    color="secondary"
+                    variant="contained"
+                    fullWidth
+                    onClick={handleClickUpdate}
+                  >
+                    Send
+                  </Button>
                 </Grid>
               </Grid>
             </form>
