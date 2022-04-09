@@ -15,12 +15,12 @@ const Home = () => {
               <span className="title">Mas de 10 000 cocheras a tu disposicion, encuentra una cochera segura en donde estes.</span>
             </Grid>
             <Grid item mt={4} textAlign={"center"}>
-              <Link href="#" color="white" underline="none">
+              <Link href="/parking" color="white" underline="none">
                 <Button
                   variant="contained"
                   className="button"
                 >
-                  Informacion &nbsp;&nbsp;
+                  Descubre &nbsp;&nbsp;
                   <SearchIcon/>
                 </Button>
               </Link>                                   
