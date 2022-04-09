@@ -22,12 +22,8 @@ const Router = () => {
           <Route path="/" element={<Home />}/>
           <Route path="/about" element={<About />}/>
           <Route path="/booking/:id" element={<Booking />}/>
-<<<<<<< HEAD
           <Route path="/parking" element={<ParkingLog />}/>
-=======
->>>>>>> 54630e515db5e070d03251505d3506a4ab734ae0
           <Route path="/parkinglog/:name" element={<ParkingLog />}/>
-          <Route path="/parking" element={<ParkingLog />}/>
           <Route path="/contact" element={<Contact />}/>
         </Route>
 
