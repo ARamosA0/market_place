@@ -16,13 +16,19 @@ import {
   CardContent,
   Button,
 } from "@mui/material";
+
 import "./index.css";
 import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import photoUser from "../../assets/user.png";
+<<<<<<< HEAD
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+=======
+>>>>>>> 28435cd241acf04614f913af96d450cdc9ffc0df
 
-import { doc, deleteDoc } from "firebase/firestore";
+// import { doc, deleteDoc, updateDoc } from "firebase/firestore";
+
+import {eliminarRegistro} from "../../service/firestore"
 
 const Anfitrion = () => {
   const { id } = useParams();
@@ -47,7 +53,10 @@ const Anfitrion = () => {
     setCocheras(filterGarage);
   };
 
+<<<<<<< HEAD
   
+=======
+>>>>>>> 28435cd241acf04614f913af96d450cdc9ffc0df
   const [values, setValues] = useState({
     adress: "",
     country: "",
@@ -83,9 +92,11 @@ const Anfitrion = () => {
 
   //Eliminar Registro
   const deleteElementFromCocheras = async (id) => {
-    await deleteDoc(doc("cochera", id));
-    console.log(id);
+    await eliminarRegistro(id);
+    await fetchData();
   };
+
+
 
   return (
     <section>
@@ -99,10 +110,11 @@ const Anfitrion = () => {
               className="grid-user"
               padding={2}
             >
-              <Grid item xs={12} sm={6} xl={6} className="foto-perfil">
+              <Grid item xs={12} sm={6} md={6} xl={6} className="foto-perfil">
                 <img src={photoUser} />
               </Grid>
-              <Grid item xs={12} sm={6} xl={6}>
+
+              <Grid item xs={12} sm={6} md={6} xl={6}>
                 <h3 className="datos-name">
                   {user.userName}, {user.lastName}
                 </h3>
@@ -129,7 +141,8 @@ const Anfitrion = () => {
             {Object.keys(cocheras).length > 0 &&
               cocheras.map((cochera) => (
                 <Grid item md={12}>
-                  <Divider sx={{ marginTop: 5, marginBottom: 5 }} />
+
+                  <Divider sx={{ margin:5}} />
                   <Card className="card-cocheras">
                     <CardContent>
                       <Grid
@@ -182,6 +195,7 @@ const Anfitrion = () => {
                         </Grid>
                       </Grid>
                     </CardContent>
+<<<<<<< HEAD
                     <CardActions>
                     <Link to={`/booking/${cochera.id}`}>
                       <Button
@@ -193,6 +207,8 @@ const Anfitrion = () => {
                       </Button>
                     </Link>
                     </CardActions>
+=======
+>>>>>>> 28435cd241acf04614f913af96d450cdc9ffc0df
                   </Card>
                 </Grid>
               ))}

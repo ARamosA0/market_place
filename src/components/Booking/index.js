@@ -17,7 +17,7 @@ const Booking = () => {
               <Grid item md={12} mb={5}>
                 <Grid container spacing={3}>
                   <Grid item lg={3} md={6} sm={6} xs={12}>
-                    <CardActionArea LinkComponent={Link} to="/parkinglog" >
+                    <CardActionArea LinkComponent={Link} to="/parkinglog/Chorrillos" >
                       <Card className="card-container">
                         <CardMedia component="img" className="card-img" image={paracas}/>
                         <CardContent className="cardContent-paracas card-body">

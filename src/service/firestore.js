@@ -6,11 +6,11 @@ import {
   doc,
   setDoc,
   updateDoc,
+  deleteDoc,
   arrayUnion,
   firestore
 } from "firebase/firestore/lite";
 import { v4 as uuidv4 } from "uuid";
-
 
 const firebaseConfig = {
 
@@ -27,13 +27,13 @@ const firebaseConfig = {
 
   //Aldo
   // Segunda Base de datos 
-  // apiKey: "AIzaSyAEGEh1mEMQrVZlSNPft4I2LDY8MyTiCqY",
-  // authDomain: "garage-35e3d.firebaseapp.com",
-  // projectId: "garage-35e3d",
-  // storageBucket: "garage-35e3d.appspot.com",
-  // messagingSenderId: "133245440991",
-  // appId: "1:133245440991:web:ac02f6f6d3be9c3403ea6a",
-  // measurementId: "G-DB563BGT2B"
+  apiKey: "AIzaSyAEGEh1mEMQrVZlSNPft4I2LDY8MyTiCqY",
+  authDomain: "garage-35e3d.firebaseapp.com",
+  projectId: "garage-35e3d",
+  storageBucket: "garage-35e3d.appspot.com",
+  messagingSenderId: "133245440991",
+  appId: "1:133245440991:web:ac02f6f6d3be9c3403ea6a",
+  measurementId: "G-DB563BGT2B"
 
 
   //Roberto Parking
@@ -59,6 +59,11 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 
+//eliminar
+
+export const eliminarRegistro = async (id) =>{
+  await deleteDoc(doc(db, "cochera", id));
+}
 
 export const getCocheraData = async (nameDB) =>{
   const collectionCocheras = collection(db, nameDB);
