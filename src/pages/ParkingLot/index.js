@@ -37,6 +37,8 @@ import { Carousel } from "react-bootstrap";
 //cc
 import { useParams } from "react-router-dom";
 
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+
 const ParkingLog = () => {
   const { storeCochera, distrito, storeDistrito } = useContext(CocheraContext);
   const [user, setUser] = useState([]);
@@ -191,7 +193,7 @@ const ParkingLog = () => {
                     <Grid item>
                       <Typography variant="button" color="primary">
                         {" "}
-                        Rating: 
+                        Rating: <StarBorderIcon color="warning" />
                       </Typography>
                     </Grid>
                     <Grid item>
@@ -218,8 +220,8 @@ const ParkingLog = () => {
               parking.map((parking) => (
                 <Marker
                   position={[
-                    parking.geolocation._lat,
-                    parking.geolocation._long,
+                    parking.geolocation[0],
+                    parking.geolocation[1],
                   ]}
                   icon={markerIcon}
                 >
