@@ -18,12 +18,24 @@ import "./index.css"
 //Bootstrap
 import { Carousel } from 'react-bootstrap';
 
+//cc
+import { useParams } from "react-router-dom";
+
+
+
+
+
 const ParkingLog = () => {
     const { storeCochera, distrito, storeDistrito } = useContext(CocheraContext);
     const [user, setUser] = useState([]);
     const [parking, setParking] = useState([]);
     const [district, setDistrict] = useState("");
     const position = [-12.04318, -77.02824];
+
+
+    const {name} = useParams() 
+
+
   
     const markerIcon = new L.icon({
       iconUrl: require("../../assets/marker.png"),
@@ -38,8 +50,10 @@ const ParkingLog = () => {
       return data;
     };
   
-    const handleSearchDistrict = async (e) => {
-      const districts = e.target.value;
+
+    const handleSearchDistrict = (e) => {
+      
+      const districts = e?.target?.value ?? name;
   
       if (districts.length === 0) {
         await fetchParking();
@@ -54,12 +68,11 @@ const ParkingLog = () => {
         setUser(user);
       }
     };
-  
-    const handleDistrict = async (e) => {
-      const districts = e.target.value;  
-  
-      setDistrict(districts);
 
+
+    const handleDistrict = async (e) => {
+      const districts = e?.target?.value ?? name; 
+      setDistrict(districts);
       if (districts === "all") {
         await fetchParking();
         return;
@@ -76,16 +89,16 @@ const ParkingLog = () => {
     };
 
     useEffect(() => {
-      fetchParking();
+      handleDistrict();
     }, []);
-  
+    
     return (
       <Container maxWidth="xl">
-        <Grid container mt={18} direction={"row"} justifyContent={"space-between"} mb={4}>
-          <Grid item xl={3} md={6} sm={6} xs={6}>
+        <Grid container mt={3} sx={{ marginTop: 30, }} direction={"row"} justifyContent={"space-between"} >
+          <Grid item md={3}>
             <TextField onChange={handleSearchDistrict} label="Search for a district..." fullWidth />
           </Grid>
-          <Grid item xl={3} md={6} sm={6} xs={6}>
+          <Grid item md={3}>
             <FormControl fullWidth>
               <InputLabel>Filter by Districts</InputLabel>
               <Select label="Filter by Districts" value={district} onChange={handleDistrict} >
@@ -99,10 +112,9 @@ const ParkingLog = () => {
             </FormControl>
           </Grid>
         </Grid>
-        <Divider></Divider>
-        <Grid container spacing={3} mt={0} mb={5}>
+        <Grid container spacing={3} mt={2}>
           {parking.map((parking) => (
-            <Grid item xl={3} md={6} sm={12} xs={12}>
+            <Grid item md={3}>
               <Card>
                 <CardMedia>
                   <Carousel fade>
@@ -122,21 +134,16 @@ const ParkingLog = () => {
                       <Typography className="parking-text" variant="subtitle2" color="primary" >{`Dirección: ${parking.adress}`}</Typography>
                       <Divider></Divider>
                       <Stack direction="row" spacing={1} mt={3}> 
-                        <Grid container spacing={2} direction={"row"} justifyContent={"space-between"}>
-                          <Grid item xl={6} md={6} sm={12} xs={12}>
-                            <Chip label={`Región: ${parking.department}`} color="success" />
-                          </Grid>
-                          <Grid item xl={6} md={6} sm={12} xs={12}>
-                            <Chip label={`Distríto: ${parking.district}`} color="primary" />
-                          </Grid>
-                        </Grid>
+                        <Chip label={`País: ${parking.country}`} color="info" />
+                        <Chip label={`Región: ${parking.department}`} color="success" />
+                        <Chip label={`Distríto: ${parking.district}`} color="warning" />
                       </Stack>
                       <Grid container direction={"row"} justifyContent={"space-between"} mt={15} >
                         <Grid item>
-                          <Typography variant="button" color="error"> Price: s/.{parking.price} </Typography>
+                          <Typography variant="button" color="primary"> Rating: <StarBorderIcon color="warning" /> </Typography>
                         </Grid>
                         <Grid item>
-                          <Typography variant="button" color="primary"> Espacios: {parking.space} </Typography>
+                          <Typography variant="button" color="error"> Price: s/.{parking.price} </Typography>
                         </Grid>
                       </Grid>
                     </CardContent>
@@ -145,9 +152,8 @@ const ParkingLog = () => {
             </Grid>
           ))}
         </Grid>
-        <Divider></Divider>
         <Grid container>
-          <Grid item xl={12} md={12} sm={12} xs={12} mb={5} mt={5} sx={{border:"solid"}}>
+          <Grid item md={12} mb={2} mt={5}>
             <MapContainer center={position} zoom={13} style={{ height: 500 }}>
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -155,7 +161,7 @@ const ParkingLog = () => {
               />
               {parking.length > 0 &&
                 parking.map((parking) => (
-                  <Marker position={[ parking.geolocation[0], parking.geolocation[1]]} icon={markerIcon} >
+                  <Marker position={[ parking.geolocation._lat, parking.geolocation._long,]} icon={markerIcon} >
                     <Popup>
                       <CardActionArea component={Link} to={`/booking/${parking.id}`}>
                         <div>
