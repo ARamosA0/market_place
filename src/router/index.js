@@ -22,7 +22,7 @@ const Router = () => {
           <Route path="/" element={<Home />}/>
           <Route path="/about" element={<About />}/>
           <Route path="/booking/:id" element={<Booking />}/>
-
+          <Route path="/parking" element={<ParkingLog />}/>
           <Route path="/parkinglog/:name" element={<ParkingLog />}/>
 
           <Route path="/contact" element={<Contact />}/>

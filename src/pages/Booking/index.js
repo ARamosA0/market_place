@@ -109,15 +109,15 @@ const Booking = () => {
   return (
     <section>
       {Object.keys(filterUser).length > 0 && Object.keys(filterCochera).length > 0 && (
-        <Container sx={{ marginTop: 5 }}>
+        <Container sx={{ marginTop: 17 }}>
           <Grid container spacing={3}>
-            <Grid item md={12} className="titulo-principal">
+            <Grid item md={12} xs={12} className="titulo-principal">
               <h1>{filterCochera.name}</h1>
             </Grid>
-            <Grid item md={12} className="reserva-items">
+            <Grid item md={12} xs={12} className="reserva-items">
               <div>
                 <StarIcon />
-                <span>4,96 . 100 reseñas &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span>4,96 . 100 reseñas &nbsp;&nbsp;&nbsp;</span>
                 <LocationOnIcon />
                 <span>
                   {filterCochera.country}, {filterCochera.department},{" "}
@@ -126,23 +126,23 @@ const Booking = () => {
               </div>
               <div>
                 <IosShareIcon />
-                <span>Compartir &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span>Compartir &nbsp;&nbsp;&nbsp;</span>
                 <BookmarkAddIcon />
                 <span>Guardar</span>
               </div>
             </Grid>
-            <Grid item md={6} sx={{ marginTop: 2 }}>
+            <Grid item md={6} xs={12} sx={{ marginTop: 2 }}>
               <Grid container>
-                <Grid item md={12}>
+                <Grid item md={12} xs={12}>
                   <img
                     className="img-principal"
                     src={filterCochera.image[0]}
                   />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item md={6} xs={12}>
                   <img className="img-sec" src={filterCochera.image[1]} />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item md={6} xs={12}>
                   <img className="img-sec" src={filterCochera.image[2]} />
                 </Grid>
                 <Grid item md={12} className="titulo-cochera">
@@ -224,7 +224,7 @@ const Booking = () => {
                     </span>
                     <span className="card-precio-aux">/hora</span>
                   </div>
-                  <div>
+                  <div className="date-container-container">
                     {/* Date Range picker*/}
                     <div className="date-container">
                       <LocalizationProvider dateAdapter={DateAdapter}>
@@ -281,7 +281,7 @@ const Booking = () => {
 
                 {/* Mapa */}
 
-                <Grid container sx={{ marginTop: 3, marginBottom: 5 }}>
+                <Grid container className="map-container" >
                   <Grid item md={12}>
                     <MapContainer
                       center={[
@@ -289,7 +289,7 @@ const Booking = () => {
                         filterCochera.geolocation[1],
                       ]}
                       zoom={18}
-                      style={{ height: 500 }}
+                      className="map-cont"
                     >
                       <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

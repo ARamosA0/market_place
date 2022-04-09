@@ -107,9 +107,9 @@ export const updateSpaceCochera = async (product,data, nameBd) => {
 
 export const updateGeoCochera = async (product, data, nameBd) => {
   const productRef = doc(db, nameBd, product.id);
-  // await updateDoc(productRef, {geolocation:arrayUnion(data.lat)});
-  // await updateDoc(productRef, {geolocation:arrayUnion(data.lng.toString())});
-  await updateDoc(productRef, {geolocation: [data.lat.toString(), data.lng.toString()]});
+  await updateDoc(productRef, {geolocation:arrayUnion(data.lat)});
+  await updateDoc(productRef, {geolocation:arrayUnion(data.lng.toString())});
+  // await updateDoc(productRef, {geolocation: [data.lat.toString(), data.lng.toString()]});
 };
 
 export const updateIdCochera = async (product, nameBd, newId) => {

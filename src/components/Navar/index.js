@@ -99,7 +99,7 @@ const MenuAppBar = () => {
               component="div"
               sx={{ display: { xs: "none", sm: "block", padding: "15px" } }}
             >
-              <Link href={`/parkinglog/${idUsuario.id}`}  color="white" underline="none">
+              <Link href={`/parking`}  color="white" underline="none">
                 <BookOnlineIcon sx={{ fontSize: 20, color: "white" }} />
                 <span className="botones"> Parking Log</span>
               </Link>
@@ -216,7 +216,7 @@ const MenuAppBar = () => {
                 </MenuItem>
 
                 <MenuItem onClick={handleClose} className="prueba">
-                  <Link href={`/parkinglog/${idUsuario.id}`} color="black" underline="none">
+                  <Link href={`/parking`} color="black" underline="none">
                     <BookOnlineIcon fontSize="small" />
                     &nbsp;&nbsp;Parking Log
                   </Link>
