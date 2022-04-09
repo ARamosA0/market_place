@@ -84,16 +84,12 @@ const Booking = () => {
   // Boton Reservar
   const handleOnClickReservar = async () => {
     try {
-      if (+filterCochera.space > 0) {
-        const space = +filterCochera.space - 1;
-        await updateSpaceCochera(filterCochera, space.toString(), "cochera");
-        await updateReservaCochera(filterUser, filterCochera.id, "usuario");
-        console.log(filterCochera.id);
-        await updateFechaReservaCochera(
-          filterCochera,
-          [valueDate, valueDateFin],
-          "usuario"
-        );
+      if(+filterCochera.space > 0){
+        const space = +filterCochera.space - 1
+        // await updateSpaceCochera(filterCochera, space.toString(), "cochera");
+        // await updateReservaCochera(filterUser, filterCochera.id, "usuario")
+        console.log(filterCochera.id)
+        // await updateFechaReservaCochera(filterCochera, [valueDate, valueDateFin], "usuario")
         storeReservaCochera(filterCochera.id);
         // console.log(filterCochera);
         await swal({

@@ -23,12 +23,12 @@ import LoaderCar from "../../components/LoaderCar"
 import { getCocheraData } from "../../service/firestore";
 import { CocheraContext } from "../../Context/CocheraContext";
 
-//Mapa referencias
+//Mapa referencia
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
-//CSS referencias
+//CSS referencia
 import "./index.css";
 
 //Bootstrap
