@@ -18,11 +18,11 @@ const Registro = () => {
             container
             justifyContent="center"
             alignItems="center"
-            sx={{ height: "107vh !important" }}
+            className="grid-cs"
             spacing={1}
             rowGap="1"
           >
-            <Grid item md={12} className="grid1">
+            <Grid item md={12} className="grid1" >
               <h1 className="h1">
                 Conviertete en anfitrión en <br /> Cochera.com
               </h1>

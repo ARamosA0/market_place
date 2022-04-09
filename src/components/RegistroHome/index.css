@@ -57,6 +57,10 @@ body{
     height: 0;
     opacity: 0.2;
 }
+.grid-cs{
+    height: 107vh !important ;
+}
+
 
 /*? varaibles para los estilos de las flechas y el carrusel */
 .awssld{
@@ -68,7 +72,14 @@ body{
     --slider-transition-duration: 2000ms;
     color: rgba(61, 59, 59, 0.226);
 }
-
+@media only screen and (max-width: 600px) {
+    .grid-cs{
+        height: 50vh !important ;
+    }
+    .awssld{
+        --slider-height-percentage: 45vh;
+    }
+  }
 /*? componentes, de inicar sesion y registro, modificados mediante sus clases */
 .css-1e5i0ke-MuiGrid-root {
     height: 100vh !important;
@@ -88,4 +99,13 @@ body{
 /* color animacion de raya debalo del inibio y registro */
 .css-1aquho2-MuiTabs-indicator{
     background-color: #612351 !important;
+}
+
+.text-prueba{
+    color: rgb(15, 15, 15);
+    font-size: 30px;
+    position: relative;
+    top: 270px;
+    left: 600px;
+    z-index: 1;
 }

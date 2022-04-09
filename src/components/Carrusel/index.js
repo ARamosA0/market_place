@@ -8,9 +8,10 @@ import 'react-awesome-slider/dist/custom-animations/fold-out-animation.css';
 
 const Carrusel = ()=>{
     const AutoplaySlider = withAutoplay(AwesomeSlider);
+    
     return(
-        <AutoplaySlider  bullets={false} play={true} cancelOnInteraction={false} interval={9000} animation="foldOutAnimation" >
-            <div data-src={garage}/>
+        <AutoplaySlider  bullets={false} play={true} cancelOnInteraction={false} interval={9000} animation="foldOutAnimation" screen>
+            <div data-src={garage} />
             <div data-src={garage2}/>
             <div data-src={garage3}/>
         </AutoplaySlider>
