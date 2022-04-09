@@ -118,9 +118,48 @@
     font-size: 1.5em;
     font-weight: 500;   
 }
+
+.map-container{
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+.map-cont{
+    height: 500px;
+}
 /* mapa final */
 
 .fech-ini{
     margin-left: 10px;
 }
 
+@media only screen and (max-width: 550px) {
+
+    .reserva-items div{
+        display: flex;
+        flex-direction: column;
+        justify-content: left;
+        align-items: flex-start;
+        font-size: small;
+    }
+    .img-principal{
+        width: 350px;
+        height: 350px;
+    }
+    .img-sec{
+        width: 350px;
+        height: 350px;
+    }
+    .static-date-container{
+        display: flex;
+        flex-direction: column !important;
+    }
+    .card-main-info{
+        position: relative;
+        top: -100px;
+        left: -75px;
+    }
+    .map-cont{
+        width: 350px;
+        height: 350px;
+    }
+}
