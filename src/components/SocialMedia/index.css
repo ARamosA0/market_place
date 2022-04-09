@@ -26,3 +26,19 @@
         text-align: center;
     }
   }
+
+  @media only screen and (min-width: 900px) {
+    .media-container {
+        height: 10vh;
+        background-image: linear-gradient(20deg, #1b3444 0%, #2c2542 50%,black 100%);
+        background-size: 150% 150%;
+    }
+  }
+
+  @media only screen and (min-width: 1200px) {
+    .media-container {
+        height: 10vh;
+        background-image: linear-gradient(20deg, #1b3444 0%, #2c2542 50%,black 100%);
+        background-size: 150% 150%;
+    }
+  }
