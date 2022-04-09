@@ -116,32 +116,32 @@ const Booking = () => {
     <section>
       {Object.keys(filterUser).length > 0 &&
         Object.keys(filterCochera).length > 0 && (
-          <Container sx={{ marginTop: 16 }}>
+          <Container sx={{ marginTop: 16}}>
             <Grid container spacing={3}>
               <Grid item md={12} xs={12} className="titulo-principal">
-                <h1>{filterCochera.name}</h1>
-              
-              <Grid container justifyContent="space-between" spacing={2}>
-                <Grid item md={8} sm={5}>
-                  <div>
-                    <StarIcon />
-                    <span>4,96 . 100 reseñas &nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <LocationOnIcon />
-                    <span>
-                      {filterCochera.country}, {filterCochera.department},{" "}
-                      {filterCochera.district}{" "}
-                    </span>
-                  </div>
+                <h1 style={{marginTop: "10px"}}>{filterCochera.name}</h1>
+
+                <Grid container justifyContent="space-between" spacing={2}>
+                  <Grid item md={8} sm={5}>
+                    <div>
+                      <StarIcon />
+                      <span>4,96 . 100 reseñas &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                      <LocationOnIcon />
+                      <span>
+                        {filterCochera.country}, {filterCochera.department},{" "}
+                        {filterCochera.district}{" "}
+                      </span>
+                    </div>
+                  </Grid>
+                  <Grid item md={4} sm={5}>
+                    <div>
+                      <IosShareIcon />
+                      <span>Compartir &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                      <BookmarkAddIcon />
+                      <span>Guardar</span>
+                    </div>
+                  </Grid>
                 </Grid>
-                <Grid item md={4} sm={5}>
-                  <div>
-                    <IosShareIcon />
-                    <span>Compartir &nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <BookmarkAddIcon />
-                    <span>Guardar</span>
-                  </div>
-                </Grid>
-              </Grid>
               </Grid>
               <Grid item md={6} sm={12} xs={12} sx={{ marginTop: 2 }}>
                 <Grid container>
@@ -149,13 +149,22 @@ const Booking = () => {
                     <img
                       className="img-principal"
                       src={filterCochera.image[0]}
+                      alt=""
                     />
                   </Grid>
                   <Grid item md={6} sm={6} xs={6}>
-                    <img className="img-sec" src={filterCochera.image[1]} />
+                    <img
+                      className="img-sec"
+                      src={filterCochera.image[1]}
+                      alt=""
+                    />
                   </Grid>
                   <Grid item md={6} sm={6} xs={6}>
-                    <img className="img-sec" src={filterCochera.image[2]} />
+                    <img
+                      className="img-sec"
+                      src={filterCochera.image[2]}
+                      alt=""
+                    />
                   </Grid>
                   <Grid item md={12} sm={6} xs={12} className="titulo-cochera">
                     <Divider sx={{ marginTop: 5 }} />
@@ -233,10 +242,11 @@ const Booking = () => {
                 className="card-main-info"
                 item
                 md={6}
+                xs={12}
                 sx={{ marginTop: 3 }}
               >
-                <Card sx={{ maxWidth: 350, marginLeft: 20 }}>
-                  <CardContent className="card-info">
+                <Card sx={{ maxWidth: 350, margin: "auto" }}>
+                  <CardContent className="card-info" sx={{ width: "70%", margin: "auto" }}>
                     <div>
                       <span className="card-precio">
                         S/{filterCochera.price}
@@ -249,12 +259,12 @@ const Booking = () => {
                         <LocalizationProvider dateAdapter={DateAdapter}>
                           <DatePicker
                             label="Escoge la fecha inicial"
-                            openTo="day"
                             views={["year", "month", "day"]}
                             value={valueDate}
                             onChange={(newValue) => {
                               setValueDate(newValue);
                             }}
+                            
                             renderInput={(params) => <TextField {...params} />}
                           />
                         </LocalizationProvider>
@@ -270,6 +280,7 @@ const Booking = () => {
                               setValueDateFin(newValue);
                             }}
                             renderInput={(params) => <TextField {...params} />}
+                            sx={{width: "100%"}}
                           />
                         </LocalizationProvider>
                       </div>
@@ -291,7 +302,7 @@ const Booking = () => {
                 </Card>
               </Grid>
 
-              <Grid item md={12}>
+              <Grid item md={12} sx={{ width: "100%" }}>
                 <Divider />
                 <div>
                   <p className="titulo-mapa">A donde irás?</p>
@@ -299,14 +310,14 @@ const Booking = () => {
                   {/* Mapa */}
 
                   <Grid container sx={{ marginTop: 3, marginBottom: 5 }}>
-                    <Grid item md={12}>
+                    <Grid item md={12} sm={12} xs={12}>
                       <MapContainer
                         center={[
                           filterCochera.geolocation[0],
                           filterCochera.geolocation[1],
                         ]}
                         zoom={18}
-                        style={{ height: 500 }}
+                        style={{ height: 500, width: "100%" }}
                       >
                         <TileLayer
                           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
