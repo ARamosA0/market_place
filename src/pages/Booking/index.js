@@ -28,6 +28,7 @@ import { Link, useParams } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import swal from "sweetalert";
 import "leaflet/dist/leaflet.css";
+import LoaderCar from "../../components/LoaderCar"
 import L from "leaflet";
 // import { useParams } from "react-router-dom";
 
@@ -108,7 +109,7 @@ const Booking = () => {
 
   return (
     <section>
-      {Object.keys(filterUser).length > 0 && Object.keys(filterCochera).length > 0 && (
+      {Object.keys(filterUser).length > 0 && Object.keys(filterCochera).length > 0 ? (
         <Container sx={{ marginTop: 17 }}>
           <Grid container spacing={3}>
             <Grid item md={12} xs={12} className="titulo-principal">
@@ -137,13 +138,14 @@ const Booking = () => {
                   <img
                     className="img-principal"
                     src={filterCochera.image[0]}
+                    alt=""
                   />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                  <img className="img-sec" src={filterCochera.image[1]} />
+                  <img className="img-sec" src={filterCochera.image[1]} alt=""/>
                 </Grid>
                 <Grid item md={6} xs={12}>
-                  <img className="img-sec" src={filterCochera.image[2]} />
+                  <img className="img-sec" src={filterCochera.image[2]} alt=""/>
                 </Grid>
                 <Grid item md={12} className="titulo-cochera">
                   <Divider sx={{ marginTop: 5 }} />
@@ -315,7 +317,7 @@ const Booking = () => {
             </Grid>
           </Grid>
         </Container>
-      )}
+      ):<LoaderCar/>}
     </section>
   );
 };

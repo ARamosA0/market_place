@@ -18,7 +18,7 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-
+import LoaderCar from "../../components/LoaderCar"
 //Context
 import { getCocheraData } from "../../service/firestore";
 import { CocheraContext } from "../../Context/CocheraContext";
@@ -135,7 +135,8 @@ const ParkingLog = () => {
         </Grid>
       </Grid>
       <Grid container spacing={3} mt={2}>
-        {parking.map((parking) => (
+        {parking.length > 0 ? 
+        parking.map((parking) => (
           <Grid item md={3}  sm={6} xs={12}>
             <Card>
               <CardMedia>
@@ -186,7 +187,7 @@ const ParkingLog = () => {
               </CardActionArea>
             </Card>
           </Grid>
-        ))}
+        )): <LoaderCar/>}
       </Grid>
       <Grid container>
           <Grid item xl={12} md={12} sm={12} xs={12} mb={5} mt={5} sx={{border:"solid"}}>

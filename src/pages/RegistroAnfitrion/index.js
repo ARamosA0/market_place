@@ -10,7 +10,7 @@ import RegistroDireccion from "../../components/RegistDireccion";
 import RegistroGeo from "../../components/RegistroGeo";
 import RegistroInformacion from "../../components/RegistroInformacion";
 import RegistroFotos from "../../components/RegistroFotos";
-
+import LoaderCar from "../../components/LoaderCar"
 import "./index.css"
 
 
@@ -33,7 +33,7 @@ const RegistroAnfitrion = () => {
 
     return(
         <>
-            {regUser.length > 0 && (
+            {regUser.length > 0 ? (
                 <Container>
                     <Grid container spacing={3} sx={{marginBottom:20, marginTop:20}}>
                         <Grid item md={12}>
@@ -106,7 +106,7 @@ const RegistroAnfitrion = () => {
                         </Grid>
                     </Grid>
                 </Container>
-            )}
+            ):<LoaderCar/>}
         </>
         
     )
