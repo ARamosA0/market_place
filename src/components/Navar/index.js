@@ -101,7 +101,7 @@ const MenuAppBar = () => {
             >
               <Link href={`/parkinglog/${idUsuario.id}`}  color="white" underline="none">
                 <BookOnlineIcon sx={{ fontSize: 20, color: "white" }} />
-                <span className="botones"> ParkingLog</span>
+                <span className="botones"> Parking Log</span>
               </Link>
             </Typography>
             {/* click para inicar sesion - va estar oculto */}
@@ -218,7 +218,7 @@ const MenuAppBar = () => {
                 <MenuItem onClick={handleClose} className="prueba">
                   <Link href={`/parkinglog/${idUsuario.id}`} color="black" underline="none">
                     <BookOnlineIcon fontSize="small" />
-                    &nbsp;&nbsp;ParkingLog
+                    &nbsp;&nbsp;Parking Log
                   </Link>
                 </MenuItem>
               </Menu>
