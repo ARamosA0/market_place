@@ -87,7 +87,7 @@ export const updatePhotoCochera = async (product,data, nameBd) => {
 
 export const updateReservaCochera = async (product,data, nameBd) => {
   const productRef = doc(db, nameBd, product.id);
-  await updateDoc(productRef, {idCocherasReservadas:arrayUnion[data]});
+  await updateDoc(productRef, {idCocherasReservadas:arrayUnion(data)});
 };
 
 export const updateFechaReservaCochera = async (product,data, nameBd) => {

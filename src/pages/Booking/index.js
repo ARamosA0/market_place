@@ -39,13 +39,18 @@ const Booking = () => {
   const [registerCochera, setRegisterCochera] = useState([]);
 
   const fetchData = async () => {
-    await getCocheraData("usuario")
-    await getCocheraData("cochera")
-    
+    const dataUser = await getCocheraData("usuario")
+    const dataGarage = await getCocheraData("cochera")
+    const filtGarage = dataGarage.find((garage) => garage.id === id);
+    const filtUser = dataUser.find((user)=>user.id)
+    setFilterUser(filtUser)
+    setFilterCochera(filtGarage)
+    // setFilterCochera(filtGarage)
     // const fetchUser = JSON.parse(localStorage.getItem("user"));
     // const fetchCochera = JSON.parse(localStorage.getItem("cochera"));
     // setFilterUser(fetchUser);
     // setFilterCochera(fetchCochera);
+    // console.log(filterUser)
   };
   
   // Mapa
@@ -66,28 +71,27 @@ const Booking = () => {
   // Boton Reservar
   const handleOnClickReservar = async () => {
     try {
-      const fireBaseGarage = await getCocheraData("cochera")
-      const filterGarage = fireBaseGarage.find((cochera) => cochera.id === id);
-      if(+filterGarage.space > 0){
-        const space = +filterGarage.space - 1
-        await updateSpaceCochera(filterGarage, space.toString(), "cochera");
-        await updateReservaCochera(filterUser[0], filterGarage.id, "cochera")
-        await updateFechaReservaCochera(filterGarage, [valueDate, valueDateFin], "cochera")
-        storeReservaCochera(filterGarage);
-        console.log(filterGarage);
+      if(+filterCochera.space > 0){
+        const space = +filterCochera.space - 1
+        await updateSpaceCochera(filterCochera, space.toString(), "cochera");
+        await updateReservaCochera(filterUser, filterCochera.id, "usuario")
+        console.log(filterCochera.id)
+        await updateFechaReservaCochera(filterCochera, [valueDate, valueDateFin], "usuario")
+        storeReservaCochera(filterCochera.id);
+        // console.log(filterCochera);
         await swal({
           icon: "success",
           title: "Se subieron los datos",
         });
       } 
-      if (+filterGarage.space === 0){
+      if (+filterCochera.space === 0){
         swal({
           icon: "error",
           title: "Ya no hay espacio en esta cochera",
         });
       }
-      console.log(filterGarage.space)
-      
+      console.log(filterCochera.space)
+    
       } catch(error){
         console.log(error.message)
       swal({
@@ -97,7 +101,6 @@ const Booking = () => {
       }); 
     }
   }
-  console.log(filterCochera[0].geolocation)
 
   useEffect(() => {
     fetchData();
@@ -105,11 +108,11 @@ const Booking = () => {
 
   return (
     <section>
-      {filterUser.length > 0 && filterCochera.length > 0 && (
+      {Object.keys(filterUser).length > 0 && Object.keys(filterCochera).length > 0 && (
         <Container sx={{ marginTop: 5 }}>
           <Grid container spacing={3}>
             <Grid item md={12} className="titulo-principal">
-              <h1>{filterCochera[0].name}</h1>
+              <h1>{filterCochera.name}</h1>
             </Grid>
             <Grid item md={12} className="reserva-items">
               <div>
@@ -117,8 +120,8 @@ const Booking = () => {
                 <span>4,96 . 100 reseñas &nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <LocationOnIcon />
                 <span>
-                  {filterCochera[0].country}, {filterCochera[0].department},{" "}
-                  {filterCochera[0].district}{" "}
+                  {filterCochera.country}, {filterCochera.department},{" "}
+                  {filterCochera.district}{" "}
                 </span>
               </div>
               <div>
@@ -133,39 +136,39 @@ const Booking = () => {
                 <Grid item md={12}>
                   <img
                     className="img-principal"
-                    src={filterCochera[0].image[0]}
+                    src={filterCochera.image[0]}
                   />
                 </Grid>
                 <Grid item md={6}>
-                  <img className="img-sec" src={filterCochera[0].image[1]} />
+                  <img className="img-sec" src={filterCochera.image[1]} />
                 </Grid>
                 <Grid item md={6}>
-                  <img className="img-sec" src={filterCochera[0].image[2]} />
+                  <img className="img-sec" src={filterCochera.image[2]} />
                 </Grid>
                 <Grid item md={12} className="titulo-cochera">
                   <Divider sx={{ marginTop: 5 }} />
                   <p className="titulo-cochera-uno">
-                    Cochera Privada - {filterCochera[0].name}
+                    Cochera Privada - {filterCochera.name}
                   </p>
                   <p className="titulo-cochera-dos">
                     Anfitrion -{" "}
-                    <Link to={`/anfitrion/${filterUser[0].id}`}>
-                      {filterUser[0].userName} {filterUser[0].lastName}
+                    <Link to={`/anfitrion/${filterUser.id}`}>
+                      {filterUser.userName} {filterUser.lastName}
                     </Link>
                   </p>
                   <p className="titulo-cochera-dos">
-                    Tipo de Cochera - {filterCochera[0].space} espacios
+                    Tipo de Cochera - {filterCochera.space} espacios
                   </p>
                   <Divider />
                   <div className="description">
-                    <p className="">{filterCochera[0].description}</p>
+                    <p className="">{filterCochera.description}</p>
                   </div>
                 </Grid>
                 <Grid item md={12}>
                 <Grid container>
                 <Grid item md={6}>
                   <p className="titulo-fechas">
-                    Cochera en {filterCochera[0].department}, {filterCochera[0].district}
+                    Cochera en {filterCochera.department}, {filterCochera.district}
                   </p>
                   {/* Date Range picker */}
                   <div className="static-date-container">
@@ -217,7 +220,7 @@ const Booking = () => {
                 <CardContent className="card-info">
                   <div>
                     <span className="card-precio">
-                      S/{filterCochera[0].price}
+                      S/{filterCochera.price}
                     </span>
                     <span className="card-precio-aux">/hora</span>
                   </div>
@@ -280,10 +283,10 @@ const Booking = () => {
 
                 <Grid container sx={{ marginTop: 3, marginBottom: 5 }}>
                   <Grid item md={12}>
-                    {/* <MapContainer
+                    <MapContainer
                       center={[
-                        filterCochera[0].geolocation[0],
-                        filterCochera[0].geolocation[1],
+                        filterCochera.geolocation[0],
+                        filterCochera.geolocation[1],
                       ]}
                       zoom={18}
                       style={{ height: 500 }}
@@ -294,19 +297,19 @@ const Booking = () => {
                       />
                       <Marker
                         position={[
-                          filterCochera[0].geolocation[0],
-                          filterCochera[0].geolocation[1],
+                          filterCochera.geolocation[0],
+                          filterCochera.geolocation[1],
                         ]}
                         icon={markerIcon}
                       >
                         <Popup>Estas aqui</Popup>
                       </Marker>
-                    </MapContainer> */}
+                    </MapContainer>
                   </Grid>
                 </Grid>
 
                 <p className="titulo-lugar-mapa">
-                  {filterCochera[0].department}, {filterCochera[0].district}
+                  {filterCochera.department}, {filterCochera.district}
                 </p>
               </div>
             </Grid>
