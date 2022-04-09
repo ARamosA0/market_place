@@ -38,7 +38,22 @@ const RegistroFotos = () => {
     setRegCochera(showCochera);
   };
   const handleClickUpdate = async () => {
-    await updatePhotoCochera(regCochera[0], valorInputs.image,"cochera");
+    try{
+      await updatePhotoCochera(regCochera[0], valorInputs.image,"cochera");
+      const response = await swal({
+        icon: "success",
+        title: "Se subieron los datos",
+      });
+      if(response){
+        window.location.replace('');
+      }
+    } catch(error){
+      swal({
+        icon: "error",
+        title: `${error.message}`,
+        text: "Intenta de nuevo",
+      }); 
+    }
   };
 
   useEffect(() => {
