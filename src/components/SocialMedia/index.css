@@ -17,3 +17,17 @@
     background-color: #D93B30;
     color: white;
 }
+
+@media only screen and (max-width: 600px) {
+    .media-container {
+        height: 40vh;
+        text-align: center;
+    }
+  }
+
+  @media only screen and (max-width: 992px) {
+    .media-container {
+        height: 30vh;
+        text-align: center;
+    }
+  }
