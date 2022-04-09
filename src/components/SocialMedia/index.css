@@ -18,7 +18,16 @@
     color: white;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (min-width: 390px) {
+    .media-container {
+        height: 40vh;
+        background-image: linear-gradient(20deg, #1b3444 0%, #2c2542 50%,black 100%);
+        background-size: 150% 150%;
+        text-align: center;
+    }
+  }
+
+@media only screen and (min-width: 600px) {
     .media-container {
         height: 40vh;
         background-image: linear-gradient(20deg, #1b3444 0%, #2c2542 50%,black 100%);
