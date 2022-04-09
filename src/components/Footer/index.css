@@ -1,5 +1,5 @@
 .footer-container {
-    height: 30vh;
+    height: 35vh;
     background-image: linear-gradient(45deg, #1b3444 0%, #2c2542 50%,black 100%);
     background-size: 210% 210%;
     padding-top: 30px;
@@ -8,3 +8,23 @@
 .footer-op {
     margin: 5px;
 }
+
+  @media only screen and (max-width: 600px) {
+    .footer-container {
+        height: 95vh;
+        text-align: center;
+    }
+  }
+
+  @media only screen and (max-width: 992px) {
+    .footer-container {
+        height: 95vh;
+        text-align: center;
+    }
+  }
+
+  @media only screen and (min-width: 1200px) {
+    .footer-container {
+        height: 35vh;
+    }
+  }

@@ -23,6 +23,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import photoUser from "../../assets/user.png";
 import { eliminarRegistro } from "../../service/firestore";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import LoaderCar from "../../components/LoaderCar"
 
 const Anfitrion = () => {
   const { id } = useParams();
@@ -89,7 +90,7 @@ const Anfitrion = () => {
   return (
     <section>
 
-      {Object.keys(user).length > 0 && (
+      {Object.keys(user).length > 0 ? (
         <Container sx={{ paddingTop: 10, paddingBottom: 10 }}>
           
           <Grid container sx={{ textAlign: "center" }}>
@@ -208,7 +209,7 @@ const Anfitrion = () => {
               ))}
           </Grid>
         </Container>
-      )}
+      ): <LoaderCar/>}
     </section>
   );
 };
