@@ -160,104 +160,58 @@ const ParkingLog = () => {
                 to={`/booking/${parking.id}`}
               >
                 <CardContent>
-                  <Typography variant="h5" component="div" color={"#D93B30"}>
-                    {parking.name}
-                  </Typography>
-                  <Typography
-                    variant="subtitle2"
-                    color="primary"
-                  >{`${parking.description}`}</Typography>
-                  <Typography
-                    className="parking-text"
-                    variant="subtitle2"
-                    color="primary"
-                  >{`Dirección: ${parking.adress}`}</Typography>
-                  <Divider></Divider>
-                  <Stack   mt={2}  flexDirection="row" flexWrap="wrap" alignItems="center" justifyContent="space-evenly">
-                    <div className="div-etiquetas">
-                     <Chip label={`País: ${parking.country}`} color="info" />
-                    </div>
-                    <div className="div-etiquetas">
-                      <Chip
-                        label={`Región: ${parking.department}`}
-                        color="success"
-                      />
-                    </div>
-                    <div className="div-etiquetas">
-                      <Chip
-                        label={`Distríto: ${parking.district}`}
-                        color="warning"
-                      />
-                    </div>
-                  </Stack>
-                  <Grid
-                    container
-                    direction={"row"}
-                    justifyContent={"space-between"}
-                    mt={10}
-                  >
-                    <Grid item>
-                      <Typography variant="button" color="primary">
-                        {" "}
-                        Rating: <StarBorderIcon color="warning" />
-                      </Typography>
-                    </Grid>
-                    <Grid item>
-                      <Typography variant="button" color="error">
-                        {" "}
-                        Price: s/.{parking.price}{" "}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </CardContent>
+                      <Typography variant="h5" component="div" color={"#D93B30"}>{parking.name}</Typography>
+                      <Typography variant="subtitle2" color="primary" >{`${parking.description}`}</Typography>
+                      <Typography className="parking-text" variant="subtitle2" color="primary" >{`Dirección: ${parking.adress}`}</Typography>
+                      <Divider></Divider>
+                      <Stack direction="row" spacing={1} mt={3}> 
+                        <Grid container spacing={2} direction={"row"} justifyContent={"space-between"}>
+                          <Grid item xl={6} md={6} sm={12} xs={12}>
+                            <Chip label={`Región: ${parking.department}`} color="success" />
+                          </Grid>
+                          <Grid item xl={6} md={6} sm={12} xs={12}>
+                            <Chip label={`Distríto: ${parking.district}`} color="primary" />
+                          </Grid>
+                        </Grid>
+                      </Stack>
+                      <Grid container direction={"row"} justifyContent={"space-between"} mt={15} >
+                        <Grid item>
+                          <Typography variant="button" color="error"> Price: s/.{parking.price} </Typography>
+                        </Grid>
+                        <Grid item>
+                          <Typography variant="button" color="primary"> Espacios: {parking.space} </Typography>
+                        </Grid>
+                      </Grid>
+                    </CardContent>
               </CardActionArea>
             </Card>
           </Grid>
         ))}
       </Grid>
       <Grid container>
-        <Grid item md={12} xs={12}mb={2} mt={5}>
-          <MapContainer center={position} zoom={13} style={{ height: 500 }}>
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            {parking.length > 0 &&
-              parking.map((parking) => (
-                <Marker
-                  position={[
-                    parking.geolocation[0],
-                    parking.geolocation[1],
-                  ]}
-                  icon={markerIcon}
-                >
-                  <Popup>
-                    <CardActionArea
-                      component={Link}
-                      to={`/booking/${parking.id}`}
-                    >
-                      <div>
-                        <Typography
-                          variant="button"
-                          component={"div"}
-                          color="secondary"
-                        >{`Ubicacion: ${parking.name}`}</Typography>
-                        <Typography
-                          variant="button"
-                          color="primary"
-                        >{`Precio: ${parking.price} - `}</Typography>
-                        <Typography
-                          variant="button"
-                          color="error"
-                        >{` Espacios: ${parking.space}`}</Typography>
-                      </div>
-                    </CardActionArea>
-                  </Popup>
-                </Marker>
-              ))}
-          </MapContainer>
+          <Grid item xl={12} md={12} sm={12} xs={12} mb={5} mt={5} sx={{border:"solid"}}>
+            <MapContainer center={position} zoom={13} style={{ height: 500 }}>
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              {parking.length > 0 &&
+                parking.map((parking) => (
+                  <Marker position={[ parking.geolocation[0], parking.geolocation[1],]} icon={markerIcon} >
+                    <Popup>
+                      <CardActionArea component={Link} to={`/booking/${parking.id}`}>
+                        <div>
+                            <Typography variant="button" component={"div"} color="secondary">{`Ubicacion: ${parking.name}`}</Typography>
+                            <Typography variant="button" color="primary">{`Precio: ${parking.price} - `}</Typography>
+                            <Typography variant="button" color="error">{` Espacios: ${parking.space}`}</Typography>
+                        </div>
+                      </CardActionArea>
+                    </Popup>
+                  </Marker>
+                ))}
+            </MapContainer>
+          </Grid>
         </Grid>
-      </Grid>
     </Container>
   );
 };
