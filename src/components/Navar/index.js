@@ -21,6 +21,8 @@ import swal from "sweetalert";
 import "./index.css";
 
 const MenuAppBar = () => {
+
+  const idUsuario = JSON.parse(localStorage.getItem("userID"));
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
 
@@ -97,9 +99,9 @@ const MenuAppBar = () => {
               component="div"
               sx={{ display: { xs: "none", sm: "block", padding: "15px" } }}
             >
-              <Link href={`/parkinglog`} color="white" underline="none">
+              <Link href={`/parkinglog/${idUsuario.id}`}  color="white" underline="none">
                 <BookOnlineIcon sx={{ fontSize: 20, color: "white" }} />
-                <span className="botones"> Booking</span>
+                <span className="botones"> Parking Log</span>
               </Link>
             </Typography>
             {/* click para inicar sesion - va estar oculto */}
@@ -214,9 +216,9 @@ const MenuAppBar = () => {
                 </MenuItem>
 
                 <MenuItem onClick={handleClose} className="prueba">
-                  <Link href={`/parkinglog`} color="black" underline="none">
+                  <Link href={`/parkinglog/${idUsuario.id}`} color="black" underline="none">
                     <BookOnlineIcon fontSize="small" />
-                    &nbsp;&nbsp;Booking
+                    &nbsp;&nbsp;Parking Log
                   </Link>
                 </MenuItem>
               </Menu>

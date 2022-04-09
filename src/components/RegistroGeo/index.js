@@ -9,7 +9,7 @@ import {
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { storeCochera, updateCochera } from "../../service/firestore";
+import { storeCochera, updateCochera,updateGeoCochera } from "../../service/firestore";
 import { GeoPoint } from "firebase/firestore/lite";
 import swal from "sweetalert";
 
@@ -49,7 +49,7 @@ const RegistroGeo = () => {
 
   const handleClickSendUbi = async () => {
     try{
-      await updateCochera(regCochera[0], position,"cochera");
+      await updateGeoCochera(regCochera[0], position,"cochera");
       console.log(position.lat)
       console.log(position.lng)
     } catch(error){

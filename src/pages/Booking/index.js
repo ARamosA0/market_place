@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { getCocheraData, updateSpaceCochera } from "../../service/firestore";
+import { getCocheraData, updateSpaceCochera, updateReservaCochera, updateFechaReservaCochera} from "../../service/firestore";
 import {
   Grid,
   Container,
@@ -17,12 +17,13 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import "./index.css";
+import DatePicker from '@mui/lab/DatePicker';
 import StaticDateRangePicker from "@mui/lab/StaticDateRangePicker";
-import StaticTimePicker from "@mui/lab/StaticTimePicker";
 import DateAdapter from "@mui/lab/AdapterDateFns";
+import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import StaticDatePicker from '@mui/lab/StaticDatePicker';
 import DesktopDateRangePicker from "@mui/lab/DesktopDateRangePicker";
-import DesktopTimePicker from "@mui/lab/DesktopTimePicker";
 import { Link, useParams } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import swal from "sweetalert";
@@ -32,17 +33,26 @@ import L from "leaflet";
 
 const Booking = () => {
   const {id} = useParams();
-  const { user, cochera } = useContext(CocheraContext);
+  const { user, cochera, storeReservaCochera } = useContext(CocheraContext);
   const [filterUser, setFilterUser] = useState([]);
   const [filterCochera, setFilterCochera] = useState([]);
+  const [registerCochera, setRegisterCochera] = useState([]);
 
-  const fetchData = () => {
-    const fetchUser = JSON.parse(localStorage.getItem("user"));
-    const fetchCochera = JSON.parse(localStorage.getItem("cochera"));
-    setFilterUser(fetchUser);
-    setFilterCochera(fetchCochera);
+  const fetchData = async () => {
+    const dataUser = await getCocheraData("usuario")
+    const dataGarage = await getCocheraData("cochera")
+    const filtGarage = dataGarage.find((garage) => garage.id === id);
+    const filtUser = dataUser.find((user)=>user.id)
+    setFilterUser(filtUser)
+    setFilterCochera(filtGarage)
+    // setFilterCochera(filtGarage)
+    // const fetchUser = JSON.parse(localStorage.getItem("user"));
+    // const fetchCochera = JSON.parse(localStorage.getItem("cochera"));
+    // setFilterUser(fetchUser);
+    // setFilterCochera(fetchCochera);
+    // console.log(filterUser)
   };
-
+  
   // Mapa
   const markerIcon = new L.icon({
     iconUrl: require("../../assets/marker.png"),
@@ -50,34 +60,38 @@ const Booking = () => {
   });
 
   // Date Range picker
-  const [valueDate, setValueDate] = React.useState([null, null]);
+  const [valueDate, setValueDate] = React.useState(null);
+  const [valueDateFin, setValueDateFin] = React.useState(null);
+  // console.log(valueDate)
+  // console.log(valueDateFin)
+  // console.log(filterUser)
 
-  // Time picker
-  const [valueStartTime, setValueStartTime] = React.useState(new Date());
-  const [valueEndTime, setValueEndTime] = React.useState(new Date());
+
 
   // Boton Reservar
   const handleOnClickReservar = async () => {
     try {
-      const fireBaseGarage = await getCocheraData("cochera")
-      const filterGarage = fireBaseGarage.find((cochera) => cochera.id === id);
-      if(+filterGarage.space > 0){
-        const space = +filterGarage.space - 1
-        await updateSpaceCochera(filterGarage, space.toString(), "cochera")
-        console.log(filterGarage)
+      if(+filterCochera.space > 0){
+        const space = +filterCochera.space - 1
+        await updateSpaceCochera(filterCochera, space.toString(), "cochera");
+        await updateReservaCochera(filterUser, filterCochera.id, "usuario")
+        console.log(filterCochera.id)
+        await updateFechaReservaCochera(filterCochera, [valueDate, valueDateFin], "usuario")
+        storeReservaCochera(filterCochera.id);
+        // console.log(filterCochera);
         await swal({
           icon: "success",
           title: "Se subieron los datos",
         });
       } 
-      if (+filterGarage.space === 0){
+      if (+filterCochera.space === 0){
         swal({
           icon: "error",
           title: "Ya no hay espacio en esta cochera",
         });
       }
-      console.log(filterGarage.space)
-      
+      console.log(filterCochera.space)
+    
       } catch(error){
         console.log(error.message)
       swal({
@@ -94,11 +108,11 @@ const Booking = () => {
 
   return (
     <section>
-      {filterUser.length > 0 && filterCochera.length > 0 && (
+      {Object.keys(filterUser).length > 0 && Object.keys(filterCochera).length > 0 && (
         <Container sx={{ marginTop: 5 }}>
           <Grid container spacing={3}>
             <Grid item md={12} className="titulo-principal">
-              <h1>{filterCochera[0].name}</h1>
+              <h1>{filterCochera.name}</h1>
             </Grid>
             <Grid item md={12} className="reserva-items">
               <div>
@@ -106,8 +120,8 @@ const Booking = () => {
                 <span>4,96 . 100 reseñas &nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <LocationOnIcon />
                 <span>
-                  {filterCochera[0].country}, {filterCochera[0].department},{" "}
-                  {filterCochera[0].district}{" "}
+                  {filterCochera.country}, {filterCochera.department},{" "}
+                  {filterCochera.district}{" "}
                 </span>
               </div>
               <div>
@@ -122,33 +136,81 @@ const Booking = () => {
                 <Grid item md={12}>
                   <img
                     className="img-principal"
-                    src={filterCochera[0].image[0]}
+                    src={filterCochera.image[0]}
                   />
                 </Grid>
                 <Grid item md={6}>
-                  <img className="img-sec" src={filterCochera[0].image[1]} />
+                  <img className="img-sec" src={filterCochera.image[1]} />
                 </Grid>
                 <Grid item md={6}>
-                  <img className="img-sec" src={filterCochera[0].image[2]} />
+                  <img className="img-sec" src={filterCochera.image[2]} />
                 </Grid>
                 <Grid item md={12} className="titulo-cochera">
                   <Divider sx={{ marginTop: 5 }} />
                   <p className="titulo-cochera-uno">
-                    Cochera Privada - {filterCochera[0].name}
+                    Cochera Privada - {filterCochera.name}
                   </p>
                   <p className="titulo-cochera-dos">
                     Anfitrion -{" "}
-                    <Link to={`/anfitrion/${filterUser[0].id}`}>
-                      {filterUser[0].userName} {filterUser[0].lastName}
+                    <Link to={`/anfitrion/${filterUser.id}`}>
+                      {filterUser.userName} {filterUser.lastName}
                     </Link>
                   </p>
                   <p className="titulo-cochera-dos">
-                    Tipo de Cochera - {filterCochera[0].space} espacios
+                    Tipo de Cochera - {filterCochera.space} espacios
                   </p>
                   <Divider />
                   <div className="description">
-                    <p className="">{filterCochera[0].description}</p>
+                    <p className="">{filterCochera.description}</p>
                   </div>
+                </Grid>
+                <Grid item md={12}>
+                <Grid container>
+                <Grid item md={6}>
+                  <p className="titulo-fechas">
+                    Cochera en {filterCochera.department}, {filterCochera.district}
+                  </p>
+                  {/* Date Range picker */}
+                  <div className="static-date-container">
+                  <div >
+                    <h5>Fecha Inicio</h5>
+                    <LocalizationProvider dateAdapter={DateAdapter}>
+                      <StaticDatePicker
+                        displayStaticWrapperAs="desktop"
+                        openTo="day"
+                        value={valueDate}
+                        onChange={(newValue) => {
+                          setValueDate(newValue);
+                        }}
+                        renderInput={(params) => <TextField {...params} />}
+                      />
+                    </LocalizationProvider>
+                  </div>
+                  <div>
+                    <h5>Fecha Fin</h5>
+                    <LocalizationProvider dateAdapter={DateAdapter}>
+                      <StaticDatePicker
+                        displayStaticWrapperAs="desktop"
+                        openTo="day"
+                        value={valueDateFin}
+                        onChange={(newValue) => {
+                          setValueDateFin(newValue);
+                        }}
+                        renderInput={(params) => <TextField {...params} />}
+                      />
+                    </LocalizationProvider>
+                  </div>
+                  </div>
+                  {/* Time Range picker */}
+                  <Grid
+                    container
+                    spacing={3}
+                    sx={{ marginTop: 5, marginBottom: 5 }}
+                  >
+                  </Grid>
+                </Grid>
+                <Grid item md={6}></Grid>
+              </Grid>
                 </Grid>
               </Grid>
             </Grid>
@@ -158,7 +220,7 @@ const Booking = () => {
                 <CardContent className="card-info">
                   <div>
                     <span className="card-precio">
-                      S/{filterCochera[0].price}
+                      S/{filterCochera.price}
                     </span>
                     <span className="card-precio-aux">/hora</span>
                   </div>
@@ -166,53 +228,30 @@ const Booking = () => {
                     {/* Date Range picker*/}
                     <div className="date-container">
                       <LocalizationProvider dateAdapter={DateAdapter}>
-                        <Stack spacing={3}>
-                          <DesktopDateRangePicker
-                            startText="Fecha Inicio"
-                            inputFormat="dd-MM-yyyy"
-                            value={valueDate}
-                            onChange={(newValue) => {
-                              setValueDate(newValue);
-                            }}
-                            renderInput={(startProps, endProps) => (
-                              <React.Fragment>
-                                <TextField {...startProps} />
-                                <Box sx={{ mx: 2 }}> to </Box>
-                                <TextField {...endProps} />
-                              </React.Fragment>
-                            )}
-                          />
-                        </Stack>
+                        <DatePicker
+                          label="Escoge la fecha inicial"
+                          openTo="day"
+                          views={['year', 'month', 'day']}
+                          value={valueDate}
+                          onChange={(newValue) => {
+                            setValueDate(newValue);
+                          }}
+                          renderInput={(params) => <TextField {...params} />}
+                        />
                       </LocalizationProvider>
                     </div>
-                    {/* Time Start picker*/}
                     <div className="date-container">
                       <LocalizationProvider dateAdapter={DateAdapter}>
-                        <Stack spacing={3}>
-                          <DesktopTimePicker
-                            label="Hora inicio"
-                            value={valueStartTime}
-                            onChange={(newValue) => {
-                              setValueStartTime(newValue);
-                            }}
-                            renderInput={(params) => <TextField {...params} />}
-                          />
-                        </Stack>
-                      </LocalizationProvider>
-                    </div>
-                    {/* Time End picker*/}
-                    <div className="date-container">
-                      <LocalizationProvider dateAdapter={DateAdapter}>
-                        <Stack spacing={3}>
-                          <DesktopTimePicker
-                            label="Hora final"
-                            value={valueEndTime}
-                            onChange={(newValue) => {
-                              setValueEndTime(newValue);
-                            }}
-                            renderInput={(params) => <TextField {...params} />}
-                          />
-                        </Stack>
+                        <DatePicker
+                          label="Escoge la fecha final"
+                          openTo="day"
+                          views={['year', 'month', 'day']}
+                          value={valueDateFin}
+                          onChange={(newValue) => {
+                            setValueDateFin(newValue);
+                          }}
+                          renderInput={(params) => <TextField {...params} />}
+                        />
                       </LocalizationProvider>
                     </div>
                   </div>
@@ -229,118 +268,12 @@ const Booking = () => {
                       Reservar
                     </Button>
                   </div>
-                  <Divider />
-                  <div style={{ marginTop: 10 }}>
-                    <Box
-                      sx={{
-                        p: 2,
-                        fontSize: 17,
-                        fontWeight: "medium",
-                        minWidth: 300,
-                        display: "inline",
-                      }}
-                    >
-                      Tiempo Total
-                    </Box>
-                    <Box
-                      sx={{
-                        p: 2,
-                        fontSize: 17,
-                        fontWeight: "medium",
-                        display: "inline",
-                      }}
-                    ></Box>
-                  </div>
-                  <Divider />
-                  <div style={{ marginTop: 10 }}>
-                    <Box
-                      sx={{
-                        p: 2,
-                        fontSize: 17,
-                        fontWeight: "medium",
-                        minWidth: 300,
-                        display: "inline",
-                        marginRight: 1,
-                      }}
-                    >
-                      Precio Total
-                    </Box>
-                    <Box
-                      sx={{
-                        p: 2,
-                        fontSize: 17,
-                        fontWeight: "medium",
-                        display: "inline",
-                        marginLeft: 5,
-                      }}
-                    ></Box>
-                  </div>
                 </CardContent>
               </Card>
             </Grid>
 
             <Grid item md={12}>
-              <Grid container>
-                <Grid item md={6}>
-                  <p className="titulo-fechas">
-                    {filterCochera[0].region}, {filterCochera[0].district}
-                  </p>
-                  {/* Date Range picker */}
-                  <div className="static-date-container">
-                    <LocalizationProvider dateAdapter={DateAdapter}>
-                      <StaticDateRangePicker
-                        displayStaticWrapperAs="desktop"
-                        value={valueDate}
-                        onChange={(newValueDate) => {
-                          setValueDate(newValueDate);
-                        }}
-                        renderInput={(startProps, endProps) => (
-                          <React.Fragment>
-                            <TextField {...startProps} />
-                            <Box sx={{ mx: 2 }}> to </Box>
-                            <TextField {...endProps} />
-                          </React.Fragment>
-                        )}
-                      />
-                    </LocalizationProvider>
-                  </div>
-                  {/* Time Range picker */}
-                  <Grid
-                    container
-                    spacing={3}
-                    sx={{ marginTop: 5, marginBottom: 5 }}
-                  >
-                    <Grid item md={6}>
-                      <span>Inicio</span>
-                      <LocalizationProvider dateAdapter={DateAdapter}>
-                        <StaticTimePicker
-                          displayStaticWrapperAs="mobile"
-                          value={valueStartTime}
-                          color="secondary"
-                          onChange={(newValueTime) => {
-                            setValueStartTime(newValueTime);
-                          }}
-                          renderInput={(params) => <TextField {...params} />}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
-                    <Grid item md={6}>
-                      <span>Final</span>
-                      <LocalizationProvider dateAdapter={DateAdapter}>
-                        <StaticTimePicker
-                          displayStaticWrapperAs="mobile"
-                          value={valueEndTime}
-                          onChange={(newValueTime) => {
-                            setValueEndTime(newValueTime);
-                          }}
-                          renderInput={(params) => <TextField {...params} />}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item md={6}></Grid>
-              </Grid>
+              
 
               <Divider />
               <div>
@@ -352,8 +285,8 @@ const Booking = () => {
                   <Grid item md={12}>
                     <MapContainer
                       center={[
-                        filterCochera[0].geolocation[0],
-                        filterCochera[0].geolocation[1],
+                        filterCochera.geolocation[0],
+                        filterCochera.geolocation[1],
                       ]}
                       zoom={18}
                       style={{ height: 500 }}
@@ -364,8 +297,8 @@ const Booking = () => {
                       />
                       <Marker
                         position={[
-                          filterCochera[0].geolocation[0],
-                          filterCochera[0].geolocation[1],
+                          filterCochera.geolocation[0],
+                          filterCochera.geolocation[1],
                         ]}
                         icon={markerIcon}
                       >
@@ -376,7 +309,7 @@ const Booking = () => {
                 </Grid>
 
                 <p className="titulo-lugar-mapa">
-                  {filterCochera[0].department}, {filterCochera[0].district}
+                  {filterCochera.department}, {filterCochera.district}
                 </p>
               </div>
             </Grid>
