@@ -21,10 +21,7 @@ import "./index.css";
 import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import photoUser from "../../assets/user.png";
-<<<<<<< HEAD
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
-=======
->>>>>>> 28435cd241acf04614f913af96d450cdc9ffc0df
 
 // import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 
@@ -53,10 +50,7 @@ const Anfitrion = () => {
     setCocheras(filterGarage);
   };
 
-<<<<<<< HEAD
   
-=======
->>>>>>> 28435cd241acf04614f913af96d450cdc9ffc0df
   const [values, setValues] = useState({
     adress: "",
     country: "",
@@ -195,7 +189,6 @@ const Anfitrion = () => {
                         </Grid>
                       </Grid>
                     </CardContent>
-<<<<<<< HEAD
                     <CardActions>
                     <Link to={`/booking/${cochera.id}`}>
                       <Button
@@ -207,8 +200,6 @@ const Anfitrion = () => {
                       </Button>
                     </Link>
                     </CardActions>
-=======
->>>>>>> 28435cd241acf04614f913af96d450cdc9ffc0df
                   </Card>
                 </Grid>
               ))}
