@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { CocheraContext } from "../../Context/CocheraContext";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {Container, Grid, Card, CardContent, CardActions, Button} from "@mui/material"
 import WysiwygIcon from '@mui/icons-material/Wysiwyg';
 import BusinessIcon from '@mui/icons-material/Business';
@@ -11,20 +12,29 @@ import RegistroGeo from "../../components/RegistroGeo";
 import RegistroInformacion from "../../components/RegistroInformacion";
 import RegistroFotos from "../../components/RegistroFotos";
 import LoaderCar from "../../components/LoaderCar"
+import {
+    getCocheraData,
+    storeCochera as sc,
+    updateIdCochera,
+  } from "../../service/firestore";
 import "./index.css"
 
 
-const RegistroAnfitrion = () => {   
-
+const RegistroAnfitrion =  () => { 
+    const { id } = useParams();
     const {user, cochera } =useContext(CocheraContext)
     const [regUser, setRegUser] = useState([])
     // const [reg, setRegUser] = useState([])
 
-    const fetchData =  () => {
+    const fetchData = async () => {
+        const dataUser = await getCocheraData("usuario");
+        const dataGarege = await getCocheraData("cochera");
         const showUser = JSON.parse(localStorage.getItem('user'))
-        setRegUser(showUser)
-        // console.log(showUser)
+        const filterUser = dataUser.find((user) => user.id === id);
+        setRegUser(filterUser)
+        console.log(showUser)
     };
+    console.log(regUser)
 
     useEffect(() => {
         fetchData();
@@ -33,15 +43,15 @@ const RegistroAnfitrion = () => {
 
     return(
         <>
-            {regUser.length > 0 ? (
+            {Object.keys(regUser).length > 0 ? (
                 <Container>
                     <Grid container spacing={3} sx={{marginBottom:20, marginTop:20}}>
                         <Grid item md={12}>
                             <h2>Cuenta</h2>
                             <p>
-                                <span> <b>{regUser[0].userName} {regUser[0].lastName},&nbsp;</b></span>
-                                <span>{regUser[0].email} .&nbsp;</span>
-                                <Link to={`/anfitrion/${regUser[0].id}`}>
+                                <span> <b>{regUser.userName} {regUser.lastName},&nbsp;</b></span>
+                                <span>{regUser.email} .&nbsp;</span>
+                                <Link to={`/anfitrion/${regUser.id}`}>
                                     <Button color="secondary">Ir a perfil</Button>
                                 </Link>
                 

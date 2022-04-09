@@ -50,6 +50,10 @@ const RegistroGeo = () => {
   const handleClickSendUbi = async () => {
     try{
       await updateGeoCochera(regCochera[0], position,"cochera");
+      await swal({
+        icon: "success",
+        title: "Se subieron los datos",
+      });
       console.log(position.lat)
       console.log(position.lng)
     } catch(error){
