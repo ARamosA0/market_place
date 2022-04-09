@@ -9,7 +9,7 @@ const Home = () => {
 
   return (
       <div>
-        <Grid container className="banner" direction={"column"} justifyContent={"center"} alignItems={"center"} mt={12}>
+        <Grid container className="banner" direction={"column"} justifyContent={"center"} alignItems={"center"} mt={10.5}>
           <div className="banner div-banner">
             <Grid item textAlign={"center"}>
               <span className="title">Mas de 10 000 cocheras a tu disposicion, encuentra una cochera segura en donde estes.</span>
