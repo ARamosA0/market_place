@@ -203,7 +203,7 @@ const Anfitrion = () => {
                   </Card>
                 </Grid>
               ))}
-              
+
               
           </Grid>
         </Container>
@@ -215,78 +215,3 @@ const Anfitrion = () => {
 export default Anfitrion;
 
 
-//<Divider sx={{ marginTop: 5, marginBottom: 5 }} />
-//              <h1 sx={{ marginTop: 5, marginBottom: 5 }}>RESERVAS</h1>
-//
-//              {Object.keys(reservaCochera).length > 0 &&
-//                reservaCochera.map((cochera) => (
-//                <Grid item md={12}>
-//                  <Divider sx={{ marginTop: 5, marginBottom: 5 }} />
-//                  <Card className="card-cocheras">
-//                    <CardContent>
-//                      <Grid
-//                        container
-//                        alignItems="center"
-//                        sx={{ textAlign: "center" }}
-//                        spacing={2}
-//                      >
-//                        <Grid item xs={12} sm={6} md={5} xl={4}>
-//                          <img
-//                            className="image-principal"
-//                            src={cochera.image[0]}
-//                            alt=""
-//                          />
-//                        </Grid>
-//
-//                        <Grid item xs={12} sm={6} md={5} xl={6}>
-//                          <div>
-//                            <h2>{cochera.name}</h2>
-//
-//                            <span>{cochera.country},&nbsp;</span>
-//                            <span>{cochera.department},&nbsp;</span>
-//
-//                            <span style={{ marginBottom: 10 }}>
-//                              {cochera.district}&nbsp;
-//                            </span>
-//                            <h6 style={{ marginBottom: 10 }}>
-//                              Direccion : {cochera.adress}
-//                            </h6>
-//                            <h6>
-//                              Estacionamientos disponibles: {cochera.space}
-//                            </h6>
-//                            <span style={{ textAlign: "justify" }}>
-//                              Descripcion: {cochera.description}
-//                            </span>
-//                            <span style={{ textAlign: "justify" }}>
-//                              {/* Fecha de Reserva: Del {cochera.fechaReserva[0]} Al {cochera.fechaReserva[1]} */}
-//                            </span>
-//                          </div>
-//                        </Grid>
-//
-//                        <Grid item xs={12} sm={12} md={2} xl={2}>
-//                          <Button
-//                            variant="contained"
-//                            color="secondary"
-//                            onClick={() =>
-//                              deleteElementFromCocheras(cochera.id)
-//                            }
-//                          >
-//                            <DoDisturbOnIcon />
-//                            &nbsp;&nbsp;Eliminar
-//                          </Button>
-//                        </Grid>
-//                      </Grid>
-//                    </CardContent>
-//                    <CardActions>
-//                    <Link to={`/booking/${cochera.id}`}>
-//                      <Button
-//                        sx={{ marginLeft: 100 }}
-//                        color="secondary"
-//                      >
-//                        Ver publicacion
-//                      </Button>
-//                    </Link>
-//                    </CardActions>
-//                  </Card>
-//                </Grid>
-//              ))}

@@ -129,7 +129,7 @@
 
 
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 550px) {
 
     .reserva-items div{
         display: flex;
@@ -140,11 +140,11 @@
     }
     .img-principal{
         width: 350px;
-        height: 300px;
+        height: 350px;
     }
     .img-sec{
         width: 350px;
-        height: 300px;
+        height: 350px;
     }
     .static-date-container{
         display: flex;
