@@ -22,7 +22,6 @@ import "./index.css";
 
 const MenuAppBar = () => {
 
-  const idUsuario = JSON.parse(localStorage.getItem("userID"));
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
 

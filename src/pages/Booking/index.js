@@ -145,7 +145,7 @@ const Booking = () => {
                 <Grid item md={6} xs={12}>
                   <img className="img-sec" src={filterCochera.image[2]} />
                 </Grid>
-                <Grid item md={12} xs={12} className="titulo-cochera">
+                <Grid item md={12} className="titulo-cochera">
                   <Divider sx={{ marginTop: 5 }} />
                   <p className="titulo-cochera-uno">
                     Cochera Privada - {filterCochera.name}
@@ -164,9 +164,9 @@ const Booking = () => {
                     <p className="">{filterCochera.description}</p>
                   </div>
                 </Grid>
-                <Grid item md={12} xs={12}>
+                <Grid item md={12}>
                 <Grid container>
-                <Grid item md={6} xs={12}>
+                <Grid item md={6}>
                   <p className="titulo-fechas">
                     Cochera en {filterCochera.department}, {filterCochera.district}
                   </p>
@@ -205,18 +205,17 @@ const Booking = () => {
                   <Grid
                     container
                     spacing={3}
-                    xs={12}
                     sx={{ marginTop: 5, marginBottom: 5 }}
                   >
                   </Grid>
                 </Grid>
-                <Grid item md={6} xs={12}></Grid>
+                <Grid item md={6}></Grid>
               </Grid>
                 </Grid>
               </Grid>
             </Grid>
 
-            <Grid className="card-main-info" item md={6} xs={12} sx={{ marginTop: 3 }}>
+            <Grid className="card-main-info" item md={6} sx={{ marginTop: 3 }}>
               <Card sx={{ maxWidth: 350, marginLeft: 20 }}>
                 <CardContent className="card-info">
                   <div>
@@ -291,7 +290,6 @@ const Booking = () => {
                       ]}
                       zoom={18}
                       className="map-cont"
-                      style={{ height: 500 }}
                     >
                       <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

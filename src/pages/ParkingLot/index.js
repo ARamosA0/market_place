@@ -105,18 +105,18 @@ const ParkingLog = () => {
       <Grid
         container
         mt={3}
-        sx={{ marginTop: 30 }}
+        sx={{ marginTop: 20 }}
         direction={"row"}
         justifyContent={"space-between"}
       >
-        <Grid item md={3}>
+        <Grid item md={5} xs={12} sm={5} mb={3}>
           <TextField
             onChange={handleSearchDistrict}
             label="Search for a district..."
             fullWidth
           />
         </Grid>
-        <Grid item md={3}>
+        <Grid item md={5} xs={12} sm={5} mb={2}>
           <FormControl fullWidth>
             <InputLabel>Filter by Districts</InputLabel>
             <Select
@@ -136,7 +136,7 @@ const ParkingLog = () => {
       </Grid>
       <Grid container spacing={3} mt={2}>
         {parking.map((parking) => (
-          <Grid item md={3}>
+          <Grid item md={3}  sm={6} xs={12}>
             <Card>
               <CardMedia>
                 <Carousel fade>
@@ -173,22 +173,28 @@ const ParkingLog = () => {
                     color="primary"
                   >{`Dirección: ${parking.adress}`}</Typography>
                   <Divider></Divider>
-                  <Stack direction="row" spacing={1} mt={3}>
-                    <Chip label={`País: ${parking.country}`} color="info" />
-                    <Chip
-                      label={`Región: ${parking.department}`}
-                      color="success"
-                    />
-                    <Chip
-                      label={`Distríto: ${parking.district}`}
-                      color="warning"
-                    />
+                  <Stack   mt={2}  flexDirection="row" flexWrap="wrap" alignItems="center" justifyContent="space-evenly">
+                    <div className="div-etiquetas">
+                     <Chip label={`País: ${parking.country}`} color="info" />
+                    </div>
+                    <div className="div-etiquetas">
+                      <Chip
+                        label={`Región: ${parking.department}`}
+                        color="success"
+                      />
+                    </div>
+                    <div className="div-etiquetas">
+                      <Chip
+                        label={`Distríto: ${parking.district}`}
+                        color="warning"
+                      />
+                    </div>
                   </Stack>
                   <Grid
                     container
                     direction={"row"}
                     justifyContent={"space-between"}
-                    mt={15}
+                    mt={10}
                   >
                     <Grid item>
                       <Typography variant="button" color="primary">
@@ -210,7 +216,7 @@ const ParkingLog = () => {
         ))}
       </Grid>
       <Grid container>
-        <Grid item md={12} mb={2} mt={5}>
+        <Grid item md={12} xs={12}mb={2} mt={5}>
           <MapContainer center={position} zoom={13} style={{ height: 500 }}>
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
