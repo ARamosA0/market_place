@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 
+import cloudinary
+from decouple import config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -34,6 +37,8 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'paypal.standard.ipn',
+    'cloudinary',
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -82,7 +87,7 @@ DATABASES = {
         'NAME': 'api',
         'USER': 'root',
         'PASSWORD': '',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }
@@ -130,3 +135,11 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+cloudinary.config(
+    cloud_name= 'dyg8vlnnz',
+    api_key= '171286671988479',
+    api_secret= 'CpPcSx5wdXoXOUJiX5rlrE7uZio'
+)
+
+CORS_ALLOW_ALL_ORIGINS = True
