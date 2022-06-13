@@ -1,13 +1,10 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Cochera, Pedido, Pago, Propiedad, Reserva, Cliente
+from .models import Cochera, Pedido,Cliente
 
 # admin.site.register(Cochera)
 admin.site.register(Pedido)
-admin.site.register(Pago)
-admin.site.register(Propiedad)
-admin.site.register(Reserva)
 admin.site.register(Cliente)
 
 
