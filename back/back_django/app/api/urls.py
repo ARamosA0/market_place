@@ -5,4 +5,6 @@ urlpatterns = [
     path('',views.IndexView.as_view()),
     path('cochera',views.CocheraView.as_view()),
     path('cochera/<str:district_name>',views.CocheraByDistrict.as_view()),
+    path('pedido',views.Pedidos.as_view()),
+    path('pedido/<int:pedido_id>',views.PedidosDetail.as_view())
 ]
