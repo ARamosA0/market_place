@@ -19,7 +19,7 @@ class CocheraSerializer(serializers.ModelSerializer):
 class pedidoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pedido
-        field = '__all__'
+        fields = '__all__'
 
 
 # class ClienteSerializer(serializers.ModelSerializer):
