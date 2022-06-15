@@ -143,4 +143,5 @@ cloudinary.config(
     api_secret= 'CpPcSx5wdXoXOUJiX5rlrE7uZio'
 )
 
+
 CORS_ALLOW_ALL_ORIGINS = True

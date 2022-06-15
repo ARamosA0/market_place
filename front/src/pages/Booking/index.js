@@ -60,12 +60,6 @@ const Booking = () => {
     const filtUser = dataUser.find((user) => user.id);
     setFilterUser(filtUser);
     setFilterCochera(filtGarage);
-    // setFilterCochera(filtGarage)
-    // const fetchUser = JSON.parse(localStorage.getItem("user"));
-    // const fetchCochera = JSON.parse(localStorage.getItem("cochera"));
-    // setFilterUser(fetchUser);
-    // setFilterCochera(fetchCochera);
-    // console.log(filterUser)
   };
 
   // Mapa
@@ -77,9 +71,7 @@ const Booking = () => {
   // Date Range picker
   const [valueDate, setValueDate] = React.useState(null);
   const [valueDateFin, setValueDateFin] = React.useState(null);
-  // console.log(valueDate)
-  // console.log(valueDateFin)
-  // console.log(filterUser)
+
 
   // Boton Reservar
   const handleOnClickReservar = async () => {
@@ -89,9 +81,7 @@ const Booking = () => {
         await updateSpaceCochera(filterCochera, space.toString(), "cochera");
         await updateReservaCochera(filterUser, filterCochera.id, "usuario")
         console.log(filterCochera.id)
-        // await updateFechaReservaCochera(filterCochera, [valueDate, valueDateFin], "usuario")
         storeReservaCochera(filterCochera.id);
-        // console.log(filterCochera);
         await swal({
           icon: "success",
           title: "Se reservo su cochera",

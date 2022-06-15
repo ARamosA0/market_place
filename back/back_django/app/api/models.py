@@ -9,6 +9,8 @@ class Cliente(models.Model):
     telefono = models.CharField(max_length=100)
     imagen = CloudinaryField('image',default='')
     
+    # def get_image_url(self):
+    #     return'{}{}'.format('https://res.cloudinary.com/dyg8vlnnz/',self.imagen)
 
     def __str__(self):
         return self.dni
