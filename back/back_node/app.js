@@ -1,5 +1,6 @@
 import express from 'express'
 import config from './src/config'
+import cocheraRoutes from './src/routes/prueba.routes'
 
 const app = express()
 
@@ -13,5 +14,8 @@ app.get('/', (req, res) => {
     content: 'servidor activo'
   })
 })
+
+// ? routes
+app.use(cocheraRoutes)
 
 export default app
