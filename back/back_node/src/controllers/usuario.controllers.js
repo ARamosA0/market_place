@@ -39,7 +39,7 @@ export const createUsuario = async (req, res) => {
     const data = await querySql(sqlInsertUser)
     const idUserinsert = data.insertId
 
-    const image = 'https://cloudfront-us-east-1.images.arcpublishing.com/gruporepublica/WCB4TXLTWBHWHCCYFEH2RNWWQI.jpg'
+    const image = 'https://definicion.de/wp-content/uploads/2019/06/perfildeusuario.jpg'
 
     const sqlInsertClient = `INSERT INTO api_cliente (dni,telefono,imagen,usuario_id)
                              VALUES('${dni}','${telefono}','${image}',${idUserinsert})`
