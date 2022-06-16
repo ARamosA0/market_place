@@ -1,9 +1,10 @@
+from dataclasses import fields
 from rest_framework import serializers
 
 from django.contrib.auth.models import User
 
 from .models import(
-    Cochera, Pedido, Cliente
+    Cochera, Pedido, Cliente,User
 )
 
 class CocheraSerializer(serializers.ModelSerializer):
@@ -13,7 +14,6 @@ class CocheraSerializer(serializers.ModelSerializer):
         
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        print('----------------------------------',representation)
         representation['imagen1'] = instance.imagen1.url
         representation['imagen2'] = instance.imagen2.url
         representation['imagen3'] = instance.imagen3.url
@@ -25,12 +25,20 @@ class pedidoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-# class ClienteSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Cliente
-#         fields = ['lastname','dni','telefono','imagen','propiedad','reserva']
+
+class ClienteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cliente
+        fields =['id','dni','telefono','imagen']
         
-#         def to_representation(self, instance):
-#             representation = super().to_representation(instance)
-#             representation['imagen'] = instance.imagen.url
-#             return representation
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['imagen'] = instance.imagen.url
+        return representation
+
+class UsuarioSerializer(serializers.ModelSerializer):
+    Cliente = ClienteSerializer(read_only=True)
+    class Meta:
+        model = User
+        fields = ['id','first_name','last_name','email','username','Cliente']
+

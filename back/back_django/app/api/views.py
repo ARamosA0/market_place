@@ -13,6 +13,8 @@ from .models import (
 )
 
 from .serializers import (
+    ClienteSerializer,
+    UsuarioSerializer,
     CocheraSerializer,
     pedidoSerializer
 )
@@ -120,3 +122,26 @@ class PedidosDetail(APIView):
         dataPedido.delete()
         return Response(serPedido.data)
 
+
+class UsuarioView(APIView):
+    def get(self,request):
+        dataUsuario = User.objects.all()
+        serUsuario = UsuarioSerializer(dataUsuario, many=True)
+        context = {
+            'status':True,
+            'content':serUsuario.data,
+            'message':'data'
+        }
+        return Response(context)
+
+class UsuarioByClienteId(APIView):
+    def get(self,request,cliente_id):
+        dataCliente = User.objects.get(Cliente=cliente_id)
+        serCliente = UsuarioSerializer(dataCliente)
+        context = {
+            'status':True,
+            'content':serCliente.data,
+            'message':'data'
+        }
+        print(context)
+        return Response(context)
