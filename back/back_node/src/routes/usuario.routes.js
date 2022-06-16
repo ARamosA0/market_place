@@ -7,7 +7,7 @@ import { verifyToken } from '../middlewares/auth'
 const router = Router()
 
 router.get('/user', verifyToken, getUsuario)
-router.get('/user/:id', getUsuarioId)
+router.get('/user/:id', verifyToken, getUsuarioId)
 router.post('/user', validatorHandler(createUsuarioSchema, 'body'), createUsuario)
-router.put('/user/:id', validatorHandler(updateUsuarioSchema, 'body'), updateUser)
+router.put('/user/:id', verifyToken, validatorHandler(updateUsuarioSchema, 'body'), updateUser)
 export default router
