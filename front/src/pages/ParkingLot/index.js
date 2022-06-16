@@ -20,11 +20,8 @@ import {
 } from "@mui/material";
 import LoaderCar from "../../components/LoaderCar"
 //Context
-import { getCocheraData } from "../../service/firestore";
-import { CocheraContext } from "../../Context/CocheraContext";
 
-// API
-import {cocheraServices, cocheraFilterServices} from "../../service/cocherasServices"
+import { CocheraContext } from "../../Context/CocheraContext";
 
 //Mapa referencia
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
@@ -49,11 +46,13 @@ const ParkingLog = () => {
   const [parking, setParking] = useState([]);
   const [district, setDistrict] = useState("");
   const position = [-12.04318, -77.02824];
-  const url = 'http://127.0.0.1:8000/cochera/'
+  
   
   const [cocheras, setCocheras] = useState([]);
   console.log(cocheras)
   const { name } = useParams();
+
+
 
   const markerIcon = new L.icon({
     iconUrl: require("../../assets/marker.png"),
@@ -61,10 +60,12 @@ const ParkingLog = () => {
   });
 
   const fetchApi = async () =>{
+    const url = name ? 'http://127.0.0.1:8000/cochera/distrito/'+name : 'http://127.0.0.1:8000/cochera/'
     const response = await fetch(url)
     const responseJSON = await response.json()
     setCocheras(responseJSON.content)
     return responseJSON.content
+    
   }
 
 
@@ -215,15 +216,15 @@ const ParkingLog = () => {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-              {parking.length > 0 &&
-                parking.map((parking) => (
-                  <Marker position={[ parking.geolocation[0], parking.geolocation[1],]} icon={markerIcon} >
+              {cocheras.length > 0 &&
+                cocheras.map((cochera) => (
+                  <Marker position={[ cochera.lat, cochera.long]} icon={markerIcon} >
                     <Popup>
                       <CardActionArea component={Link} to={`/booking/${parking.id}`}>
                         <div>
                             <Typography variant="button" component={"div"} color="secondary">{`Ubicacion: ${parking.name}`}</Typography>
-                            <Typography variant="button" color="primary">{`Precio: ${parking.price} - `}</Typography>
-                            <Typography variant="button" color="error">{` Espacios: ${parking.space}`}</Typography>
+                            <Typography variant="button" color="primary">{`Precio: ${cochera.price} - `}</Typography>
+                            <Typography variant="button" color="error">{` Espacios: ${cochera.space}`}</Typography>
                         </div>
                       </CardActionArea>
                     </Popup>
