@@ -7,6 +7,7 @@ import routeAuth from './src/routes/auth.routes'
 
 import { verifyToken } from './src/middlewares/auth'
 
+import notFound from './src/middlewares/notFound'
 const app = express()
 
 // ?settings
@@ -27,5 +28,5 @@ app.get('/', verifyToken, (req, res) => {
 // ?routes
 app.use(routeAuth)
 app.use(routeUsuario)
-
+app.use(notFound)
 export default app
