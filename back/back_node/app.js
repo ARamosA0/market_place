@@ -12,7 +12,7 @@ const app = express()
 // ?settings
 app.set('port', config.port)
 
-// ? middleware
+// ?middleware
 app.use(express.json())
 app.use(cors())
 
@@ -24,7 +24,7 @@ app.get('/', verifyToken, (req, res) => {
   })
 })
 
-// ? routes
+// ?routes
 app.use(routeAuth)
 app.use(routeUsuario)
 
