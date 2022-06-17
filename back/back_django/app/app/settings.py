@@ -82,13 +82,24 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'api',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': '127.0.0.1',
+#         'PORT': '3306',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'api',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'NAME': 'byqrvadx0lu4nsn9njsf',
+        'USER': 'ubhorzwcejox3ycd',
+        'PASSWORD': 'l72IvbdbY8TdBHZevgsy',
+        'HOST': 'byqrvadx0lu4nsn9njsf-mysql.services.clever-cloud.com',
         'PORT': '3306',
     }
 }
