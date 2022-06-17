@@ -95,24 +95,26 @@ export const updateUser = async (req, res) => {
   }
 }
 export const validateUser = async ({ user }) => {
-  console.log(user)
+  // console.log(user)
   const { username, password } = user
   try {
-    const sqlVerifyUsername = `SELECT id,username,password FROM auth_user where username = '${username}'`
+    const sqlVerifyUsername = `SELECT id,username,last_name,password FROM auth_user where username = '${username}'`
 
     const resultUsername = await querySql(sqlVerifyUsername)
-
+    console.log(resultUsername)
     if (await bcrypt.compare(password, resultUsername[0].password)) {
       const userFound = {
         id: resultUsername[0].id,
-        username: resultUsername[0].username
+        username: resultUsername[0].username,
+        lastname: resultUsername[0].last_name
       }
       return userFound
     }
 
     const userNotFound = {
       id: 0,
-      username: 'usuario no valido'
+      username: 'usuario no valido',
+      lastname: 'usuario no valido'
     }
     return userNotFound
   } catch (error) {
