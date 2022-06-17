@@ -61,6 +61,7 @@ const ParkingLog = () => {
 
   const fetchApi = async () =>{
     const url = name ? 'http://127.0.0.1:8000/cochera/distrito/'+name : 'http://127.0.0.1:8000/cochera/'
+
     const response = await fetch(url)
     const responseJSON = await response.json()
     setCocheras(responseJSON.content)
@@ -89,6 +90,7 @@ const ParkingLog = () => {
   const handleDistrict = async (e) => {
     const districts = e?.target?.value ?? name;
     setDistrict(districts);
+
     if (districts === "all") {
       await fetchApi();
       return;
