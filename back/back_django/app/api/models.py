@@ -9,7 +9,7 @@ class Cliente(models.Model):
     usuario = models.OneToOneField(User,related_name='Cliente',on_delete=models.RESTRICT)
     dni = models.CharField(max_length=100)
     telefono = models.CharField(max_length=100)
-    imagen = CloudinaryField('image',default='', null= True)
+    imagen = CloudinaryField('image',default='https://res.cloudinary.com/dyg8vlnnz/image/upload/v1655522501/user_icon_149851_lxy1jt.png')
 
     def __str__(self):
         return self.dni
