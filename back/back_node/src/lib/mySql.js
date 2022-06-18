@@ -5,7 +5,8 @@ const dbSettings = {
   host: config.mysql_host,
   user: config.mysql_user,
   password: config.mysql_pwd,
-  database: config.mysql_db
+  database: config.mysql_db,
+  port: config.mysql_port
 }
 
 const getConnection = async () => {
@@ -18,11 +19,15 @@ const getConnection = async () => {
 }
 
 export const querySql = async (sql) => {
-  const pool = await getConnection()
-  return new Promise((resolve, reject) => {
-    pool.query(sql, (err, result, fields) => {
-      if (!err) resolve(JSON.parse(JSON.stringify(result)))
-      else reject(err)
+  try {
+    const pool = await getConnection()
+    return new Promise((resolve, reject) => {
+      pool.query(sql, (err, result, fields) => {
+        if (!err) resolve(JSON.parse(JSON.stringify(result)))
+        else reject(err)
+      })
     })
-  })
+  } catch (error) {
+    console.log(error)
+  }
 }
