@@ -82,6 +82,8 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+
+# LOCAL HOST
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
@@ -93,7 +95,19 @@ WSGI_APPLICATION = 'app.wsgi.application'
 #     }
 # }
 
-#Digital ocean database
+# DB 1
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'byqrvadx0lu4nsn9njsf',
+#         'USER': 'ubhorzwcejox3ycd',
+#         'PASSWORD': 'l72IvbdbY8TdBHZevgsy',
+#         'HOST': 'byqrvadx0lu4nsn9njsf-mysql.services.clever-cloud.com',
+#         'PORT': '3306',
+#     }
+# }
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
