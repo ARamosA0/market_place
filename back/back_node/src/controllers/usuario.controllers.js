@@ -3,28 +3,40 @@ import bcrypt from 'bcryptjs'
 import boom from '@hapi/boom'
 
 export const getUsuario = async (req, res) => {
-  const sqlAll = `SELECT ac.id,au.username,au.first_name,au.last_name,dni,telefono,email,imagen 
-                  FROM api_cliente as ac JOIN auth_user as au on ac.usuario_id = au.id
-                  WHERE is_superuser != 1`
-  const result = await querySql(sqlAll)
-  res.status(200).json({
-    status: true,
-    content: result
-  })
-}
-
-export const getUsuarioId = async (req, res) => {
-  const { id } = req.params
-  const sqlUsuarioId = `SELECT ac.id,au.username,au.first_name,au.last_name,dni,telefono,email,imagen 
-                        FROM api_cliente as ac JOIN auth_user as au on ac.usuario_id = au.id
-                        WHERE is_superuser != 1 AND ac.id = ${id}`
-  const result = await querySql(sqlUsuarioId)
-  result.length > 0
-    ? res.status(200).json({
+  try {
+    const sqlAll = `SELECT ac.id,au.username,au.first_name,au.last_name,dni,telefono,email,imagen 
+                    FROM api_cliente as ac JOIN auth_user as au on ac.usuario_id = au.id
+                    WHERE is_superuser != 1`
+    const result = await querySql(sqlAll)
+    res.status(200).json({
       status: true,
       content: result
     })
-    : res.json(boom.notFound('no hay registros'))
+  } catch (error) {
+    res.status(444).json({
+      status: true,
+      message: 'demora de respueta en la base de datos',
+      content: error
+    }).end()
+  }
+}
+
+export const getUsuarioId = async (req, res, next) => {
+  const { id } = req.params
+  try {
+    const sqlUsuarioId = `SELECT ac.id,au.username,au.first_name,au.last_name,dni,telefono,email,imagen 
+                          FROM api_cliente as ac JOIN auth_user as au on ac.usuario_id = au.id
+                          WHERE is_superuser != 1 AND ac.id = ${id}`
+    const result = await querySql(sqlUsuarioId)
+    result.length > 0
+      ? res.status(200).json({
+        status: true,
+        content: result
+      })
+      : res.json(boom.notFound('no hay registros'))
+  } catch (error) {
+    next(error)
+  }
 }
 export const createUsuario = async (req, res) => {
   const { username, nombre, apellido, password, dni, telefono, email } = req.body
@@ -39,10 +51,10 @@ export const createUsuario = async (req, res) => {
     const data = await querySql(sqlInsertUser)
     const idUserinsert = data.insertId
 
-    const image = 'https://definicion.de/wp-content/uploads/2019/06/perfildeusuario.jpg'
+    const imageDefult = ''
 
     const sqlInsertClient = `INSERT INTO api_cliente (dni,telefono,imagen,usuario_id)
-                             VALUES('${dni}','${telefono}','${image}',${idUserinsert})`
+                             VALUES('${dni}','${telefono}','${imageDefult}',${idUserinsert})`
 
     await querySql(sqlInsertClient)
 
@@ -60,7 +72,7 @@ export const createUsuario = async (req, res) => {
     res.status(500).json({
       status: true,
       message: 'hubo un error y no se pudo crear el usuario',
-      content: error
+      content: error.sqlMessage
     }).end()
   }
 }
