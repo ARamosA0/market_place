@@ -57,7 +57,15 @@ class CocheraViewChange(APIView):
             serCochera.save()
             return Response(serCochera.data)
 
-
+class CocheraGetIdCliente(APIView):
+    def get(self,request, cliente_id):
+        dataCochera = Cochera.objects.filter(cliente=cliente_id).latest("id")
+        serCochera = CocheraSerializer(dataCochera)
+        context = {
+            'status':True,
+            'content':serCochera.data
+        }
+        return Response(context)
 
 class CocheraByDistrict(APIView):
     def get(self,request, district_name):
