@@ -74,13 +74,33 @@ class CocheraByDistrict(APIView):
 class CocheraId(APIView):
     def get(self,request,cochera_id):
         dataCochera = Cochera.objects.get(pk=cochera_id)
+        
         serCochera = CocheraSerializer(dataCochera)
         context = {
             'status':True,
             'content':serCochera.data,
             'message':'data'
         }
-        print(context)
+        return Response(context)
+    
+    #elminar cochera por id
+    def delete(self,request,cochera_id):
+        dataCochera = Cochera.objects.get(pk=cochera_id)
+        serCochera = CocheraSerializer(dataCochera)
+        dataCochera.delete()
+        return Response(serCochera.data)
+
+#?obtener las cocheras del cliente
+class ClientCocheraId(APIView):
+    def get(self,request,user_id):
+        dataCochera = Cochera.objects.filter(cliente=user_id)
+        
+        serCochera = CocheraSerializer(dataCochera,many=True)
+        context = {
+            'status':True,
+            'message':'cocheras publicadas del cliente',
+            'content':serCochera.data
+        }
         return Response(context)
 
 
