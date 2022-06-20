@@ -110,7 +110,8 @@ export const validateUser = async ({ user }) => {
   // console.log(user)
   const { username, password } = user
   try {
-    const sqlVerifyUsername = `SELECT id,username,last_name,password FROM auth_user where username = '${username}'`
+    const sqlVerifyUsername = `SELECT ac.id,username,last_name,password FROM auth_user au
+                               JOIN api_cliente ac on au.id = ac.usuario_id where username = '${username}'`
 
     const resultUsername = await querySql(sqlVerifyUsername)
     console.log(resultUsername)

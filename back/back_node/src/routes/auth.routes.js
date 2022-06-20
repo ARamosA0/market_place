@@ -13,7 +13,7 @@ router.post('/auth', async (req, res) => {
       dataValidate,
       'codigo2022',
       {
-        expiresIn: '1h'
+        expiresIn: '2h'
       }
     )
     res.status(200).json({
