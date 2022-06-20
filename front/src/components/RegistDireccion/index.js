@@ -97,7 +97,7 @@ const RegistroDireccion = () => {
 
   return (
     <>
-    {regCochera.length > 0 && (
+
       <section>
         <Button color="secondary" onClick={handleOpenDialog}>
           Click Aqui
@@ -160,7 +160,7 @@ const RegistroDireccion = () => {
           </DialogContent>
         </Dialog>
       </section>
-    )}
+
     </>
   );
 };

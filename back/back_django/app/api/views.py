@@ -51,7 +51,6 @@ class CocheraView(APIView):
 class CocheraViewChange(APIView):
     def put(self,request,cochera_id, format=None):
         putCochera = Cochera.objects.get(pk=cochera_id)
-        print(putCochera)
         serCochera = CocheraSerializer(putCochera, data=request.data)
         if serCochera.is_valid():
             serCochera.save()
