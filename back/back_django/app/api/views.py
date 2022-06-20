@@ -1,5 +1,7 @@
+
 from multiprocessing import context
 from requests import delete
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth.models import User
@@ -11,6 +13,8 @@ from .models import (
 )
 
 from .serializers import (
+    ClienteSerializer,
+    UsuarioSerializer,
     CocheraSerializer,
     pedidoSerializer
 )
@@ -26,6 +30,7 @@ class IndexView(APIView):
         }
         return Response(context)
 
+
 class CocheraView(APIView):
     def get(self,request):
         dataCochera = Cochera.objects.all()
@@ -36,12 +41,64 @@ class CocheraView(APIView):
         }
         return Response(context)
 
+    def post(self,request, format=None):
+        serCochera = CocheraSerializer(data=request.data)
+        serCochera.is_valid(raise_exception=True)
+        serCochera.save()
+        return Response(serCochera.data)
+    
+
+class CocheraViewChange(APIView):
+    def put(self,request,cochera_id, format=None):
+        putCochera = Cochera.objects.get(pk=cochera_id)
+        print(putCochera)
+        serCochera = CocheraSerializer(putCochera, data=request.data)
+        if serCochera.is_valid():
+            serCochera.save()
+            return Response(serCochera.data)
+
+
+
 class CocheraByDistrict(APIView):
     def get(self,request, district_name):
-        dataCochera = Cochera.filter(district= district_name)
+        dataCochera = Cochera.objects.filter(district= district_name)
         serCochera = CocheraSerializer(dataCochera,many=True)
         context = {
             'status':True,
+            'content':serCochera.data
+        }
+        return Response(context)
+
+
+
+class CocheraId(APIView):
+    def get(self,request,cochera_id):
+        dataCochera = Cochera.objects.get(pk=cochera_id)
+        
+        serCochera = CocheraSerializer(dataCochera)
+        context = {
+            'status':True,
+            'content':serCochera.data,
+            'message':'data'
+        }
+        return Response(context)
+    
+    #elminar cochera por id
+    def delete(self,request,cochera_id):
+        dataCochera = Cochera.objects.get(pk=cochera_id)
+        serCochera = CocheraSerializer(dataCochera)
+        dataCochera.delete()
+        return Response(serCochera.data)
+
+#?obtener las cocheras del cliente
+class ClientCocheraId(APIView):
+    def get(self,request,user_id):
+        dataCochera = Cochera.objects.filter(cliente=user_id)
+        
+        serCochera = CocheraSerializer(dataCochera,many=True)
+        context = {
+            'status':True,
+            'message':'cocheras publicadas del cliente',
             'content':serCochera.data
         }
         return Response(context)
@@ -84,5 +141,27 @@ class PedidosDetail(APIView):
         serPedido = pedidoSerializer(dataPedido)
         dataPedido.delete()
         return Response(serPedido.data)
-    
-        
+
+
+class UsuarioView(APIView):
+    def get(self,request):
+        dataUsuario = User.objects.all()
+        serUsuario = UsuarioSerializer(dataUsuario, many=True)
+        context = {
+            'status':True,
+            'content':serUsuario.data,
+            'message':'data'
+        }
+        return Response(context)
+
+class UsuarioByClienteId(APIView):
+    def get(self,request,cliente_id):
+        dataCliente = User.objects.get(Cliente=cliente_id)
+        serCliente = UsuarioSerializer(dataCliente)
+        context = {
+            'status':True,
+            'content':serCliente.data,
+            'message':'data'
+        }
+        print(context)
+        return Response(context)

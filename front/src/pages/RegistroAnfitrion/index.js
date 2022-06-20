@@ -25,19 +25,27 @@ const RegistroAnfitrion =  () => {
     const {user, cochera } =useContext(CocheraContext)
     const [regUser, setRegUser] = useState([])
     // const [reg, setRegUser] = useState([])
+    
+    const fetchApi = async () => {
+        const url = 'http://127.0.0.1:8000/usuario/'+id
+        const response = await fetch(url)
+        const responseJson = await response.json()
+        setRegUser(responseJson.content)
+        console.log(responseJson.content)
+    }
 
-    const fetchData = async () => {
-        const dataUser = await getCocheraData("usuario");
-        const dataGarege = await getCocheraData("cochera");
-        const showUser = JSON.parse(localStorage.getItem('user'))
-        const filterUser = dataUser.find((user) => user.id === id);
-        setRegUser(filterUser)
-        console.log(showUser)
-    };
+    // const fetchData = async () => {
+    //     const dataUser = await getCocheraData("usuario");
+    //     const dataGarege = await getCocheraData("cochera");
+    //     const showUser = JSON.parse(localStorage.getItem('user'))
+    //     const filterUser = dataUser.find((user) => user.id === id);
+    //     setRegUser(filterUser)
+    //     console.log(showUser)
+    // };
     console.log(regUser)
 
     useEffect(() => {
-        fetchData();
+        fetchApi();
       }, [user]);
 
 
@@ -49,7 +57,7 @@ const RegistroAnfitrion =  () => {
                         <Grid item md={12}>
                             <h2>Cuenta</h2>
                             <p>
-                                <span> <b>{regUser.userName} {regUser.lastName},&nbsp;</b></span>
+                                <span> <b>{regUser.first_name} {regUser.last_name},&nbsp;</b></span>
                                 <span>{regUser.email} .&nbsp;</span>
                                 <Link to={`/anfitrion/${regUser.id}`}>
                                     <Button color="secondary">Ir a perfil</Button>

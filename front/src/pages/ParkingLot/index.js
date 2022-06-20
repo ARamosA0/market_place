@@ -20,7 +20,7 @@ import {
 } from "@mui/material";
 import LoaderCar from "../../components/LoaderCar"
 //Context
-import { getCocheraData } from "../../service/firestore";
+
 import { CocheraContext } from "../../Context/CocheraContext";
 
 //Mapa referencia
@@ -38,6 +38,7 @@ import { Carousel } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
 import StarBorderIcon from '@mui/icons-material/StarBorder';
+import { FcTodoList } from "react-icons/fc";
 
 const ParkingLog = () => {
   const { storeCochera, distrito, storeDistrito } = useContext(CocheraContext);
@@ -45,35 +46,43 @@ const ParkingLog = () => {
   const [parking, setParking] = useState([]);
   const [district, setDistrict] = useState("");
   const position = [-12.04318, -77.02824];
-
+  
+  
+  const [cocheras, setCocheras] = useState([]);
+  console.log(cocheras)
   const { name } = useParams();
+
+
 
   const markerIcon = new L.icon({
     iconUrl: require("../../assets/marker.png"),
     iconSize: [30, 30],
   });
 
-  const fetchParking = async () => {
-    const data = await getCocheraData("cochera");
-    const userData = await getCocheraData("usuario");
-    setParking(data);
-    setUser(userData);
-    return data;
-  };
+  const fetchApi = async () =>{
+    const url = name ? 'http://127.0.0.1:8000/cochera/distrito/'+name : 'http://127.0.0.1:8000/cochera/'
+
+    const response = await fetch(url)
+    const responseJSON = await response.json()
+    setCocheras(responseJSON.content)
+    return responseJSON.content
+    
+  }
+
 
   const handleSearchDistrict = async (e) => {
     const districts = e?.target?.value ?? name;
 
     if (districts.length === 0) {
-      await fetchParking();
+      await fetchApi();
     }
 
     if (districts.length > 0) {
-      const filterDistrict = parking.filter((distritos) =>
+      const filterDistrict = cocheras.filter((distritos) =>
         distritos.district.toUpperCase().includes(districts.toUpperCase())
       );
 
-      setParking(filterDistrict);
+      setCocheras(filterDistrict);
       setUser(user);
     }
   };
@@ -81,27 +90,29 @@ const ParkingLog = () => {
   const handleDistrict = async (e) => {
     const districts = e?.target?.value ?? name;
     setDistrict(districts);
+
     if (districts === "all") {
-      await fetchParking();
+      await fetchApi();
       return;
     }
 
-    const parking = await fetchParking();
+    const cocheras = await fetchApi();
 
-    const filterDistrict = parking.filter((distritos) =>
+    const filterDistrict = cocheras.filter((distritos) =>
       distritos.district.toUpperCase().includes(districts.toUpperCase())
     );
 
-    setParking(filterDistrict);
+    setCocheras(filterDistrict);
     setUser(user);
   };
 
   useEffect(() => {
-    handleDistrict();
+    fetchApi()
   }, []);
 
   return (
     <Container maxWidth="xl">
+
       <Grid
         container
         mt={3}
@@ -135,52 +146,63 @@ const ParkingLog = () => {
         </Grid>
       </Grid>
       <Grid container spacing={3} mt={2}>
-        {parking.length > 0 ? 
-        parking.map((parking) => (
+
+      
+        {cocheras.length > 0 ? 
+        cocheras.map((cochera) => (
           <Grid item md={3}  sm={6} xs={12}>
             <Card>
               <CardMedia>
                 <Carousel fade>
-                  {parking?.image.map(
-                    (img) =>
-                      img && (
                         <Carousel.Item>
                           <img
                             className="parking-photo"
-                            src={img}
+                            src={cochera.imagen1}
                             alt="Cochera"
                           />
                         </Carousel.Item>
-                      )
-                  )}
+                        <Carousel.Item>
+                          <img
+                            className="parking-photo"
+                            src={cochera.imagen2}
+                            alt="Cochera"
+                          />
+                        </Carousel.Item>
+                        <Carousel.Item>
+                          <img
+                            className="parking-photo"
+                            src={cochera.imagen3}
+                            alt="Cochera"
+                          />
+                        </Carousel.Item>
                 </Carousel>
               </CardMedia>
               <CardActionArea
-                onClick={() => storeCochera(parking)}
+                onClick={() => storeCochera(cochera)}
                 component={Link}
-                to={`/booking/${parking.id}`}
+                to={`/booking/${cochera.id}`}
               >
                 <CardContent>
-                      <Typography variant="h5" component="div" color={"#D93B30"}>{parking.name}</Typography>
-                      <Typography variant="subtitle2" color="primary" >{`${parking.description}`}</Typography>
-                      <Typography className="parking-text" variant="subtitle2" color="primary" >{`Dirección: ${parking.adress}`}</Typography>
+                      <Typography variant="h5" component="div" color={"#D93B30"}>{cochera.name}</Typography>
+                      {/* <Typography variant="subtitle2" color="primary" >{`${cochera.description}`}</Typography> */}
+                      <Typography className="parking-text" variant="subtitle2" color="primary" >{`Dirección: ${cochera.adress}`}</Typography>
                       <Divider></Divider>
                       <Stack direction="row" spacing={1} mt={3}> 
                         <Grid container spacing={2} direction={"row"} justifyContent={"space-between"}>
                           <Grid item xl={6} md={6} sm={12} xs={12}>
-                            <Chip label={`Región: ${parking.department}`} color="success" />
+                            <Chip label={`Región: ${cochera.department}`} color="success" />
                           </Grid>
                           <Grid item xl={6} md={6} sm={12} xs={12}>
-                            <Chip label={`Distríto: ${parking.district}`} color="primary" />
+                            <Chip label={`Distríto: ${cochera.district}`} color="primary" />
                           </Grid>
                         </Grid>
                       </Stack>
                       <Grid container direction={"row"} justifyContent={"space-between"} mt={15} >
                         <Grid item>
-                          <Typography variant="button" color="error"> Price: s/.{parking.price} </Typography>
+                          <Typography variant="button" color="error"> Price: s/.{cochera.price} </Typography>
                         </Grid>
                         <Grid item>
-                          <Typography variant="button" color="primary"> Espacios: {parking.space} </Typography>
+                          <Typography variant="button" color="primary"> Espacios: {cochera.space} </Typography>
                         </Grid>
                       </Grid>
                     </CardContent>
@@ -196,15 +218,15 @@ const ParkingLog = () => {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-              {parking.length > 0 &&
-                parking.map((parking) => (
-                  <Marker position={[ parking.geolocation[0], parking.geolocation[1],]} icon={markerIcon} >
+              {cocheras.length > 0 &&
+                cocheras.map((cochera) => (
+                  <Marker position={[ cochera.lat, cochera.long]} icon={markerIcon} >
                     <Popup>
                       <CardActionArea component={Link} to={`/booking/${parking.id}`}>
                         <div>
                             <Typography variant="button" component={"div"} color="secondary">{`Ubicacion: ${parking.name}`}</Typography>
-                            <Typography variant="button" color="primary">{`Precio: ${parking.price} - `}</Typography>
-                            <Typography variant="button" color="error">{` Espacios: ${parking.space}`}</Typography>
+                            <Typography variant="button" color="primary">{`Precio: ${cochera.price} - `}</Typography>
+                            <Typography variant="button" color="error">{` Espacios: ${cochera.space}`}</Typography>
                         </div>
                       </CardActionArea>
                     </Popup>

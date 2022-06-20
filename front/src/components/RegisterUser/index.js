@@ -1,5 +1,5 @@
 import React from "react";
-import { storeCochera, getCocheraData } from "../../service/firestore";
+import { createUserAxios } from "../../service/userService";
 import { Grid, TextField, Button, styled } from "@mui/material";
 import { Formik, ErrorMessage } from "formik";
 import swal from "sweetalert";
@@ -21,24 +21,26 @@ const RegisterUser = () => {
     <Formik
       initialValues={{
         //valores inciales del formulario
-        userName: "",
-        lastName: "",
+        username: "",
+        nombre:"",
+        apellido: "",
         email: "",
         password: "",
         dni: "",
-        telefono: "",
-        idCocheras: [],
-        userImage: "",
+        telefono: ""
       }}
       //para validar los datos
       validate={(valores) => {
         let errores = {};
         //validacion nombre
-        if (!valores.userName) {
-          errores.userName = "Ingrese su nombre";
+        if (!valores.username) {
+          errores.username = "Ingrese su nombre de usuario";
         }
-        if (!valores.lastName) {
-          errores.lastName = "Ingrese su apellido";
+        if (!valores.nombre) {
+          errores.nombre = "Ingrese su nombre";
+        }
+        if (!valores.apellido) {
+          errores.apellido = "Ingrese su apellido";
         }
         if (!valores.email) {
           errores.email = "Ingrese su correo";
@@ -68,27 +70,33 @@ const RegisterUser = () => {
         //valores son los valores de los inputs donde se muestra en un objeto
         resetForm();
         //funcion para crear usuario
+        console.log(valores)
         try {
-          const data = await getCocheraData("usuario");
-          const filtroUser = data.filter(
-            (dt) => dt.email === valores.email || dt.dni === valores.dni
-          );
-          if (filtroUser.length > 0) {
-            swal({
-              icon: "error",
-              title: "El correo o el DNI ya estan registrados",
-              text: "Coloque un correo o DNI que no esten registrados",
-            });
-            return;
-          } else {
-            await storeCochera(valores, "usuario");
-            swal({
-              icon: "success",
-              title: "Cuenta creada",
-              text: "Inicie sesion para continuar",
-            });
-            return;
-          }
+          await createUserAxios(valores)
+          swal({
+            icon: "success",
+            title: "Cuenta creada",
+            text: "Inicie sesion para continuar",
+          });
+          // const filtroUser = data.filter(
+          //   (dt) => dt.email === valores.email || dt.dni === valores.dni
+          // );
+          // if (filtroUser.length > 0) {
+          //   swal({
+          //     icon: "error",
+          //     title: "El correo o el DNI ya estan registrados",
+          //     text: "Coloque un correo o DNI que no esten registrados",
+          //   });
+          //   return;
+          // } else {
+          //   await storeCochera(valores, "usuario");
+          //   swal({
+          //     icon: "success",
+          //     title: "Cuenta creada",
+          //     text: "Inicie sesion para continuar",
+          //   });
+          //   return;
+          // }
         } catch (error) {
           swal({
             icon: "error",
@@ -111,43 +119,64 @@ const RegisterUser = () => {
             <Grid item md={6}>
               <TextField
                 autoFocus
-                error={touched.userName && errors.userName && true}
+                error={touched.username && errors.username && true}
                 required
                 margin="dense"
-                name="userName"
-                label="Name"
+                name="username"
+                label="Nombre de usuario"
                 color="secondary"
                 type="text"
                 fullWidth
-                value={values.userName}
+                value={values.username}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
               <ErrorMessage
-                name="userName"
+                name="username"
                 component={() => (
-                  <div className="input-error">{errors.userName}</div>
+                  <div className="input-error">{errors.username}</div>
                 )}
               />
             </Grid>
             <Grid item md={6}>
               <TextField
-                error={touched.lastName && errors.lastName && true}
-                margin="dense"
-                name="lastName"
+                error={touched.nombre && errors.nombre && true}
                 required
-                label="Last Name"
+                margin="dense"
+                name="nombre"
+                label="Nombre"
                 color="secondary"
                 type="text"
                 fullWidth
-                value={values.lastName}
+                value={values.nombre}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
               <ErrorMessage
-                name="lastName"
+                name="nombre"
                 component={() => (
-                  <div className="input-error">{errors.lastName}</div>
+                  <div className="input-error">{errors.nombre}</div>
+                )}
+              />
+            </Grid>
+            <Grid item md={6}>
+              <TextField
+                error={touched.apellido && errors.apellido && true}
+                margin="dense"
+                name="apellido"
+                required
+                label="apellido"
+                color="secondary"
+                type="text"
+                fullWidth
+                value={values.apellido}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <ErrorMessage
+                name="apellido"
+                component={() => (
+                  <div className="input-error">{errors.apellido}</div>
                 )}
               />
             </Grid>
@@ -214,27 +243,29 @@ const RegisterUser = () => {
                 )}
               />
             </Grid>
-            <Grid item md={6}>
-              <TextField
-                error={touched.telefono && errors.telefono && true}
-                margin="dense"
-                name="telefono"
-                required
-                color="secondary"
-                label="Phone"
-                type="tel"
-                value={values.telefono}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                inputProps={{ maxLength: 9 }}
-                fullWidth
-              />
-              <ErrorMessage
-                name="telefono"
-                component={() => (
-                  <div className="input-error">{errors.telefono}</div>
-                )}
-              />
+            <Grid container justifyContent="center" mt={2}>
+              <Grid item md={6}>
+                <TextField
+                  error={touched.telefono && errors.telefono && true}
+                  margin="dense"
+                  name="telefono"
+                  required
+                  color="secondary"
+                  label="Phone"
+                  type="tel"
+                  value={values.telefono}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  inputProps={{ maxLength: 9 }}
+                  fullWidth
+                />
+                <ErrorMessage
+                  name="telefono"
+                  component={() => (
+                    <div className="input-error">{errors.telefono}</div>
+                  )}
+                />
+              </Grid>
             </Grid>
           </Grid>
           <ColorButton

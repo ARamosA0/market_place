@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -81,14 +82,40 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+
+# LOCAL HOST
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'api',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': '127.0.0.1',
+#         'PORT': '3306',
+#     }
+# }
+
+# DB 1
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'byqrvadx0lu4nsn9njsf',
+#         'USER': 'ubhorzwcejox3ycd',
+#         'PASSWORD': 'l72IvbdbY8TdBHZevgsy',
+#         'HOST': 'byqrvadx0lu4nsn9njsf-mysql.services.clever-cloud.com',
+#         'PORT': '3306',
+#     }
+# }
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'api',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'NAME': 'db_cocheras',
+        'USER': 'doadmin',
+        'PASSWORD': 'AVNS_uWixOS35U6otM1OW5D1',
+        'HOST': 'db-mysql-nyc3-33252-do-user-11817096-0.b.db.ondigitalocean.com',
+        'PORT': '25060',
     }
 }
 
@@ -141,5 +168,6 @@ cloudinary.config(
     api_key= '171286671988479',
     api_secret= 'CpPcSx5wdXoXOUJiX5rlrE7uZio'
 )
+
 
 CORS_ALLOW_ALL_ORIGINS = True
