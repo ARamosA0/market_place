@@ -56,6 +56,7 @@ const SesionUser = () => {
             id: decoded.id,
             userName: decoded.username,
             lastName: decoded.lastname,
+            Token: data.Token
           };
           localStorage.setItem("userID", JSON.stringify(idUser));
           const response = await swal({

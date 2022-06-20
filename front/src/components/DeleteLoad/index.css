@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap");
+.del-Load{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  height: 140px;
+  width: 100%;
+}
+@keyframes rotation {
+  from {
+    -webkit-transform: rotate(359deg);
+  }
+  to {
+    -webkit-transform: rotate(0deg);
+  }
+}
+
+svg * {
+  -webkit-transform-origin: 50% 50%;
+  -ms-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+}
+
+.circle {
+  -webkit-animation: rotation 8s infinite linear;
+}
+.circle_s {
+  -webkit-animation: rotation 4s infinite linear;
+}
