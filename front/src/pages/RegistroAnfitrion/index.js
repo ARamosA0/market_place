@@ -31,7 +31,7 @@ const RegistroAnfitrion =  () => {
         const response = await fetch(url)
         const responseJson = await response.json()
         setRegUser(responseJson.content)
-        console.log(responseJson.content)
+        // console.log(responseJson.content)
     }
 
     // const fetchData = async () => {
@@ -42,7 +42,7 @@ const RegistroAnfitrion =  () => {
     //     setRegUser(filterUser)
     //     console.log(showUser)
     // };
-    console.log(regUser)
+    // console.log(regUser)
 
     useEffect(() => {
         fetchApi();

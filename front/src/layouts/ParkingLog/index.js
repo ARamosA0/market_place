@@ -6,8 +6,8 @@ import './index.css'
 const Parking = () => {
 
     return (
-        <div class="container-fluid">
-            <div class="nav-bar">
+        <div className="container-fluid">
+            <div className="nav-bar">
                 <h1>Navbar</h1>
             </div>
             

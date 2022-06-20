@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { CocheraContext } from "../../Context/CocheraContext";
+import { useParams } from "react-router-dom";
 import {
   Grid,
   Dialog,
@@ -12,10 +13,12 @@ import swal from "sweetalert";
 import garage1 from "../../assets/garage.jpg";
 
 const RegistroDireccion = () => {
+  const { id } = useParams()
   const { cochera } =useContext(CocheraContext);
   const [regCochera, setRegCochera] = useState([])
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState([]);
+  const [lastId,setLastId] = useState(0);
 
   const [valorInputs, setValorInputs] = useState({
     country: "",
@@ -38,17 +41,40 @@ const RegistroDireccion = () => {
     setOpen(!open);
   };
 
+  const fetchApi = async () => {
+    const url = 'http://127.0.0.1:8000/cochera/cliente/'+id
+    const response = await fetch(url)
+    const responseJson = await response.json()
+    // console.log(responseJson.content.id)
+    return setLastId(responseJson.content.id)
+    }
 
-  const fetchData = () => {
-    const showCochera = JSON.parse(localStorage.getItem('cochera'));
-    setRegCochera(showCochera);
-  };
+  
+  const fetchApiPut = async (max) =>{
+    const urlPut = `http://127.0.0.1:8000/cochera/put/${max}/` 
+    const responsePut = await fetch(urlPut, {
+        method: 'PUT',
+        headers: {
+          Accept: "application/json",
+          "Content-Type":"application/json"
+          },
+        body: JSON.stringify(valorInputs)
+      })
+
+    const data = await responsePut.json()
+    console.log(data)
+  }
+
+  // const fetchData = () => {
+  //   const showCochera = JSON.parse(localStorage.getItem('cochera'));
+  //   setRegCochera(showCochera);
+  // };
 
 
   const handleClickUpdate = async () => {
     // await updateCochera(regCochera[0], valorInputs,"cochera");
     try{
-      await updateCochera(regCochera[0], valorInputs,"cochera");
+      await fetchApiPut(lastId);
       const response = await swal({
         icon: "success",
         title: "Se subieron los datos",
@@ -66,12 +92,12 @@ const RegistroDireccion = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchApi();
   }, []);
 
   return (
     <>
-    {regCochera.length > 0 && (
+
       <section>
         <Button color="secondary" onClick={handleOpenDialog}>
           Click Aqui
@@ -134,7 +160,7 @@ const RegistroDireccion = () => {
           </DialogContent>
         </Dialog>
       </section>
-    )}
+
     </>
   );
 };

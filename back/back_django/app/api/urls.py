@@ -16,5 +16,6 @@ urlpatterns = [
     path('client/<int:user_id>/cochera/',views.ClientCocheraId.as_view()),
     path('cochera/put/<int:cochera_id>/',views.CocheraViewChange.as_view()),
     path('usuario/',views.UsuarioView.as_view()),
-    path('usuario/<int:cliente_id>/',views.UsuarioByClienteId.as_view())
+    path('usuario/<int:cliente_id>/',views.UsuarioByClienteId.as_view()),
+    path('cochera/cliente/<int:cliente_id>',views.CocheraGetIdCliente.as_view())
 ]
