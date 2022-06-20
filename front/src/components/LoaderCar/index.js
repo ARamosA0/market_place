@@ -5,7 +5,7 @@ const LoaderCar = () => {
   return (
 
     <Container maxWidth="xxl">
-      <div class="loader">
+      <div className="loader">
           <span></span>
           <span></span>
           <span></span>

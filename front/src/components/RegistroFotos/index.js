@@ -40,7 +40,7 @@ const RegistroFotos = () => {
   };
 
   const fetchApi = async () => {
-    const url = `http://127.0.0.1:8000/cochera/usuario/${id}/`
+    const url = 'http://127.0.0.1:8000/cochera/cliente/'+id
     const response = await fetch(url)
     const responseJson = await response.json()
     // console.log(responseJson.content.id)

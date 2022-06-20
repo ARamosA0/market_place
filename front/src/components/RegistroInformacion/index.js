@@ -52,25 +52,27 @@ const RegistroInformacion = () => {
   };
     
   const fetchApi = async () => {
-      const url = 'http://127.0.0.1:8000/cochera/cliente/'+id
-      const response = await fetch(url)
-      const responseJson = await response.json()
-      setLastId(responseJson.content.id)
-  }
+    const url = 'http://127.0.0.1:8000/cochera/cliente/'+id
+    const response = await fetch(url)
+    const responseJson = await response.json()
+    // console.log(responseJson.content.id)
+    return setLastId(responseJson.content.id)
+    }
 
-  const fetchApiPut = async (idCochera) => {
-    const url = 'http://127.0.0.1:8000/cochera/put/'+idCochera
-    const response = await fetch(url,{
-      method: "PUT",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(valorInputs),
-    })
+  
+  const fetchApiPut = async (max) =>{
+    const urlPut = `http://127.0.0.1:8000/cochera/put/${max}/` 
+    const responsePut = await fetch(urlPut, {
+        method: 'PUT',
+        headers: {
+          Accept: "application/json",
+          "Content-Type":"application/json"
+          },
+        body: JSON.stringify(valorInputs)
+      })
 
-    const data = await response.json();
-    return data;
+    const data = await responsePut.json()
+    console.log(data)
   }
 
   // const fetchData = () => {

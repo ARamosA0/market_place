@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Container, Grid, Dialog, DialogContent, Button } from "@mui/material";
+import { useParams } from "react-router-dom";
 import {
   MapContainer,
   TileLayer,
@@ -14,15 +15,42 @@ import { GeoPoint } from "firebase/firestore/lite";
 import swal from "sweetalert";
 
 const RegistroGeo = () => {
+  const { id } = useParams()
   const [open, setOpen] = useState(false);
   const [regCochera, setRegCochera] = useState([])
 
   const [position, setPosition] = useState(null);
 
-  const fetchData = () => {
-    const showCochera = JSON.parse(localStorage.getItem('cochera'));
-    setRegCochera(showCochera);
-  };
+  const [lastId,setLastId] = useState(0);
+
+  // const fetchData = () => {
+  //   const showCochera = JSON.parse(localStorage.getItem('cochera'));
+  //   setRegCochera(showCochera);
+  // };
+
+  const fetchApi = async () => {
+    const url = 'http://127.0.0.1:8000/cochera/cliente/'+id
+    const response = await fetch(url)
+    const responseJson = await response.json()
+    // console.log(responseJson.content.id)
+    return setLastId(responseJson.content.id)
+    }
+
+  
+  const fetchApiPut = async (max) =>{
+    const urlPut = `http://127.0.0.1:8000/cochera/put/${max}/` 
+    const responsePut = await fetch(urlPut, {
+        method: 'PUT',
+        headers: {
+          Accept: "application/json",
+          "Content-Type":"application/json"
+          },
+        body: JSON.stringify(position)
+      })
+
+    const data = await responsePut.json()
+    console.log(data)
+  }
 
   // Mapa
   const markerIcon = new L.icon({
@@ -49,7 +77,7 @@ const RegistroGeo = () => {
 
   const handleClickSendUbi = async () => {
     try{
-      await updateGeoCochera(regCochera[0], position,"cochera");
+      await fetchApiPut(lastId);
       await swal({
         icon: "success",
         title: "Se subieron los datos",
@@ -73,7 +101,7 @@ const RegistroGeo = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchApi();
   }, []);
 
   return (
