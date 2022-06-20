@@ -1,15 +1,31 @@
-import axios from 'axios'
+import axios from "axios";
+import URLS from "./URLS";
 
-const URL = 'http://localhost:5000'
+const {URL_NODE } = URLS
 
-export const createUserAxios = async(user) => {
-  // console.log(user)
-  const response = await axios.post(`${URL}/user`,user)
-  return response.data
-}
+export const getUsuarioById = async (id,token) => {
+  try {
+    const response = await axios.get(`${URL_NODE}/user/${id}`,{ headers: {"Authorization" : `Bearer ${token}`} })
+    return response.data
+  } catch (error) {
+    console.log(error)
+  }
+};
 
-export const loginUserAxios = async(user) => {
-  // console.log(user)
-  const response = await axios.post(`${URL}/auth`,user)
-  return response.data
-}
+export const createUserAxios = async (user) => {
+  try {
+    const response = await axios.post(`${URL_NODE}/user`, user);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const loginUserAxios = async (user) => {
+  try {
+    const response = await axios.post(`${URL_NODE}/auth`, user);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

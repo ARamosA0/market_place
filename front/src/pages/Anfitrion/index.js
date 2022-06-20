@@ -1,296 +1,149 @@
-import { useState, useEffect, useContext } from "react";
-import {
-  getCocheraData,
-  storeCochera as sc,
-  updateIdCochera,
-} from "../../service/firestore";
-import { CocheraContext } from "../../Context/CocheraContext";
+import { useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+
+import {
+  getUserCocheras,
+  createUserCocheras,
+  deleteUserCocheras,
+} from "../../service/cocherasServices";
+
+import { getUsuarioById } from "../../service/userService";
+import { CardsCocheraUser } from "../../components/CardsCocheraUser";
+
 import {
   Grid,
   Container,
-  Divider,
-  Card,
-  CardActions,
-  CardContent,
+
   Button,
 } from "@mui/material";
-
-import "./index.css";
-import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import photoUser from "../../assets/user.png";
-import { eliminarRegistro } from "../../service/firestore";
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import LoaderCar from "../../components/LoaderCar"
+import LoaderCar from "../../components/LoaderCar";
+import "./index.css";
+
 
 const Anfitrion = () => {
   const { id } = useParams();
   const [user, setUser] = useState([]);
   const [cocheras, setCocheras] = useState([]);
-  // const [reservaGarage, setReservaGarage] = useState([]);
-
-  const { storeCochera } = useContext(CocheraContext);
-  const { storeUser } = useContext(CocheraContext);
-
-  const fetchData = async () => {
-    const dataUser = await getCocheraData("usuario");
-    const dataGarege = await getCocheraData("cochera");
-    const filterUser = dataUser.find((user) => user.id === id);
-    const garages = filterUser.idCocheras;
-
-    const filterGarage = dataGarege.filter((dataGar) =>
-      garages.includes(dataGar.id)
-    );
-
-    setUser(filterUser);
-    setCocheras(filterGarage);
-  };
-
-  const [values, setValues] = useState({
-    adress: "",
+  const [indexs, setIndexs] = useState(0);
+  const [loaderAwait, setLoaderAwait] = useState(false);
+  const values = {
+    name: "",
+    description: "",
+    price: "",
+    imagen1: "",
+    imagen2: "",
+    imagen3: "",
+    space: 1,
     country: "",
     department: "",
-    description: "",
     district: "",
-    geolocation: [],
-    image: [],
-    name: "",
-    price: "",
-    space: "",
-  });
-
-  const idUsuario = JSON.parse(localStorage.getItem("userID"));
-  const reservaCochera = JSON.parse(localStorage.getItem("reservaCochera"));
-
-  const handleClickGarge = async () => {
-    await sc(values, "cochera");
-    await updateIdCochera(user, "usuario", values.id);
-    await storeCochera(values);
-    await storeUser(user);
+    adress: "",
+    lat: "",
+    long: "",
+    cliente: +id,
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
 
-  // Guardar Datos del usuario en LocalStorage
-  const saveUserInfo = () => {
-    storeCochera(values);
-    storeUser(user);
+  const userAxiosbyId = async () => {
+    const idLocalStorageUser = JSON.parse(localStorage.getItem("userID"));
+    const { Token } = idLocalStorageUser;
+    const dataUserId = await getUsuarioById(id, Token);
+    setUser(dataUserId.content);
+    // console.log(user);
+  };
+  
+  //Obtener cocheras de usuario
+  const getCocherasUser = async () => {
+    const dataUserCochera = await getUserCocheras(id);
+    setCocheras(dataUserCochera.content);
+    // console.log(cocheras)
+  };
+
+  //Crear Cochera
+  const handleClickCreateCochera = async () => {
+    const dataCreateCochera = await createUserCocheras(values);
+    console.log(dataCreateCochera);
   };
 
   //Eliminar Registro
-  const deleteElementFromCocheras = async (id) => {
-    await eliminarRegistro(id);
-    await fetchData();
+  const deleteElementFromCocheras = async (id, index) => {
+    setLoaderAwait(!loaderAwait);
+    setIndexs(index);
+    await deleteUserCocheras(id);
+    await getCocherasUser();
+    setLoaderAwait(loaderAwait);
   };
 
+  useEffect(() => {
+    userAxiosbyId();
+    getCocherasUser();
+  }, []);
   return (
     <section>
-
-      {Object.keys(user).length > 0 ? (
+      {user.length > 0 ? (
         <Container sx={{ paddingTop: 10, paddingBottom: 10 }}>
-          
-          <Grid container sx={{ textAlign: "center" }}>
-          <Grid
+          <Grid container sx={{ textAlign: "center" }} mt={10}>
+            <Grid
               container
               spacing={2}
               alignItems="center"
               className="grid-user"
               padding={2}
             >
-               
-              <Grid item xs={12} sm={6} md={6} xl={6} className="foto-perfil">
-                <img src={photoUser} />
-              </Grid>
+              {user.map(
+                ({ first_name, last_name, email, telefono, imagen }) => (
+                  <>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      md={6}
+                      xl={6}
+                      className="foto-perfil"
+                    >
+                      <img
+                        src={`http://res.cloudinary.com/dyg8vlnnz/${imagen}`}
+                        alt="userImage"
+                      />
+                    </Grid>
 
-              <Grid item xs={12} sm={6} md={6} xl={6}>
-                <h3 className="datos-name">
-                  {user.userName}, {user.lastName}
-                </h3>
-                <p className="datos-subtitulo">
-                  email:&nbsp;&nbsp;{user.email}
-                </p>
-                <p className="datos-subtitulo">
-                  telefono:&nbsp;&nbsp;{user.telefono}
-                </p>
-              </Grid>
-              <Grid item xs={12} sm={12} xl={12}>
-                <Link to={`/anfitrion/${idUsuario.id}/registro`}>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={handleClickGarge}
-                  >
-                    <AddCircleIcon />
-                    &nbsp;&nbsp;CREAR COCHERA
-                  </Button>
-                </Link>
-              </Grid>
+                    <Grid item xs={12} sm={6} md={6} xl={6}>
+                      <h3 className="datos-name">
+                        {first_name} {last_name}
+                      </h3>
+                      <p className="datos-subtitulo">
+                        email:&nbsp;&nbsp;{email}
+                      </p>
+                      <p className="datos-subtitulo">
+                        telefono:&nbsp;&nbsp;{telefono}
+                      </p>
+                    </Grid>
+                    <Grid item xs={12} sm={12} xl={12}>
+                      <Link to={`/anfitrion/${id}/registro`}>
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          onClick={handleClickCreateCochera}
+                        >
+                          <AddCircleIcon />
+                          &nbsp;&nbsp;CREAR COCHERA
+                        </Button>
+                      </Link>
+                    </Grid>
+                  </>
+                )
+              )}
             </Grid>
-            
-
-            {Object.keys(cocheras).length > 0 &&
-              cocheras.map((cochera) => (
-                <Grid item xs={12} sm={12} md={12} xl={12}>
-                  <Divider sx={{ margin: 5 }} />
-                  <Card className="card-cocheras">
-                    <CardContent>
-                      <Grid
-                        container
-                        alignItems="center"
-                        sx={{ textAlign: "center" }}
-                        spacing={2}
-                      >
-                        <Grid item xs={12} sm={6} md={5} xl={4}>
-                          <img
-                            className="image-principal"
-                            src={cochera.image[0]}
-                            alt=""
-                          />
-                        </Grid>
-
-                        <Grid item xs={12} sm={6} md={5} xl={6}>
-                          <div>
-                            <h2>{cochera.name}</h2>
-
-                            <span>{cochera.country},&nbsp;</span>
-                            <span>{cochera.department},&nbsp;</span>
-
-                            <span style={{ marginBottom: 10 }}>
-                              {cochera.district}&nbsp;
-                            </span>
-                            <h6 style={{ marginBottom: 10 }}>
-                              Direccion : {cochera.adress}
-                            </h6>
-                            <h6>
-                              Estacionamientos disponibles: {cochera.space}
-                            </h6>
-                            <span style={{ textAlign: "justify" }}>
-                              Descripcion: {cochera.description}
-                            </span>
-                          </div>
-                        </Grid>
-
-                        <Grid item xs={12} sm={12} md={2} xl={2}>
-                          <Grid>
-                          <Button
-                            variant="contained"
-                            color="secondary"
-                            fullWidth
-                            onClick={() =>
-                              deleteElementFromCocheras(cochera.id)
-                            }
-                          >
-                            <DoDisturbOnIcon />
-                            &nbsp;&nbsp;Eliminar
-                          </Button>
-                          </Grid>
-                          <br/>
-                          <Grid>
-                          <Link to={`/booking/${cochera.id}`}>
-                            <Button
-                            fullWidth                     
-                              variant="contained"
-                              color="primary"
-                              onClick={saveUserInfo}
-                            >
-                              <RemoveRedEyeIcon/>&nbsp;&nbsp; ver
-                            </Button>
-                          </Link>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              ))}
+            <CardsCocheraUser cocheras={cocheras} loaderAwait={loaderAwait} indexs={indexs} deleteElementFromCocheras={deleteElementFromCocheras}/>
           </Grid>
         </Container>
-      ): <LoaderCar/>}
+      ) : (
+        <LoaderCar />
+      )}
     </section>
   );
 };
 
 export default Anfitrion;
-
-//<Divider sx={{ marginTop: 5, marginBottom: 5 }} />
-//              <h1 sx={{ marginTop: 5, marginBottom: 5 }}>RESERVAS</h1>
-//
-//              {Object.keys(reservaCochera).length > 0 &&
-//                reservaCochera.map((cochera) => (
-//                <Grid item md={12}>
-//                  <Divider sx={{ marginTop: 5, marginBottom: 5 }} />
-//                  <Card className="card-cocheras">
-//                    <CardContent>
-//                      <Grid
-//                        container
-//                        alignItems="center"
-//                        sx={{ textAlign: "center" }}
-//                        spacing={2}
-//                      >
-//                        <Grid item xs={12} sm={6} md={5} xl={4}>
-//                          <img
-//                            className="image-principal"
-//                            src={cochera.image[0]}
-//                            alt=""
-//                          />
-//                        </Grid>
-//
-//                        <Grid item xs={12} sm={6} md={5} xl={6}>
-//                          <div>
-//                            <h2>{cochera.name}</h2>
-//
-//                            <span>{cochera.country},&nbsp;</span>
-//                            <span>{cochera.department},&nbsp;</span>
-//
-//                            <span style={{ marginBottom: 10 }}>
-//                              {cochera.district}&nbsp;
-//                            </span>
-//                            <h6 style={{ marginBottom: 10 }}>
-//                              Direccion : {cochera.adress}
-//                            </h6>
-//                            <h6>
-//                              Estacionamientos disponibles: {cochera.space}
-//                            </h6>
-//                            <span style={{ textAlign: "justify" }}>
-//                              Descripcion: {cochera.description}
-//                            </span>
-//                            <span style={{ textAlign: "justify" }}>
-//                              {/* Fecha de Reserva: Del {cochera.fechaReserva[0]} Al {cochera.fechaReserva[1]} */}
-//                            </span>
-//                          </div>
-//                        </Grid>
-//
-//                        <Grid item xs={12} sm={12} md={2} xl={2}>
-//                          <Button
-//                            variant="contained"
-//                            color="secondary"
-//                            onClick={() =>
-//                              deleteElementFromCocheras(cochera.id)
-//                            }
-//                          >
-//                            <DoDisturbOnIcon />
-//                            &nbsp;&nbsp;Eliminar
-//                          </Button>
-//                        </Grid>
-//                      </Grid>
-//                    </CardContent>
-//                    <CardActions>
-//                    <Link to={`/booking/${cochera.id}`}>
-//                      <Button
-//                        sx={{ marginLeft: 100 }}
-//                        color="secondary"
-//                      >
-//                        Ver publicacion
-//                      </Button>
-//                    </Link>
-//                    </CardActions>
-//                  </Card>
-//                </Grid>
-//              ))}
-
-
-
