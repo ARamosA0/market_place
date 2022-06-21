@@ -45,25 +45,28 @@ const RegistroDireccion = () => {
     const url = 'http://127.0.0.1:8000/cochera/cliente/'+id
     const response = await fetch(url)
     const responseJson = await response.json()
-    // console.log(responseJson.content.id)
+    console.log(responseJson.content)
     return setLastId(responseJson.content.id)
     }
 
   
   const fetchApiPut = async (max) =>{
-    const urlPut = `http://127.0.0.1:8000/cochera/put/${max}/` 
-    const responsePut = await fetch(urlPut, {
-        method: 'PUT',
-        headers: {
-          Accept: "application/json",
-          "Content-Type":"application/json"
-          },
-        body: JSON.stringify(valorInputs)
-      })
-
-    const data = await responsePut.json()
-    console.log(data)
-  }
+    try{
+      const urlPut = `http://127.0.0.1:8000/cochera/put/${max}/` 
+      const responsePut = await fetch(urlPut, {
+          method: 'PUT',
+          headers: {
+            Accept: "application/json",
+            "Content-Type":"application/json"
+            },
+          body: JSON.stringify(valorInputs)
+        })
+  
+      const data = await responsePut.json()
+    } catch (e){
+      console.log(e)
+    }
+  } 
 
   // const fetchData = () => {
   //   const showCochera = JSON.parse(localStorage.getItem('cochera'));

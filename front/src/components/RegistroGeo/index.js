@@ -32,7 +32,7 @@ const RegistroGeo = () => {
     const url = 'http://127.0.0.1:8000/cochera/cliente/'+id
     const response = await fetch(url)
     const responseJson = await response.json()
-    // console.log(responseJson.content.id)
+    console.log(responseJson.content)
     return setLastId(responseJson.content.id)
     }
 
@@ -49,7 +49,7 @@ const RegistroGeo = () => {
       })
 
     const data = await responsePut.json()
-    console.log(data)
+    console.log("data",data)
   }
 
   // Mapa
