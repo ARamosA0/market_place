@@ -14,13 +14,22 @@ class Cliente(models.Model):
     def __str__(self):
         return self.dni
 
+# class ImagenCochera(models.Models):
+#     imagen = CloudinaryField('image')
+
+#     def __str__(self):
+#         return self.imagen
+
 class Cochera(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, null=True, blank=True)
     description = models.TextField(max_length=10000, default='descripcion', null=True, blank=True)
     price = models.DecimalField(max_digits=5,decimal_places=2, null=True, blank=True)
-    imagen1 = CloudinaryField('image',default='', null=True, blank=True)
-    imagen2 = CloudinaryField('image',default='', null=True, blank=True)
-    imagen3 = CloudinaryField('image',default='', null=True, blank=True)
+    # imagen1 = models.CharField(max_length=500, null=True, blank=True)
+    # imagen2 = models.CharField(max_length=500, null=True, blank=True)
+    # imagen3 = models.CharField(max_length=500, null=True, blank=True)
+    imagen1 = CloudinaryField('image', null=True, blank=True)
+    imagen2 = CloudinaryField('image', null=True, blank=True)
+    imagen3 = CloudinaryField('image', null=True, blank=True)
     space = models.IntegerField(default=1, null=True, blank=True)
     country = models.CharField(max_length=100, null=True, blank=True)
     department = models.CharField(max_length=100, null=True, blank=True)
@@ -29,7 +38,7 @@ class Cochera(models.Model):
     lat = models.CharField(max_length=200, null=True, blank=True)
     long = models.CharField(max_length=200, null=True, blank=True)
     cliente = models.ForeignKey(Cliente,on_delete=models.RESTRICT,default='Null', blank=True)
-
+    # imagen =models.ForeignKey(ImagenCochera,on_delete=models.RESTRICT, null=True, blank=True)
     def __str__(self):
         return self.name
 

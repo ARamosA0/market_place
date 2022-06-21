@@ -2,6 +2,8 @@
 from multiprocessing import context
 from requests import delete
 
+import cloudinary.uploader
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth.models import User
@@ -55,6 +57,17 @@ class CocheraViewChange(APIView):
         if serCochera.is_valid():
             serCochera.save()
             return Response(serCochera.data)
+
+class CocheraImage(APIView):
+    def post(self,request):
+        archivo = request.data.get("imagen")
+        imagenCloudinary = cloudinary.uploader.upload(archivo)
+        print(imagenCloudinary)
+        return Response({
+            'status':True,
+            'content':imagenCloudinary
+        })
+
 
 class CocheraGetIdCliente(APIView):
     def get(self,request, cliente_id):

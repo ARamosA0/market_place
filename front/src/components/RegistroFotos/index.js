@@ -18,22 +18,23 @@ const RegistroFotos = () => {
   const [regCochera, setRegCochera] = useState([])
   const [open, setOpen] = useState(false);
   const [imageSelect,setImageSelect] = useState(null)
+  const [urlImage1,setUrlImage1] = useState(null)
+  const [urlImage2,setUrlImage2] = useState(null)
+  const [urlImage3,setUrlImage3] = useState(null)
   
   const [lastid,setLastId] = useState(0);
 
-  const [valorInputs, setValorInputs] = useState({
-    image: "",
-  });
 
-  console.log(imageSelect)
 
-  const handleInputValue = (event) => {
-    const { value, name } = event.target;
-    setValorInputs({
-      ...valorInputs,
-      [name]: value,
-    });
-  };
+  // console.log(urlImage1)
+
+  // const handleInputValue = (event) => {
+  //   const { value, name } = event.target;
+  //   setValorInputs({
+  //     ...valorInputs,
+  //     [name]: value,
+  //   });
+  // };
 
   const handleOpenDialog = () => {
     setOpen(!open);
@@ -47,22 +48,58 @@ const RegistroFotos = () => {
     return setLastId(responseJson.content.id)
     }
 
+    const fetchApiPutImage1 = async (e) =>{
+      const urlPut = `http://127.0.0.1:8000/cochera/imagen/` 
+      // let image = e.target.files[0]
+      let image = new FormData()
+      image.append('imagen',e.target.files[0])
+      console.log(image)
+      const responsePut = await fetch(urlPut, {
+          method: 'POST',
+          body: image
+        })
+
+        const data = await responsePut.json()
+        console.log(data.content)
+        setUrlImage1(data.content.url)
+      }
+ 
   
   const fetchApiPut = async (max) =>{
-    const urlPut = `http://127.0.0.1:8000/cochera/put/${max}/` 
-    const responsePut = await fetch(urlPut, {
-        method: 'PUT',
-        headers: {
-          Accept: "application/json",
-          "Content-Type":"application/json"
-          },
-        body: JSON.stringify({
-          "imagen1":imageSelect
+    try{
+      const urlPut = `http://127.0.0.1:8000/cochera/put/${max}/` 
+      const responsePut = await fetch(urlPut, {
+          method: 'PUT',
+          headers: {
+            Accept: "application/json",
+            "Content-Type":"application/json"
+            },
+          body: {
+            imagen1:urlImage1,
+            imagen2:urlImage2,
+            imagen3:urlImage3
+          }
         })
-      })
+  
+      const data = await responsePut.json()
+      console.log(data)
+    } catch(e){
+      console.log(e)
+    }
+  }
 
-    const data = await responsePut.json()
-    console.log(data)
+  // const onChangeImage = async (e) => {
+  //   let image = new FormData()
+  //   image.append('imagen',e.target.files[0])
+  //   setUrlImage1(image)
+  // }
+
+  const onChangeImage2 = async (e) => {
+    setUrlImage2(e.target.files[0])
+  }
+
+  const onChangeImage3 = async (e) => {
+    setUrlImage3(e.target.files[0])
   }
 
   // const fetchData = () => {
@@ -70,11 +107,7 @@ const RegistroFotos = () => {
   //   setRegCochera(showCochera);
   // };
 
-  const onFileChange = (e) => {
-    setImageSelect(e.target.files[0])
-    const formData = new FormData();
-    formData.append('file',imageSelect)
-  }
+
 
   const handleClickUpdate = async () => {
     try{
@@ -116,7 +149,7 @@ const RegistroFotos = () => {
                 <input
                   type="file"
                   name="image"
-                  onChange={onFileChange}
+                  onChange={fetchApiPutImage1}
                 />
               </Grid>
               <Grid item md={12} xs={12}>
@@ -126,7 +159,7 @@ const RegistroFotos = () => {
                 <input
                   type="file"
                   name="image"
-                  onChange={onFileChange}
+                  onChange={onChangeImage2}
                 />
               </Grid>
               <Grid item md={12} xs={12}>
@@ -136,7 +169,7 @@ const RegistroFotos = () => {
                 <input
                   type="file"
                   name="image"
-                  onChange={onFileChange}
+                  onChange={onChangeImage3}
                 />
               </Grid>
               <Grid item md={6} xs={8}>
