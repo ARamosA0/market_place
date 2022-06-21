@@ -21,4 +21,3 @@ export default {
   mysql_db: process.env.MYSQL_DB || 'db_cocheras',
   mysql_port: process.env.MYSQL_PORT || 25060
 }
-
