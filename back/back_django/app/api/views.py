@@ -1,4 +1,5 @@
 
+from msilib.schema import Error
 from multiprocessing import context
 from requests import delete
 
@@ -20,8 +21,6 @@ from .serializers import (
     CocheraSerializer,
     pedidoSerializer
 )
-
-
 
 
 class IndexView(APIView):
@@ -53,20 +52,47 @@ class CocheraView(APIView):
 class CocheraViewChange(APIView):
     def put(self,request,cochera_id, format=None):
         putCochera = Cochera.objects.get(pk=cochera_id)
+        print(request.data)
         serCochera = CocheraSerializer(putCochera, data=request.data)
         if serCochera.is_valid():
             serCochera.save()
             return Response(serCochera.data)
 
 class CocheraImage(APIView):
-    def post(self,request):
-        archivo = request.data.get("imagen")
-        imagenCloudinary = cloudinary.uploader.upload(archivo)
-        print(imagenCloudinary)
-        return Response({
-            'status':True,
-            'content':imagenCloudinary
-        })
+    def post(self,request,cochera_id):
+        imagen1 = request.data.get("imagen1")
+        imagen2 = request.data.get("imagen2")
+        imagen3 = request.data.get("imagen3")
+
+        imagesList = [imagen1, imagen2, imagen3]
+        try:
+            responseListData = []
+            for index, image in enumerate(imagesList):
+                print(index)
+                print(image)
+                cloudinaryResponse = cloudinary.uploader.upload(image)
+                responseListData.append(cloudinaryResponse)
+            dictionariData = {
+                'imagen1': '{}.{}'.format(responseListData[0]['public_id'], responseListData[0]['format']),
+                'imagen2': '{}.{}'.format(responseListData[1]['public_id'], responseListData[1]['format']),
+                'imagen3': '{}.{}'.format(responseListData[2]['public_id'], responseListData[2]['format'])
+            }
+            putCochera = Cochera.objects.get(pk=cochera_id)
+            serCochera = CocheraSerializer(putCochera, data=dictionariData)
+            if serCochera.is_valid():
+                serCochera.save()
+                return Response({
+                    'status':True,
+                    'content': serCochera.data,
+                    'message': 'Imagenes guardadas correctamente'
+                })
+        except Exception as Error:
+            print(Error)
+            return Response({
+                'status': False,
+                'content': None,
+                'message': 'Internal server error'
+            })
 
 
 class CocheraGetIdCliente(APIView):

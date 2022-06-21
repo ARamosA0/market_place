@@ -14,15 +14,18 @@ import garage1 from "../../assets/garage.jpg";
 
 const RegistroFotos = () => {
   const { id } = useParams();
-  const { cochera } =useContext(CocheraContext);
+  const { cochera } = useContext(CocheraContext);
   const [regCochera, setRegCochera] = useState([])
   const [open, setOpen] = useState(false);
-  const [imageSelect,setImageSelect] = useState(null)
-  const [urlImage1,setUrlImage1] = useState(null)
-  const [urlImage2,setUrlImage2] = useState(null)
-  const [urlImage3,setUrlImage3] = useState(null)
-  
-  const [lastid,setLastId] = useState(0);
+  const [imageSelect, setImageSelect] = useState({
+    imagen1: "",
+    imagen2: "",
+    imagen3: ""
+  });
+
+  console.log(imageSelect)
+
+  const [lastid, setLastId] = useState(0);
 
 
 
@@ -41,52 +44,52 @@ const RegistroFotos = () => {
   };
 
   const fetchApi = async () => {
-    const url = 'http://127.0.0.1:8000/cochera/cliente/'+id
+    const url = 'http://127.0.0.1:8000/cochera/cliente/' + id
     const response = await fetch(url)
     const responseJson = await response.json()
     // console.log(responseJson.content.id)
     return setLastId(responseJson.content.id)
-    }
-
-    const fetchApiPutImage1 = async (e) =>{
-      const urlPut = `http://127.0.0.1:8000/cochera/imagen/` 
-      // let image = e.target.files[0]
-      let image = new FormData()
-      image.append('imagen',e.target.files[0])
-      console.log(image)
-      const responsePut = await fetch(urlPut, {
-          method: 'POST',
-          body: image
-        })
-
-        const data = await responsePut.json()
-        console.log(data.content)
-        setUrlImage1(data.content.url)
-      }
- 
-  
-  const fetchApiPut = async (max) =>{
-    try{
-      const urlPut = `http://127.0.0.1:8000/cochera/put/${max}/` 
-      const responsePut = await fetch(urlPut, {
-          method: 'PUT',
-          headers: {
-            Accept: "application/json",
-            "Content-Type":"application/json"
-            },
-          body: {
-            imagen1:urlImage1,
-            imagen2:urlImage2,
-            imagen3:urlImage3
-          }
-        })
-  
-      const data = await responsePut.json()
-      console.log(data)
-    } catch(e){
-      console.log(e)
-    }
   }
+
+  const handleInputImage = (event) => {
+    const { name, files } = event.currentTarget
+    return setImageSelect({ ...imageSelect, [name]: files[0] })
+  }
+
+  const handleUploadImage = async () => {
+    const urlPut = `http://127.0.0.1:8000/cochera/imagen/${lastid}`
+    let image = new FormData()
+    image.append('imagen1', imageSelect.imagen1)
+    image.append('imagen2', imageSelect.imagen2)
+    image.append('imagen3', imageSelect.imagen3)
+    const responsePut = await fetch(urlPut, {
+      method: 'POST',
+      body: image
+    })
+
+    const data = await responsePut.json()
+    console.log(data);
+  }
+
+
+  // const fetchApiPut = async (max) => {
+  //   try {
+  //     const urlPut = `http://127.0.0.1:8000/cochera/put/${max}/`
+  //     const responsePut = await fetch(urlPut, {
+  //       method: 'PUT',
+  //       headers: {
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json"
+  //       },
+  //       body: {}
+  //     })
+
+  //     const data = await responsePut.json()
+  //     console.log(data)
+  //   } catch (e) {
+  //     console.log(e)
+  //   }
+  // }
 
   // const onChangeImage = async (e) => {
   //   let image = new FormData()
@@ -94,13 +97,6 @@ const RegistroFotos = () => {
   //   setUrlImage1(image)
   // }
 
-  const onChangeImage2 = async (e) => {
-    setUrlImage2(e.target.files[0])
-  }
-
-  const onChangeImage3 = async (e) => {
-    setUrlImage3(e.target.files[0])
-  }
 
   // const fetchData = () => {
   //   const showCochera = JSON.parse(localStorage.getItem('cochera'));
@@ -110,21 +106,21 @@ const RegistroFotos = () => {
 
 
   const handleClickUpdate = async () => {
-    try{
-      await fetchApiPut(lastid);
+    try {
+      // await fetchApiPut(lastid);
       const response = await swal({
         icon: "success",
         title: "Se subieron los datos",
       });
-      if(response){
+      if (response) {
         window.location.replace('');
       }
-    } catch(error){
+    } catch (error) {
       swal({
         icon: "error",
         title: `${error.message}`,
         text: "Intenta de nuevo",
-      }); 
+      });
     }
   };
 
@@ -148,8 +144,9 @@ const RegistroFotos = () => {
               <Grid item md={12} xs={12}>
                 <input
                   type="file"
-                  name="image"
-                  onChange={fetchApiPutImage1}
+                  id="imagen1"
+                  name="imagen1"
+                  onChange={handleInputImage}
                 />
               </Grid>
               <Grid item md={12} xs={12}>
@@ -158,8 +155,9 @@ const RegistroFotos = () => {
               <Grid item md={12} xs={12}>
                 <input
                   type="file"
-                  name="image"
-                  onChange={onChangeImage2}
+                  id="imagen2"
+                  name="imagen2"
+                  onChange={handleInputImage}
                 />
               </Grid>
               <Grid item md={12} xs={12}>
@@ -168,8 +166,9 @@ const RegistroFotos = () => {
               <Grid item md={12} xs={12}>
                 <input
                   type="file"
-                  name="image"
-                  onChange={onChangeImage3}
+                  id="imagen3"
+                  name="imagen3"
+                  onChange={handleInputImage}
                 />
               </Grid>
               <Grid item md={6} xs={8}>
@@ -179,7 +178,7 @@ const RegistroFotos = () => {
                       color="secondary"
                       variant="contained"
                       fullWidth
-                      onClick={handleClickUpdate}
+                      onClick={handleUploadImage}
                     >
                       Send
                     </Button>
