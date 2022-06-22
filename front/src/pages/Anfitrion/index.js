@@ -29,19 +29,19 @@ const Anfitrion = () => {
   const [indexs, setIndexs] = useState(0);
   const [loaderAwait, setLoaderAwait] = useState(false);
   const values = {
-    name: "",
-    description: "",
-    price: "",
-    imagen1: "",
-    imagen2: "",
-    imagen3: "",
+    name: "av Lima",
+    description: "cochera para dos autos",
+    price: 23,
+    imagen1: "https://i.pinimg.com/originals/f1/4b/8c/f14b8ce2bafbcdfa22f01c5142e48e7c.jpg",
+    imagen2: "https://i.pinimg.com/originals/f1/4b/8c/f14b8ce2bafbcdfa22f01c5142e48e7c.jpg",
+    imagen3: "https://i.pinimg.com/originals/f1/4b/8c/f14b8ce2bafbcdfa22f01c5142e48e7c.jpg",
     space: 1,
-    country: "",
-    department: "",
-    district: "",
-    adress: "",
-    lat: "",
-    long: "",
+    country: "lima",
+    department: "lima",
+    district: "lima",
+    adress: "-",
+    lat: "222",
+    long: "222",
     cliente: +id,
   };
 
