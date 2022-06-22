@@ -29,6 +29,7 @@ const Anfitrion = () => {
   const [indexs, setIndexs] = useState(0);
   const [loaderAwait, setLoaderAwait] = useState(false);
   const values = {
+
     name: "av Lima",
     description: "cochera para dos autos",
     price: 23,

@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 
 from cloudinary.models import CloudinaryField
@@ -24,9 +25,9 @@ class Cochera(models.Model):
     name = models.CharField(max_length=100, null=True, blank=True)
     description = models.TextField(max_length=10000, default='descripcion', null=True, blank=True)
     price = models.DecimalField(max_digits=5,decimal_places=2, null=True, blank=True)
-    imagen1 = CloudinaryField('image', null=True, blank=True)
-    imagen2 = CloudinaryField('image', null=True, blank=True)
-    imagen3 = CloudinaryField('image', null=True, blank=True)
+    imagen1 = CloudinaryField('image', null=True, blank=True, default='https://res.cloudinary.com/dyg8vlnnz/image/upload/v1655859589/duciogqgpxvbidt0dcpj.jpg')
+    imagen2 = CloudinaryField('image', null=True, blank=True, default='https://res.cloudinary.com/dyg8vlnnz/image/upload/v1655859589/duciogqgpxvbidt0dcpj.jpg')
+    imagen3 = CloudinaryField('image', null=True, blank=True, default='https://res.cloudinary.com/dyg8vlnnz/image/upload/v1655859589/duciogqgpxvbidt0dcpj.jpg')
     space = models.IntegerField(default=1, null=True, blank=True)
     country = models.CharField(max_length=100, null=True, blank=True)
     department = models.CharField(max_length=100, null=True, blank=True)
