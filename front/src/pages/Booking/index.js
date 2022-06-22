@@ -5,6 +5,7 @@ import {
   updateReservaCochera,
   updateFechaReservaCochera,
 } from "../../service/firestore";
+import { Pedido } from "../../service/pedidosService";
 import {
   Grid,
   Container,
@@ -36,6 +37,7 @@ import "leaflet/dist/leaflet.css";
 import LoaderCar from "../../components/LoaderCar";
 import LoginAnfitrion from "../../components/LoginAnfitrion";
 import L from "leaflet";
+import { getMonth } from "date-fns";
 
 const Booking = () => {
   const { id } = useParams();
@@ -44,8 +46,36 @@ const Booking = () => {
   const [filterCochera, setFilterCochera] = useState([]);
   const [registerCochera, setRegisterCochera] = useState([]);
   const [open, setOpen] = useState(false);
-  
 
+  // Date Range picker
+  const [valueDate, setValueDate] = React.useState(null);
+  const [valueDateFin, setValueDateFin] = React.useState(null);
+  
+  //Formatenado Hora
+
+  const date = (dateValue) => {
+    const dateObj = new Date(dateValue);
+    const month = dateObj.getUTCMonth() + 1
+    const day = dateObj.getUTCDate()
+    const year = dateObj.getUTCFullYear()
+    const newdate = year + "-" + month + "-" + day;
+    return newdate
+  }
+
+  console.log(date(valueDate))
+  console.log(date(valueDateFin))
+
+
+  const values = {
+    fechaInicio: date(valueDate),
+    fechaFin: date(valueDateFin),
+    horaInicio: "18:00:00",
+    horaFin: "19:00:00",
+    total: filterCochera.price,
+    status: "1",
+    cochera: filterCochera.id,
+    cliente: filterUser.id
+  }
 
   const handleClickOpen = () => {
     setOpen(!open);
@@ -66,11 +96,9 @@ const Booking = () => {
     const responseJSONusuario = await responseUsuario.json()
     const filtUser = responseJSONusuario.content
     setFilterUser(filtUser)
+   
     return responseJSONCochera.content
   }
-
-  
-
 
   //para verificar si el usuario esta logueado o no
   const idUsuario = JSON.parse(localStorage.getItem("userID"));
@@ -82,18 +110,16 @@ const Booking = () => {
     iconSize: [30, 30],
   });
 
-  // Date Range picker
-  const [valueDate, setValueDate] = React.useState(null);
-  const [valueDateFin, setValueDateFin] = React.useState(null);
-
 
   // Boton Reservar
   const handleOnClickReservar = async () => {
+    
     try {
       if(+filterCochera.space > 0){
-        const space = +filterCochera.space - 1
-        await updateSpaceCochera(filterCochera, space.toString(), "cochera");
-        await updateReservaCochera(filterUser, filterCochera.id, "usuario")
+        await Pedido(values)
+        // const space = +filterCochera.space - 1
+        // await updateSpaceCochera(filterCochera, space.toString(), "cochera");
+        // await updateReservaCochera(filterUser, filterCochera.id, "usuario")
         console.log(filterCochera.id)
         storeReservaCochera(filterCochera.id);
         await swal({
@@ -201,7 +227,7 @@ const Booking = () => {
                         <div className="static-date-container">
                           <div>
                             <h5>Fecha Inicio</h5>
-                            <LocalizationProvider dateAdapter={DateAdapter}>
+                            <LocalizationProvider dateAdapter={DateAdapter} >
                               <StaticDatePicker
                                 displayStaticWrapperAs="desktop"
                                 openTo="day"
@@ -364,6 +390,3 @@ const Booking = () => {
 };
 
 export default Booking;
-
-
-
