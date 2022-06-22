@@ -28,6 +28,8 @@ const RegistroGeo = () => {
   //   setRegCochera(showCochera);
   // };
 
+  console.log(position)
+
   const fetchApi = async () => {
     const url = 'http://127.0.0.1:8000/cochera/cliente/'+id
     const response = await fetch(url)
@@ -45,7 +47,10 @@ const RegistroGeo = () => {
           Accept: "application/json",
           "Content-Type":"application/json"
           },
-        body: JSON.stringify(position)
+        body: JSON.stringify({
+          lat:position.lat,
+          long:position.lng
+        })
       })
 
     const data = await responsePut.json()

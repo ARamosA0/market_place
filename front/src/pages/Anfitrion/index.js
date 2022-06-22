@@ -29,19 +29,16 @@ const Anfitrion = () => {
   const [indexs, setIndexs] = useState(0);
   const [loaderAwait, setLoaderAwait] = useState(false);
   const values = {
-    name: "",
-    description: "",
-    price: "",
-    imagen1: "",
-    imagen2: "",
-    imagen3: "",
+    name: "a",
+    description: "a",
+    price: 1,
     space: 1,
-    country: "",
-    department: "",
-    district: "",
-    adress: "",
-    lat: "",
-    long: "",
+    country: "a",
+    department: "a",
+    district: "a",
+    adress: "a",
+    lat: "a",
+    long: "a",
     cliente: +id,
   };
 

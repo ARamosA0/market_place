@@ -59,7 +59,7 @@ const RegistroAnfitrion =  () => {
                             <p>
                                 <span> <b>{regUser.first_name} {regUser.last_name},&nbsp;</b></span>
                                 <span>{regUser.email} .&nbsp;</span>
-                                <Link to={`/anfitrion/${regUser.id}`}>
+                                <Link to={`/anfitrion/${regUser.Cliente.id}`}>
                                     <Button color="secondary">Ir a perfil</Button>
                                 </Link>
                 

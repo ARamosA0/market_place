@@ -54,7 +54,7 @@ const Booking = () => {
   // API 
   const fetchApi = async () =>{
     // Cochera
-    const url = 'http://127.0.0.1:8000/cochera/'+id
+    const url = `http://127.0.0.1:8000/cochera/id/${id}/`
     const responseCochera = await fetch(url)
     const responseJSONCochera = await responseCochera.json()
     const filtGarage = responseJSONCochera.content
