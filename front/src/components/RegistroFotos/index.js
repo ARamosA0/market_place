@@ -44,7 +44,7 @@ const RegistroFotos = () => {
   };
 
   const fetchApi = async () => {
-    const url = 'http://127.0.0.1:8000/cochera/cliente/' + id
+    const url = 'https://django-cochera.herokuapp.com/cochera/cliente/' + id
     const response = await fetch(url)
     const responseJson = await response.json()
     // console.log(responseJson.content.id)
@@ -57,7 +57,7 @@ const RegistroFotos = () => {
   }
 
   const handleUploadImage = async () => {
-    const urlPut = `http://127.0.0.1:8000/cochera/imagen/${lastid}`
+    const urlPut = `https://django-cochera.herokuapp.com/cochera/imagen/${lastid}`
     let image = new FormData()
     image.append('imagen1', imageSelect.imagen1)
     image.append('imagen2', imageSelect.imagen2)

@@ -93,14 +93,14 @@ const Booking = () => {
   // API 
   const fetchApi = async () =>{
     // Cochera
-    const url = `http://127.0.0.1:8000/cochera/id/${id}/`
+    const url = `https://django-cochera.herokuapp.com/cochera/id/${id}/`
     const responseCochera = await fetch(url)
     const responseJSONCochera = await responseCochera.json()
     const filtGarage = responseJSONCochera.content
     console.log(filtGarage.cliente)
     setFilterCochera(filtGarage)
     // Usuario 
-    const urlUsuario = 'http://127.0.0.1:8000/usuario/'+filtGarage.cliente
+    const urlUsuario = 'https://django-cochera.herokuapp.com/usuario/'+filtGarage.cliente
     const responseUsuario = await fetch(urlUsuario)
     const responseJSONusuario = await responseUsuario.json()
     const filtUser = responseJSONusuario.content
