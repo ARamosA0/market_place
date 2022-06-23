@@ -60,7 +60,7 @@ const ParkingLog = () => {
   });
 
   const fetchApi = async () =>{
-    const url = name ? 'http://127.0.0.1:8000/cochera/distrito/'+name : 'http://127.0.0.1:8000/cochera/'
+    const url = name ? 'https://django-cochera.herokuapp.com/cochera/distrito/'+name : 'https://django-cochera.herokuapp.com/cochera/'
 
     const response = await fetch(url)
     const responseJSON = await response.json()

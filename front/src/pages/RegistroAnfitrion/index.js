@@ -27,7 +27,7 @@ const RegistroAnfitrion =  () => {
     // const [reg, setRegUser] = useState([])
     
     const fetchApi = async () => {
-        const url = 'http://127.0.0.1:8000/usuario/'+id
+        const url = 'https://django-cochera.herokuapp.com/usuario/'+id
         const response = await fetch(url)
         const responseJson = await response.json()
         setRegUser(responseJson.content)

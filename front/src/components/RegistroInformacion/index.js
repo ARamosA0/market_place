@@ -52,7 +52,7 @@ const RegistroInformacion = () => {
   };
     
   const fetchApi = async () => {
-    const url = 'http://127.0.0.1:8000/cochera/cliente/'+id
+    const url = 'https://django-cochera.herokuapp.com/cochera/cliente/'+id
     const response = await fetch(url)
     const responseJson = await response.json()
     console.log(responseJson.content)
@@ -61,7 +61,7 @@ const RegistroInformacion = () => {
 
   
   const fetchApiPut = async (max) =>{
-    const urlPut = `http://127.0.0.1:8000/cochera/put/${max}/` 
+    const urlPut = `https://django-cochera.herokuapp.com/cochera/put/${max}/` 
     const responsePut = await fetch(urlPut, {
         method: 'PUT',
         headers: {
