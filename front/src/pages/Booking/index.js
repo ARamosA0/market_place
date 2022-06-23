@@ -36,6 +36,7 @@ import "leaflet/dist/leaflet.css";
 import LoaderCar from "../../components/LoaderCar";
 import LoginAnfitrion from "../../components/LoginAnfitrion";
 import L from "leaflet";
+import { getMonth } from "date-fns";
 
 const Booking = () => {
   const { id } = useParams();
@@ -66,11 +67,9 @@ const Booking = () => {
     const responseJSONusuario = await responseUsuario.json()
     const filtUser = responseJSONusuario.content
     setFilterUser(filtUser)
+   
     return responseJSONCochera.content
   }
-
-  
-
 
   //para verificar si el usuario esta logueado o no
   const idUsuario = JSON.parse(localStorage.getItem("userID"));
@@ -86,14 +85,21 @@ const Booking = () => {
   const [valueDate, setValueDate] = React.useState(null);
   const [valueDateFin, setValueDateFin] = React.useState(null);
 
+  const date = (dateValue) => {
+    const dt = new Date(dateValue);
+    return dt.getUTCFullYear() + "/" + (dt.getUTCMonth() + 1) + "/" + dt.getUTCDate();
+  }
+  
+  console.log(date(valueDate))
+  console.log(date(valueDateFin))
 
   // Boton Reservar
   const handleOnClickReservar = async () => {
     try {
       if(+filterCochera.space > 0){
-        const space = +filterCochera.space - 1
-        await updateSpaceCochera(filterCochera, space.toString(), "cochera");
-        await updateReservaCochera(filterUser, filterCochera.id, "usuario")
+        // const space = +filterCochera.space - 1
+        // await updateSpaceCochera(filterCochera, space.toString(), "cochera");
+        // await updateReservaCochera(filterUser, filterCochera.id, "usuario")
         console.log(filterCochera.id)
         storeReservaCochera(filterCochera.id);
         await swal({
@@ -201,7 +207,7 @@ const Booking = () => {
                         <div className="static-date-container">
                           <div>
                             <h5>Fecha Inicio</h5>
-                            <LocalizationProvider dateAdapter={DateAdapter}>
+                            <LocalizationProvider dateAdapter={DateAdapter} >
                               <StaticDatePicker
                                 displayStaticWrapperAs="desktop"
                                 openTo="day"
@@ -364,6 +370,3 @@ const Booking = () => {
 };
 
 export default Booking;
-
-
-
