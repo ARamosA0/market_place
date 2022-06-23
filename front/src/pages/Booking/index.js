@@ -6,6 +6,7 @@ import {
   updateFechaReservaCochera,
 } from "../../service/firestore";
 import { Pedido } from "../../service/pedidosService";
+import { putCocheras } from "../../service/cocherasServices";
 import {
   Grid,
   Container,
@@ -77,6 +78,14 @@ const Booking = () => {
     cliente: filterUser.id
   }
 
+// Actualizar espacio de cocheras 
+
+  const valuesSpace = {
+    "space": +filterCochera.space - 1
+  }
+  
+  console.log(valuesSpace)
+
   const handleClickOpen = () => {
     setOpen(!open);
   };
@@ -112,12 +121,12 @@ const Booking = () => {
 
 
   // Boton Reservar
-  const handleOnClickReservar = async () => {
-    
+  const handleOnClickReservar = async () => {   
     try {
       if(+filterCochera.space > 0){
         await Pedido(values)
         // const space = +filterCochera.space - 1
+        await putCocheras(filterCochera.id ,valuesSpace)
         // await updateSpaceCochera(filterCochera, space.toString(), "cochera");
         // await updateReservaCochera(filterUser, filterCochera.id, "usuario")
         console.log(filterCochera.id)
