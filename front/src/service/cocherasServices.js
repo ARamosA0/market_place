@@ -41,3 +41,13 @@ export const deleteUserCocheras = async(id) => {
     }
 
 }
+
+
+export const putCocheras = async(id, space) => {
+    try {
+        const response = await axios.put(`${URL_DJANGO}/cochera/put/${id}/`,space);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
