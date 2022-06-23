@@ -5,6 +5,8 @@ import {
   updateReservaCochera,
   updateFechaReservaCochera,
 } from "../../service/firestore";
+import { Pedido } from "../../service/pedidosService";
+import { putCocheras } from "../../service/cocherasServices";
 import {
   Grid,
   Container,
@@ -45,8 +47,44 @@ const Booking = () => {
   const [filterCochera, setFilterCochera] = useState([]);
   const [registerCochera, setRegisterCochera] = useState([]);
   const [open, setOpen] = useState(false);
-  
 
+  // Date Range picker
+  const [valueDate, setValueDate] = React.useState(null);
+  const [valueDateFin, setValueDateFin] = React.useState(null);
+  
+  //Formatenado Hora
+
+  const date = (dateValue) => {
+    const dateObj = new Date(dateValue);
+    const month = dateObj.getUTCMonth() + 1
+    const day = dateObj.getUTCDate()
+    const year = dateObj.getUTCFullYear()
+    const newdate = year + "-" + month + "-" + day;
+    return newdate
+  }
+
+  console.log(date(valueDate))
+  console.log(date(valueDateFin))
+
+
+  const values = {
+    fechaInicio: date(valueDate),
+    fechaFin: date(valueDateFin),
+    horaInicio: "18:00:00",
+    horaFin: "19:00:00",
+    total: filterCochera.price,
+    status: "1",
+    cochera: filterCochera.id,
+    cliente: filterUser.id
+  }
+
+// Actualizar espacio de cocheras 
+
+  const valuesSpace = {
+    "space": +filterCochera.space - 1
+  }
+  
+  console.log(valuesSpace)
 
   const handleClickOpen = () => {
     setOpen(!open);
@@ -81,23 +119,14 @@ const Booking = () => {
     iconSize: [30, 30],
   });
 
-  // Date Range picker
-  const [valueDate, setValueDate] = React.useState(null);
-  const [valueDateFin, setValueDateFin] = React.useState(null);
-
-  const date = (dateValue) => {
-    const dt = new Date(dateValue);
-    return dt.getUTCFullYear() + "/" + (dt.getUTCMonth() + 1) + "/" + dt.getUTCDate();
-  }
-  
-  console.log(date(valueDate))
-  console.log(date(valueDateFin))
 
   // Boton Reservar
-  const handleOnClickReservar = async () => {
+  const handleOnClickReservar = async () => {   
     try {
       if(+filterCochera.space > 0){
+        await Pedido(values)
         // const space = +filterCochera.space - 1
+        await putCocheras(filterCochera.id ,valuesSpace)
         // await updateSpaceCochera(filterCochera, space.toString(), "cochera");
         // await updateReservaCochera(filterUser, filterCochera.id, "usuario")
         console.log(filterCochera.id)
