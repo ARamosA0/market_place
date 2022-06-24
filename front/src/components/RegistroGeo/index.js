@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Container, Grid, Dialog, DialogContent, Button } from "@mui/material";
+import {Dialog, DialogContent, Button } from "@mui/material";
 import { useParams } from "react-router-dom";
 import {
   MapContainer,
@@ -8,10 +8,9 @@ import {
   Popup,
   useMapEvents,
 } from "react-leaflet";
+import { getCoheraCliente,putCocheras } from "../../service/cocherasServices";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { storeCochera, updateCochera,updateGeoCochera } from "../../service/firestore";
-import { GeoPoint } from "firebase/firestore/lite";
 import swal from "sweetalert";
 
 const RegistroGeo = () => {
@@ -23,38 +22,13 @@ const RegistroGeo = () => {
 
   const [lastId,setLastId] = useState(0);
 
-  // const fetchData = () => {
-  //   const showCochera = JSON.parse(localStorage.getItem('cochera'));
-  //   setRegCochera(showCochera);
-  // };
-
-  console.log(position)
-
   const fetchApi = async () => {
-    const url = 'https://django-cochera.herokuapp.com/cochera/cliente/'+id
-    const response = await fetch(url)
-    const responseJson = await response.json()
-    console.log(responseJson.content)
+    const responseJson = await getCoheraCliente(+id);
     return setLastId(responseJson.content.id)
     }
 
-  
   const fetchApiPut = async (max) =>{
-    const urlPut = `https://django-cochera.herokuapp.com/cochera/put/${max}/` 
-    const responsePut = await fetch(urlPut, {
-        method: 'PUT',
-        headers: {
-          Accept: "application/json",
-          "Content-Type":"application/json"
-          },
-        body: JSON.stringify({
-          lat:position.lat,
-          long:position.lng
-        })
-      })
-
-    const data = await responsePut.json()
-    console.log("data",data)
+    await putCocheras(max,{lat:position.lat,long:position.lng})
   }
 
   // Mapa

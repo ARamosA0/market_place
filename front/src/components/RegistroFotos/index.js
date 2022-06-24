@@ -1,21 +1,16 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect} from "react";
 import { useParams } from "react-router-dom";
-import { CocheraContext } from "../../Context/CocheraContext";
 import {
   Grid,
   Dialog,
   DialogContent,
-  TextField,
   Button,
 } from "@mui/material";
-import { updatePhotoCochera } from "../../service/firestore";
+import { getCoheraCliente,postCocheraImage } from "../../service/cocherasServices";
 import swal from "sweetalert";
-import garage1 from "../../assets/garage.jpg";
 
 const RegistroFotos = () => {
   const { id } = useParams();
-  const { cochera } = useContext(CocheraContext);
-  const [regCochera, setRegCochera] = useState([])
   const [open, setOpen] = useState(false);
   const [imageSelect, setImageSelect] = useState({
     imagen1: "",
@@ -23,31 +18,14 @@ const RegistroFotos = () => {
     imagen3: ""
   });
 
-  console.log(imageSelect)
-
   const [lastid, setLastId] = useState(0);
-
-
-
-  // console.log(urlImage1)
-
-  // const handleInputValue = (event) => {
-  //   const { value, name } = event.target;
-  //   setValorInputs({
-  //     ...valorInputs,
-  //     [name]: value,
-  //   });
-  // };
 
   const handleOpenDialog = () => {
     setOpen(!open);
   };
 
   const fetchApi = async () => {
-    const url = 'https://django-cochera.herokuapp.com/cochera/cliente/' + id
-    const response = await fetch(url)
-    const responseJson = await response.json()
-    // console.log(responseJson.content.id)
+    const responseJson = await getCoheraCliente(+id);
     return setLastId(responseJson.content.id)
   }
 
@@ -57,52 +35,14 @@ const RegistroFotos = () => {
   }
 
   const handleUploadImage = async () => {
-    const urlPut = `https://django-cochera.herokuapp.com/cochera/imagen/${lastid}`
     let image = new FormData()
     image.append('imagen1', imageSelect.imagen1)
     image.append('imagen2', imageSelect.imagen2)
     image.append('imagen3', imageSelect.imagen3)
-    const responsePut = await fetch(urlPut, {
-      method: 'POST',
-      body: image
-    })
 
-    const data = await responsePut.json()
+    const data = await postCocheraImage(lastid, image)
     console.log(data);
   }
-
-
-  // const fetchApiPut = async (max) => {
-  //   try {
-  //     const urlPut = `http://127.0.0.1:8000/cochera/put/${max}/`
-  //     const responsePut = await fetch(urlPut, {
-  //       method: 'PUT',
-  //       headers: {
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json"
-  //       },
-  //       body: {}
-  //     })
-
-  //     const data = await responsePut.json()
-  //     console.log(data)
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-  // }
-
-  // const onChangeImage = async (e) => {
-  //   let image = new FormData()
-  //   image.append('imagen',e.target.files[0])
-  //   setUrlImage1(image)
-  // }
-
-
-  // const fetchData = () => {
-  //   const showCochera = JSON.parse(localStorage.getItem('cochera'));
-  //   setRegCochera(showCochera);
-  // };
-
 
 
   const handleClickUpdate = async () => {

@@ -1,10 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import {
-  getCocheraData,
-  updateSpaceCochera,
-  updateReservaCochera,
-  updateFechaReservaCochera,
-} from "../../service/firestore";
 import { Pedido } from "../../service/pedidosService";
 import { putCocheras } from "../../service/cocherasServices";
 import {
@@ -12,25 +6,22 @@ import {
   Container,
   Card,
   CardContent,
-  Stack,
   TextField,
   Button,
-  Box,
   Divider,
 } from "@mui/material";
 import { CocheraContext } from "../../Context/CocheraContext";
+import { cocheraFilterServices } from "../../service/cocherasServices";
+import { userGarageClient } from "../../service/userService";
 import StarIcon from "@mui/icons-material/Star";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import "./index.css";
 import DatePicker from "@mui/lab/DatePicker";
-import StaticDateRangePicker from "@mui/lab/StaticDateRangePicker";
 import DateAdapter from "@mui/lab/AdapterDateFns";
-import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import StaticDatePicker from "@mui/lab/StaticDatePicker";
-import DesktopDateRangePicker from "@mui/lab/DesktopDateRangePicker";
 import { Link, useParams } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import swal from "sweetalert";
@@ -38,14 +29,12 @@ import "leaflet/dist/leaflet.css";
 import LoaderCar from "../../components/LoaderCar";
 import LoginAnfitrion from "../../components/LoginAnfitrion";
 import L from "leaflet";
-import { getMonth } from "date-fns";
 
 const Booking = () => {
   const { id } = useParams();
   const { user, cochera, storeReservaCochera } = useContext(CocheraContext);
   const [filterUser, setFilterUser] = useState([]);
   const [filterCochera, setFilterCochera] = useState([]);
-  const [registerCochera, setRegisterCochera] = useState([]);
   const [open, setOpen] = useState(false);
 
   // Date Range picker
@@ -63,10 +52,6 @@ const Booking = () => {
     return newdate
   }
 
-  console.log(date(valueDate))
-  console.log(date(valueDateFin))
-
-
   const values = {
     fechaInicio: date(valueDate),
     fechaFin: date(valueDateFin),
@@ -83,8 +68,6 @@ const Booking = () => {
   const valuesSpace = {
     "space": +filterCochera.space - 1
   }
-  
-  console.log(valuesSpace)
 
   const handleClickOpen = () => {
     setOpen(!open);
@@ -93,16 +76,11 @@ const Booking = () => {
   // API 
   const fetchApi = async () =>{
     // Cochera
-    const url = `https://django-cochera.herokuapp.com/cochera/id/${id}/`
-    const responseCochera = await fetch(url)
-    const responseJSONCochera = await responseCochera.json()
+    const responseJSONCochera = await cocheraFilterServices(id)
     const filtGarage = responseJSONCochera.content
-    console.log(filtGarage.cliente)
     setFilterCochera(filtGarage)
     // Usuario 
-    const urlUsuario = 'https://django-cochera.herokuapp.com/usuario/'+filtGarage.cliente
-    const responseUsuario = await fetch(urlUsuario)
-    const responseJSONusuario = await responseUsuario.json()
+    const responseJSONusuario = await userGarageClient(filtGarage.cliente)
     const filtUser = responseJSONusuario.content
     setFilterUser(filtUser)
    
@@ -125,11 +103,7 @@ const Booking = () => {
     try {
       if(+filterCochera.space > 0){
         await Pedido(values)
-        // const space = +filterCochera.space - 1
         await putCocheras(filterCochera.id ,valuesSpace)
-        // await updateSpaceCochera(filterCochera, space.toString(), "cochera");
-        // await updateReservaCochera(filterUser, filterCochera.id, "usuario")
-        console.log(filterCochera.id)
         storeReservaCochera(filterCochera.id);
         await swal({
           icon: "success",
@@ -142,7 +116,6 @@ const Booking = () => {
           title: "Ya no hay espacio en esta cochera",
         });
       }
-      console.log(filterCochera.space);
     } catch (error) {
       console.log(error.message);
       swal({
