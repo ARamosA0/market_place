@@ -1,5 +1,4 @@
-import { useState, useEffect, useContext } from "react";
-import { CocheraContext } from "../../Context/CocheraContext";
+import { useState, useEffect} from "react";
 import { useParams } from "react-router-dom";
 import {
   Grid,
@@ -8,16 +7,12 @@ import {
   TextField,
   Button,
 } from "@mui/material";
-import { updateCochera } from "../../service/firestore";
+import { getCoheraCliente,putCocheras } from "../../service/cocherasServices";
 import swal from "sweetalert";
-import garage1 from "../../assets/garage.jpg";
 
 const RegistroDireccion = () => {
   const { id } = useParams()
-  const { cochera } =useContext(CocheraContext);
-  const [regCochera, setRegCochera] = useState([])
   const [open, setOpen] = useState(false);
-  const [values, setValues] = useState([]);
   const [lastId,setLastId] = useState(0);
 
   const [valorInputs, setValorInputs] = useState({
@@ -36,46 +31,23 @@ const RegistroDireccion = () => {
     
   };
   
-
   const handleOpenDialog = () => {
     setOpen(!open);
   };
 
   const fetchApi = async () => {
-    const url = 'https://django-cochera.herokuapp.com/cochera/cliente/'+id
-    const response = await fetch(url)
-    const responseJson = await response.json()
-    console.log(responseJson.content)
+    const responseJson = await getCoheraCliente(+id);
     return setLastId(responseJson.content.id)
     }
-
   
   const fetchApiPut = async (max) =>{
     try{
-      const urlPut = `https://django-cochera.herokuapp.com/cochera/put/${max}/` 
-      const responsePut = await fetch(urlPut, {
-          method: 'PUT',
-          headers: {
-            Accept: "application/json",
-            "Content-Type":"application/json"
-            },
-          body: JSON.stringify(valorInputs)
-        })
-  
-      const data = await responsePut.json()
+      await putCocheras(max,valorInputs)
     } catch (e){
       console.log(e)
     }
   } 
-
-  // const fetchData = () => {
-  //   const showCochera = JSON.parse(localStorage.getItem('cochera'));
-  //   setRegCochera(showCochera);
-  // };
-
-
   const handleClickUpdate = async () => {
-    // await updateCochera(regCochera[0], valorInputs,"cochera");
     try{
       await fetchApiPut(lastId);
       const response = await swal({

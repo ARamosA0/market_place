@@ -28,6 +28,8 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
+//service
+import { getcocheraDistrict,getCoheraHome } from "../../service/cocherasServices";
 //CSS referencia
 import "./index.css";
 
@@ -49,10 +51,7 @@ const ParkingLog = () => {
   
   
   const [cocheras, setCocheras] = useState([]);
-  console.log(cocheras)
   const { name } = useParams();
-
-
 
   const markerIcon = new L.icon({
     iconUrl: require("../../assets/marker.png"),
@@ -60,16 +59,10 @@ const ParkingLog = () => {
   });
 
   const fetchApi = async () =>{
-    const url = name ? 'https://django-cochera.herokuapp.com/cochera/distrito/'+name : 'https://django-cochera.herokuapp.com/cochera/'
-
-    const response = await fetch(url)
-    const responseJSON = await response.json()
+    const responseJSON = name ? await getcocheraDistrict(name): await getCoheraHome()
     setCocheras(responseJSON.content)
     return responseJSON.content
-    
   }
-
-
   const handleSearchDistrict = async (e) => {
     const districts = e?.target?.value ?? name;
 

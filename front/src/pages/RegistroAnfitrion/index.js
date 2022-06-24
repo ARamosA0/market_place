@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { CocheraContext } from "../../Context/CocheraContext";
+import { getUserCreateCocheraId } from "../../service/userService";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import {Container, Grid, Card, CardContent, CardActions, Button} from "@mui/material"
@@ -12,11 +13,6 @@ import RegistroGeo from "../../components/RegistroGeo";
 import RegistroInformacion from "../../components/RegistroInformacion";
 import RegistroFotos from "../../components/RegistroFotos";
 import LoaderCar from "../../components/LoaderCar"
-import {
-    getCocheraData,
-    storeCochera as sc,
-    updateIdCochera,
-  } from "../../service/firestore";
 import "./index.css"
 
 
@@ -24,26 +20,11 @@ const RegistroAnfitrion =  () => {
     const { id } = useParams();
     const {user, cochera } =useContext(CocheraContext)
     const [regUser, setRegUser] = useState([])
-    // const [reg, setRegUser] = useState([])
     
     const fetchApi = async () => {
-        const url = 'https://django-cochera.herokuapp.com/usuario/'+id
-        const response = await fetch(url)
-        const responseJson = await response.json()
+        const responseJson = await getUserCreateCocheraId(+id)
         setRegUser(responseJson.content)
-        // console.log(responseJson.content)
     }
-
-    // const fetchData = async () => {
-    //     const dataUser = await getCocheraData("usuario");
-    //     const dataGarege = await getCocheraData("cochera");
-    //     const showUser = JSON.parse(localStorage.getItem('user'))
-    //     const filterUser = dataUser.find((user) => user.id === id);
-    //     setRegUser(filterUser)
-    //     console.log(showUser)
-    // };
-    // console.log(regUser)
-
     useEffect(() => {
         fetchApi();
       }, [user]);
