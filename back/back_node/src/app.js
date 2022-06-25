@@ -4,6 +4,7 @@ import cors from 'cors'
 
 import routeUsuario from './routes/usuario.routes'
 import routeAuth from './routes/auth.routes'
+import pagoRoute from './routes/pago.routes'
 
 import notFound from './middlewares/notFound'
 import handleError from './middlewares/handleError'
@@ -41,6 +42,7 @@ app.get('/', (_, res) => {
 // ?routes
 app.use(routeAuth)
 app.use(routeUsuario)
+app.use(pagoRoute)
 
 // ? middlewares
 app.use(handleError)
