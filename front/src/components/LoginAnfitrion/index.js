@@ -7,15 +7,21 @@ import {
   DialogTitle,
   Tab,
   Typography,
+  styled
 } from "@mui/material";
+import {loginGithub} from '../../service/githubService'
+import { createUserAxios } from "../../service/userService";
+import { loginUserAxios } from "../../service/userService";
+import jwt_decode from "jwt-decode";
 import { TabContext, TabPanel, TabList } from "@mui/lab";
 import CloseIcon from "@mui/icons-material/Close";
 import PersonPinIcon from "@mui/icons-material/PersonPin";
 import LoginIcon from "@mui/icons-material/Login";
-import { FcGoogle } from "react-icons/fc";
-import FacebookIcon from "@mui/icons-material/Facebook";
+// import { FcGoogle } from "react-icons/fc";
+import GitHubIcon from '@mui/icons-material/GitHub';
 import RegisterUser from "../RegisterUser";
 import SesionUser from "../SesionUser";
+import swal from "sweetalert";
 import "./index.css";
 
 const LoginAnfitrion = ({ handleClickOpen, open }) => {
@@ -27,9 +33,71 @@ const LoginAnfitrion = ({ handleClickOpen, open }) => {
 
   //Componente para usar servicios externos para el Login texfield
   const ServiciosGoFa = ({ init }) => {
+
+    const handleClick = async() => {
+      const userGithub = await loginGithub()
+      const {displayName,email,phoneNumber,accessToken} = userGithub.user
+
+      //crear usuario de github en la base de datos
+      const userCreate = {
+        username: `${displayName.replace(/\s+/g, '')}`,
+        nombre:displayName.split(' ')[0],
+        apellido: `${displayName.split(' ')[1]}----`,
+        email: email ,
+        password: accessToken,
+        dni: "77777777",
+        telefono: !phoneNumber ? "999999999" : phoneNumber,
+      } 
+      await createUserAxios(userCreate)
+
+      //loguear usuario github
+      const loginUser = {
+        username: `${displayName.replace(/\s+/g, '')}`,
+        password: accessToken
+      }
+      try {
+        const data = await loginUserAxios(loginUser);
+        const decoded = jwt_decode(data.Token);
+        const idUser = {
+          id: decoded.id,
+          userName: decoded.username,
+          lastName: decoded.lastname,
+          Token: data.Token
+        };
+        localStorage.setItem("userID", JSON.stringify(idUser));
+        const response = await swal({
+          icon: "success",
+          title: "Inicio de sesion exitoso",
+          text: `Bienvenido ${decoded.username}`,
+        });
+        if (response) {
+          window.location.replace("");
+        }
+      } catch (error) {
+        await swal({
+          icon: "error",
+          title: "error no se puso registrar su cuenta",
+        });
+      }
+    
+    }
+    const StyledButton  = styled(Button)(({ theme }) => ({
+      "&:hover": {
+        background: 'black',
+      },
+    }));
     return (
       <>
-        <Button
+        <StyledButton
+          variant="outlined"
+          fullWidth
+          startIcon={<GitHubIcon />}
+          onClick={handleClick}
+          sx={{ marginTop: "20px", borderColor: "#B0A5AB" ,backgroundColor: "black",color: "white"}}
+        >
+          <span style={{ color: "white" }}>{init} con Github</span>
+        </StyledButton>
+        {/* <Button
           variant="outlined"
           fullWidth
           startIcon={<FcGoogle />}
@@ -37,16 +105,7 @@ const LoginAnfitrion = ({ handleClickOpen, open }) => {
           sx={{ marginTop: "20px", borderColor: "#B0A5AB" }}
         >
           <span style={{ color: "black" }}>{init} con Google</span>
-        </Button>
-        <Button
-          variant="outlined"
-          fullWidth
-          startIcon={<FacebookIcon />}
-          onClick={handleClickOpen}
-          sx={{ marginTop: "20px", borderColor: "#B0A5AB" }}
-        >
-          <span style={{ color: "black" }}>{init} con Facebook</span>
-        </Button>
+        </Button> */}
       </>
     );
   };
@@ -137,7 +196,7 @@ const LoginAnfitrion = ({ handleClickOpen, open }) => {
               <span>&nbsp;O&nbsp;</span>
               <div className="division"></div>
             </div>
-            <ServiciosGoFa init={"Registrate"} />
+            {/* <ServiciosGoFa init={"Registrate"} /> */}
           </TabPanel>
         </TabContext>
       </DialogContent>
