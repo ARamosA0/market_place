@@ -1,4 +1,4 @@
-import { querySql } from '../lib/mysql.js'
+import { querySql } from '../lib/mySql'
 import bcrypt from 'bcryptjs'
 import boom from '@hapi/boom'
 
