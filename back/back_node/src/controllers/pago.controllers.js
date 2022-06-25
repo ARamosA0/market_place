@@ -15,11 +15,17 @@ export const postPago = async (req, res) => {
       confirm: true
     })
     console.log(payment)
-    const sqlUpdate = `UPDATE api_pedido SET status = '1' where id = ${pedidoId}`
-    await querySql(sqlUpdate)
-    res.send({
-      messageSucess: 'sucess payment'
-    })
+    try {
+      const sqlUpdate = `UPDATE api_pedido SET status = '1' where id = ${pedidoId}`
+      await querySql(sqlUpdate)
+      res.send({
+        messageSucess: 'sucess payment'
+      })
+    } catch (error) {
+      res.json({
+        messageError: error.raw.message
+      })
+    }
   } catch (error) {
     console.log(error)
     res.json({
