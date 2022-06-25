@@ -7,6 +7,7 @@ export const CocheraProvider = (props) => {
     const [cochera, setCochera] = useState([]);
     const [user, setUser] = useState([]);
     const [distrito, setDistrito] = useState("");
+    const [value ,setValues] = useState({})
 
     const storeCochera = (product) => {
         localStorage.setItem("cochera",JSON.stringify([...cochera, product]));
@@ -34,6 +35,8 @@ export const CocheraProvider = (props) => {
             distrito,
             storeDistrito,
             storeReservaCochera,
+            value,
+            setValues
           }}
         >
           {props.children}
