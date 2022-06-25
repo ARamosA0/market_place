@@ -35,13 +35,29 @@ const RegistroFotos = () => {
   }
 
   const handleUploadImage = async () => {
-    let image = new FormData()
-    image.append('imagen1', imageSelect.imagen1)
-    image.append('imagen2', imageSelect.imagen2)
-    image.append('imagen3', imageSelect.imagen3)
-
-    const data = await postCocheraImage(lastid, image)
-    console.log(data);
+    try {
+          
+        let image = new FormData()
+        image.append('imagen1', imageSelect.imagen1)
+        image.append('imagen2', imageSelect.imagen2)
+        image.append('imagen3', imageSelect.imagen3)
+        
+        const data = await postCocheraImage(lastid, image)
+        console.log(data);
+      const response = await swal({
+        icon: "success",
+        title: "Se subieron los datos",
+      });
+      if (response) {
+        window.location.replace('');
+      }
+    } catch (error) {
+      swal({
+        icon: "error",
+        title: `${error.message}`,
+        text: "Intenta de nuevo",
+      });
+    }
   }
 
 
