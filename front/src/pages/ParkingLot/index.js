@@ -39,8 +39,6 @@ import { Carousel } from "react-bootstrap";
 //cc
 import { useParams } from "react-router-dom";
 
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-import { FcTodoList } from "react-icons/fc";
 
 const ParkingLog = () => {
   const { storeCochera, distrito, storeDistrito } = useContext(CocheraContext);
