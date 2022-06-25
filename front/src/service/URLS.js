@@ -1,6 +1,6 @@
 const URLS = {
   URL_DJANGO:"https://django-cochera.herokuapp.com",
-  URL_NODE : "http://localhost:5000"
+  URL_NODE : "https://node-cocheras.herokuapp.com"
 }
 
 export default URLS
