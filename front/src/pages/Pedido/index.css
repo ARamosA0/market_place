@@ -1,0 +1,268 @@
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+.clearfix:after {
+  content: " ";
+  /* Older browser do not support empty content */
+  visibility: hidden;
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+body {
+  font-family: poppins, arial, sans-serif;
+  background-color: whitesmoke;
+}
+
+.modalPedido {
+  width: 96%;
+  max-width: 1000px;
+  height: 550px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 3px;
+  overflow: hidden;
+  background-color: white;
+  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.3);
+}
+.modalPedido .modalPedido-product {
+  width: 40%;
+  height: 100%;
+  float: left;
+  position: relative;
+}
+.modalPedido .modalPedido-product .product {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+.modalPedido .modalPedido-product .product .product-slideshow {
+  max-width: 350px;
+  margin: 0 auto;
+  position: relative;
+}
+.modalPedido .modalPedido-product .product .product-slideshow .productSlides {
+  display: none;
+}
+.modalPedido .modalPedido-product .product .product-slideshow .dot {
+  cursor: pointer;
+  height: 10px;
+  width: 10px;
+  margin: 0 5px;
+  position: relative;
+  top: -36px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  /* Fading animation */
+}
+.active {
+  background-color: #fff!important;
+}
+.modalPedido .modalPedido-product .product .product-slideshow .dot .active {
+  background-color: white;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.6);
+}
+.modalPedido .modalPedido-product .product .product-slideshow .dot:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+.modalPedido .modalPedido-product .product .product-slideshow .dot .fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+@-webkit-keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.modalPedido .modalPedido-product .product .product-name {
+  color: rgb(255, 255, 255);
+  font-size: 1.7rem;
+  font-weight: 300;
+  line-height: 2rem;
+  text-align: center;
+  margin-top: -22px;
+}
+.modalPedido .modalPedido-product .product .product-code-name {
+  color: rgb(255, 255, 255);
+  font-size: 0.8rem;
+  font-weight: 300;
+  text-align: center;
+  margin: 8px auto 5px;
+}
+.modalPedido .modalPedido-product .product .product-price {
+  color: rgb(255, 255, 255);
+  font-size: 1.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18rem;
+  text-align: center;
+}
+.modalPedido .modalPedido-product .round-shape {
+  width: 125%;
+  height: 150%;
+  position: absolute;
+  top: 50%;
+  left: 38%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background-image: linear-gradient(20deg, #000000 0%, #31243ffd 50%);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+.modalPedido .modalPedido-info {
+  width: 60%;
+  height: 100%;
+  float: right;
+  position: relative;
+}
+.modalPedido .modalPedido-info .info {
+  width: 90%;
+  height: 85%;
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  transform: translate(0%, -50%);
+}
+.modalPedido .modalPedido-info .info h2 {
+  font-size: 2.25rem;
+  margin-left: 1rem;
+}
+.modalPedido .modalPedido-info .info form .form-list {
+  margin-top: 1.5rem;
+  margin-left: 3.5rem;
+}
+.modalPedido .modalPedido-info .info form .form-list .form-list-row {
+  margin: 1rem 0;
+}
+.modalPedido .modalPedido-info .info form .form-list .form-list-row label {
+  font-size: 1rem;
+}
+.modalPedido .modalPedido-info .info form .form-list .form-list-row input {
+  width: 70%;
+  font-size: 1rem;
+  padding: 0.4rem 0;
+  border: none;
+  display: inline-block;
+  border-bottom: solid 2px #999;
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+.modalPedido .modalPedido-info .info form .form-list .form-list-row input:focus {
+  border-color: #cdb196;
+}
+.modalPedido .modalPedido-info .info form .form-list .form-list-row .user .fa-user {
+  color: #999;
+  font-size: 1rem;
+}
+.modalPedido .modalPedido-info .info form .form-list .form-list-row .user input {
+  position: relative;
+  left: -16px;
+  padding-left: 30px;
+}
+.modalPedido .modalPedido-info .info form .form-list .form-list-row .number .fa-credit-card {
+  color: #999;
+  font-size: 1rem;
+}
+.modalPedido .modalPedido-info .info form .form-list .form-list-row .number input {
+  position: relative;
+  left: -20px;
+  padding-left: 30px;
+}
+.modalPedido .modalPedido-info .info form .form-list .form-list-row .date {
+  float: left;
+}
+.modalPedido .modalPedido-info .info form .form-list .form-list-row .date input {
+  width: 60px;
+  text-align: center;
+}
+.modalPedido .modalPedido-info .info form .form-list .form-list-row .date .year {
+  margin-left: 1.5rem;
+}
+.modalPedido .modalPedido-info .info form .form-list .form-list-row .cvc {
+  float: left;
+  margin-left: 6rem;
+  text-align: center;
+}
+.modalPedido .modalPedido-info .info form .form-list .form-list-row .cvc .fa-question-circle {
+  color: dodgerblue;
+  display: inline-block;
+  position: relative;
+  left: 0.75rem;
+}
+.modalPedido .modalPedido-info .info form .form-list .form-list-row .cvc input {
+  width: 70px;
+  text-align: center;
+}
+.modalPedido .modalPedido-info .info form .form-list .form-list-row .checkbox {
+  margin-top: 2rem;
+}
+.modalPedido .modalPedido-info .info form .form-list .form-list-row .checkbox input {
+  width: auto;
+}
+.modalPedido .modalPedido-info .info form .form-list .form-list-row .checkbox span {
+  font-size: 0.8rem;
+}
+.modalPedido .modalPedido-info .info form button {
+  color: white;
+  font-size: 1rem;
+  margin-left: 1rem;
+  padding: 1rem 2.5rem;
+  position: absolute;
+  bottom: 0;
+  border: none;
+  border-radius: 3px;
+  background-image: linear-gradient(20deg, #000000 0%, #000000e8 50%);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+}
+.modalPedido .modalPedido-info .info form button:hover {
+  background-color: #b59779;
+}
+.label-Input{
+  margin-bottom: 8px;
+}
+.cvc {
+  margin-left: 0px!important;
+  margin-right: 3em;
+}
+.frm1{
+  border-bottom: 2px solid;
+  border-color: #999;
+  width: 70%;
+}
+.frm2{
+  border-bottom: 2px solid;
+  border-color: #999;
+}
+
+/* STRIPE STYLES */
+.StripeElement{
+  width: 100%;
+}

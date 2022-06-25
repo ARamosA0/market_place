@@ -8,6 +8,7 @@ import ParkingLog from "../pages/ParkingLot"
 import Contact from "../pages/Contact";
 import Anfitrion from "../pages/Anfitrion";
 import RegistroAnfitrion from "../pages/RegistroAnfitrion";
+import PagePedido from "../pages/Pedido";
 
 //Loyout
 import Main from "../layouts/Main"
@@ -32,6 +33,9 @@ const Router = () => {
             <Route path="/anfitrion/:id" element={<Anfitrion />} />
             <Route path="/anfitrion/:id/registro" element={<RegistroAnfitrion />} />
           </Route>
+        </Route>
+        <Route element={<Private/>}>
+            <Route path="/pedido/:id" element={<PagePedido />}/>
         </Route>
 
         <Route element={<Parking/>}>

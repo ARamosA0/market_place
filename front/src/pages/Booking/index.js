@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Pedido } from "../../service/pedidosService";
-import { putCocheras } from "../../service/cocherasServices";
 import {
   Grid,
   Container,
@@ -32,7 +30,7 @@ import L from "leaflet";
 
 const Booking = () => {
   const { id } = useParams();
-  const { user, cochera, storeReservaCochera } = useContext(CocheraContext);
+  const { user, cochera, storeReservaCochera,setValues } = useContext(CocheraContext);
   const [filterUser, setFilterUser] = useState([]);
   const [filterCochera, setFilterCochera] = useState([]);
   const [open, setOpen] = useState(false);
@@ -58,7 +56,7 @@ const Booking = () => {
     horaInicio: "18:00:00",
     horaFin: "19:00:00",
     total: filterCochera.price,
-    status: "1",
+    status: "0",
     cochera: filterCochera.id,
     cliente: filterUser.id
   }
@@ -97,18 +95,19 @@ const Booking = () => {
     iconSize: [30, 30],
   });
 
-
   // Boton Reservar
   const handleOnClickReservar = async () => {   
     try {
       if(+filterCochera.space > 0){
-        await Pedido(values)
-        await putCocheras(filterCochera.id ,valuesSpace)
+        setValues(values)
+        localStorage.setItem("valuesSpace", JSON.stringify(valuesSpace))
+        const img = {
+          image1: filterCochera.imagen1,
+          image2: filterCochera.imagen2,
+          image3: filterCochera.imagen3,
+        }
+        localStorage.setItem("img", JSON.stringify(img))
         storeReservaCochera(filterCochera.id);
-        await swal({
-          icon: "success",
-          title: "Se reservo su cochera",
-        });
       }
       if (+filterCochera.space === 0) {
         swal({
@@ -293,6 +292,7 @@ const Booking = () => {
                     </div>
                     {idUsuario ? (
                       <div>
+                        <Link to={`/pedido/${filterCochera.id}`}>
                         <Button
                           fullWidth
                           size="large"
@@ -303,6 +303,7 @@ const Booking = () => {
                         >
                           Reservar
                         </Button>
+                        </Link>
                       </div>
                     ) : (
                       <div>
