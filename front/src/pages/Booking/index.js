@@ -124,7 +124,8 @@ const Booking = () => {
       });
     }
   };
-
+  const app = JSON.parse(localStorage.getItem('cochera'))
+  console.log(app[0].id)
   useEffect(() => {
     fetchApi();
   }, [cochera,user]);
@@ -292,7 +293,7 @@ const Booking = () => {
                     </div>
                     {idUsuario ? (
                       <div>
-                        <Link to={`/pedido/${filterCochera.id}`}>
+                        <Link to={`/pedido/${app[0].id}`}>
                         <Button
                           fullWidth
                           size="large"

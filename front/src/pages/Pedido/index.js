@@ -24,7 +24,7 @@ const CheckoutForm = ({ values, idLink, price }) => {
   const elements = useElements();
   const history = useNavigate();
   const [loading, setLoading] = useState(false);
-
+  // console.log(values)
   const handleSubmit = async (e) => {
     e.preventDefault();
     const valuesSpaces = JSON.parse(localStorage.getItem("valuesSpace"));
@@ -40,8 +40,9 @@ const CheckoutForm = ({ values, idLink, price }) => {
     setLoading(!loading);
     if (!error) {
       const { id } = paymentMethod;
+      
       const pe = await Pedido(values);
-
+      console.log(pe);
       const pedido = {
         id,
         amout: +price + 180,
