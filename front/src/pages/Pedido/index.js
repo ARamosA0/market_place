@@ -24,7 +24,7 @@ const CheckoutForm = ({ values, idLink, price }) => {
   const elements = useElements();
   const history = useNavigate();
   const [loading, setLoading] = useState(false);
-  console.log(values)
+  // console.log(values)
   const handleSubmit = async (e) => {
     e.preventDefault();
     const valuesSpaces = JSON.parse(localStorage.getItem("valuesSpace"));
